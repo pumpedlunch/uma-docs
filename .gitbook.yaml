@@ -1,0 +1,25 @@
+redirects:
+    contracts/Contracts: https://contracts.docs.umaprojects.org
+    oracle/optimistic-oracle-interface: https://contracts.docs.umaprojects.org
+    build-walkthrough/build-process: developers/getting-started.md
+    developers/setup: developers/getting-started.md
+    dev-quickstart/deploy-lsp: developers/getting-started.md
+    dev-quickstart/mint-tokens: developers/getting-started.md
+    dev-quickstart/price-request: developers/getting-started.md
+    dev-quickstart/propose-price: developers/getting-started.md
+    dev-quickstart/settle: developers/getting-started.md
+    developers/optimistic-oracle-integration: protocol-overview/how-does-umas-oracle-work.md
+    getting-started/oracle: protocol-overview/how-does-umas-oracle-work.md
+    oracle/econ-architecture: protocol-overview/how-does-umas-oracle-work.md
+    oracle/known-issues: protocol-overview/how-does-umas-oracle-work.md
+    uma-tokenholders: community/the-superuman-dao.md 
+    uma-tokenholders/uma-holders: community/the-superuman-dao.md
+    uma-community: community/the-superuman-dao.md
+    community/community-overview: community/the-superuman-dao.md
+    synthetic-tokens/long-short-pair: https://docs.outcome.finance
+    products/dao-products: https://docs.outcome.finance
+    synthetic-tokens/glossary: resources/glossary.md
+    uma-tokenholders/adding-price-id: community/governance/the-umip-process.md
+    integration-partners: protocol-overview/example-projects.md
+    dev-ref/addresses: resources/network-addresses.md
+    dev-ref/bug-bounty: resources/audit-and-bug-bounty-programs.md
