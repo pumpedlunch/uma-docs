@@ -1,9 +1,10 @@
 redirects:
-    contracts/Contracts: https://contracts.docs.umaprojects.org
-    oracle/optimistic-oracle-interface: https://contracts.docs.umaprojects.org
+    contracts/Contracts: https://contracts.docs.umaproject.org
+    oracle/optimistic-oracle-interface: https://contracts.docs.umaproject.org
     build-walkthrough/build-process: developers/getting-started.md
     developers/setup: developers/getting-started.md
     dev-quickstart/deploy-lsp: developers/getting-started.md
+    developers/deploy-an-lsp: developers/getting-started.md
     dev-quickstart/mint-tokens: developers/getting-started.md
     dev-quickstart/price-request: developers/getting-started.md
     dev-quickstart/propose-price: developers/getting-started.md
@@ -20,6 +21,7 @@ redirects:
     products/dao-products: https://docs.outcome.finance
     synthetic-tokens/glossary: resources/glossary.md
     uma-tokenholders/adding-price-id: community/governance/the-umip-process.md
+    uma-tokenholders/approved-collateral-currencies: resources/approved-collateral-types.md
     integration-partners: protocol-overview/example-projects.md
     dev-ref/addresses: resources/network-addresses.md
     dev-ref/bug-bounty: resources/audit-and-bug-bounty-programs.md
