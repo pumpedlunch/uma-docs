@@ -25,3 +25,5 @@ redirects:
     integration-partners: protocol-overview/example-projects.md
     dev-ref/addresses: resources/network-addresses.md
     dev-ref/bug-bounty: resources/audit-and-bug-bounty-programs.md
+    contracts/oracle/implementation/DesignatedVoting: resources/voting-with-a-2-key-contract.md
+    uma-tokenholders/voting-2key: resources/voting-with-a-2-key-contract.md
