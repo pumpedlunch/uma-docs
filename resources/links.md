@@ -11,6 +11,7 @@ You can keep up to date with what is happening with UMA across our various socia
 * [YouTube](https://www.youtube.com/channel/UC-3qS7FXxCd7gBMLttmTirw/playlists)
 * [UMAverse](https://projects.umaproject.org/)
 * [UMA Protocol Calendar](http://calendar.umaproject.org/)
+* [UMA Press Kit](https://github.com/UMAprotocol/website/tree/master/documents/press-kit)
 
 #### Employment at UMA
 
