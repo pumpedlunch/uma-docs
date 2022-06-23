@@ -33,7 +33,7 @@ The Data Verification Mechanism (DVM) is the dispute resolution service for cont
 
 1. In the event of a dispute, a price request is submitted to the DVM which proposes a vote to UMA tokenholders to report the price of the asset at a specific timestamp.
 2. The vote will conclude after a 48-96 hour voting period resulting in a resolved dispute.
-3. UMA tokenholders will reference the price identifier's [UMIP](../community/governance/the-umip-process.md) to determine how to calculate the price of the asset via off-chain price feeds and record the price of the asset in UMA's [Voter dApp](https://docs.umaproject.org/uma-tokenholders/voter-dApp).
+3. UMA tokenholders will reference the price identifier's [UMIP](../community/governance/the-umip-process.md) to determine how to calculate the price of the asset via off-chain price feeds and record the price of the asset in UMA's [Voter dApp](https://vote.umaproject.org/).
 4. The DVM will aggregate votes from UMA tokenholders to determine the final price of the asset for a given timestamp. If the price returned by the DVM concludes the Disputer was correct, the Proposer or Liquidator (depending on where the dispute derived from) will lose the bond that was staked and the Disputer will be rewarded. If the DVM concludes the Proposer or Liquidator was correct the disputer will lose its dispute bond and the Liquidator or Proposer will be rewarded.
 
 The DVM is powerful because it encompasses an element of human judgment to ensure contracts are securely and correctly managed when issues arise from volatile (and sometimes manipulatable) markets.
