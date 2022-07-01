@@ -27,3 +27,6 @@ redirects:
     dev-ref/bug-bounty: resources/audit-and-bug-bounty-programs.md
     contracts/oracle/implementation/DesignatedVoting: resources/voting-with-a-2-key-contract.md
     uma-tokenholders/voting-2key: resources/voting-with-a-2-key-contract.md
+    build-walkthrough/minting-etherscan: developers/getting-started.md
+    developers/emp-deployment: developers/getting-started.md
+    range-tokens/summary: https://docs.outcome.finance/other-outcome-products/other-outcome-products
