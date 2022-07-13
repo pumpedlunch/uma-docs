@@ -4,7 +4,7 @@ The [developer quickstart repo](https://github.com/UMAprotocol/dev-quickstart) h
 
 #### Install dependencies
 
-To install dependencies, you will need to install the long-term support version of nodejs, currently nodejs v14 or v16 and yarn. You can then install dependencies by running yarn with no arguments:
+To install dependencies, you will need to install the long-term support version of nodejs, currently nodejs v16, and yarn. You can then install dependencies by running yarn with no arguments:
 
 ```
 yarn
