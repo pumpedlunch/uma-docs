@@ -6,6 +6,7 @@
 
 * [Getting Started](developers/getting-started.md)
 * [Solidity Examples](developers/solidity-examples.md)
+* [In depth tutorial: Event-based prediction market](developers/in-depth-tutorial-event-based-prediction-market.md)
 * [SDK](developers/sdk.md)
 
 ## Protocol Overview
