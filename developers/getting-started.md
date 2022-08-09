@@ -1,4 +1,4 @@
-# Getting Started
+# Local Setup
 
 The [developer quickstart repo](https://github.com/UMAprotocol/dev-quickstart) has been created to enable more efficient development, testing, and contract deployment when working with UMA contracts. The below tutorial walks through setting up your environment to work with the repo and integrating your contracts with the UMA ecosystem.
 
@@ -12,7 +12,7 @@ yarn
 
 #### Compiling your contracts
 
-For testing, the repo is configured to deploy core components of the UMA ecosystem. The [OptimisticDepositBox](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/OptimisticDepositBox.sol) contract has been added as an example for testing. For reference, [here](https://github.com/UMAprotocol/protocol/tree/master/packages/core/contracts) is the full list of UMA contracts.
+For testing, the repo is configured to deploy core components of the UMA ecosystem. The [OptimisticDepositBox](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/OptimisticDepositBox.sol) contract has been added as an example for testing. For reference, [here](https://github.com/UMAprotocol/protocol/tree/master/packages/core/contracts) is the full list of UMA core contracts.
 
 To add new or existing contracts for testing, add files to the [contracts](https://github.com/UMAprotocol/dev-quickstart/tree/main/contracts) folder and confirm your contracts imports are accurate.
 
@@ -85,16 +85,16 @@ describe("Optimistic Deposit Box Deposit functions", function () {
 
 #### Deploying your contracts
 
-If you wish to deploy your contract to a testnet for further testing, the hardhat deploy command can be used. The OptimisticDepositBox deploy command for Kovan is shown as an example below:
+If you wish to deploy your contract to a testnet for further testing, the hardhat deploy command can be used. The OptimisticDepositBox deploy command for Goerli is shown as an example below:
 
 ```
-NODE_URL_42=https://kovan.infura.com/xxx yarn hardhat deploy --tags OptimisticDepositBox --network kovan
+NODE_URL_5=https://goerli.infura.com/xxx yarn hardhat deploy --tags OptimisticDepositBox --network goerli
 ```
 
 After deploying your contract, your contract can be verified on Etherscan using the following command:
 
 ```
-ETHERSCAN_API_KEY=XXX yarn hardhat etherscan-verify --network kovan --license AGPL-3.0 --force-license --solc-input
+ETHERSCAN_API_KEY=XXX yarn hardhat etherscan-verify --network goerli --license AGPL-3.0 --force-license --solc-input
 ```
 
-You have now compiled your contracts, tested functionality within the UMA ecosystem, and deployed to a testnet. For any questions or feedback you may have, you can find us in the [UMA Discord](https://discord.com/invite/jsb9XQJ).
+You have now compiled your contracts, tested functionality within the UMA ecosystem, and deployed to the Goerli testnet. For any questions or feedback you may have, you can find us in the [UMA Discord](https://discord.com/invite/jsb9XQJ).
