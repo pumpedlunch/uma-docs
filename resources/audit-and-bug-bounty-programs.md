@@ -12,6 +12,8 @@ OpenZeppelin has performed the following audits on UMA contracts:
 * [Perpetual Multiparty template contracts: February 2, 2021](https://blog.openzeppelin.com/uma-audit-phase-4/)
 * [Insured Bridge contracts: December 1, 2021](https://blog.openzeppelin.com/uma-audit-l2-bridges/)
 * [Governance, cross-chain oracle, and optimistic rewarder contracts: January 7, 2022](https://blog.openzeppelin.com/uma-audit-phase-6/)
+* [UMA Optimistic Governor Audit: July 21, 2022](https://blog.openzeppelin.com/uma-optimistic-governor-audit/)
+* [Across Token and Token Distributor Audit: July 21, 2022](https://blog.openzeppelin.com/across-token-and-token-distributor-audit/)
 
 Additionally, OpenZeppelin audits incremental upgrades to UMA's contracts on a continuous basis. The continuous audit report can be found [here](https://blog.openzeppelin.com/uma-continuous-audit/).
 
