@@ -227,7 +227,7 @@ yarn test test/EventBasedPredictionMarket.ts
 
 Before deploying the contract check/edit the default arguments defined in [the deployment script](https://github.com/UMAprotocol/dev-quickstart/tree/main/deploy).
 
-To deploy `EventBasedPredictionMarket` in goerli network, run:
+To deploy `EventBasedPredictionMarket` in Görli network, run:
 
 ```
 yarn hardhat deploy --network goerli --tags EventBasedPredictionMarket

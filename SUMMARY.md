@@ -4,7 +4,8 @@
 
 ## Developers
 
-* [Local Setup](developers/getting-started.md)
+* [Getting Started](developers/getting-started.md)
+* [Local Setup](developers/getting-started-1.md)
 * [Solidity Examples](developers/solidity-examples.md)
 * [In depth tutorial: Event-based prediction market](developers/in-depth-tutorial-event-based-prediction-market.md)
 * [SDK](developers/sdk.md)
@@ -24,7 +25,9 @@
 ## Using UMA
 
 * [Voting Walkthrough](using-uma/voting-walkthrough.md)
-* [Providing Oracle Data](using-uma/providing-oracle-data.md)
+* [Proposing Oracle Data](using-uma/providing-oracle-data.md)
+* [Disputing Oracle Data](using-uma/disputing-oracle-data.md)
+* [Resolving Disputes](using-uma/resolving-disputes.md)
 
 ## Resources
 
