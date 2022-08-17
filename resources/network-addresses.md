@@ -16,7 +16,7 @@
 {% hint style="info" %}
 UMA's data verification mechanism (DVM), which is used to resolve disputes, is on Ethereum mainnet. Where possible, UMA uses a chain's native messaging bridge to relay dispute and governance information between that chain and Ethereum.
 
-On chains where no such native messaging bridge exists (marked with an asterisk), UMA uses a multi-sig controlled by UMA core engineers at Risk Labs to relay disputes to the DVM, to return data from the DVM to requesters on that chain, and to execute governance actions (for instance, adding new identifiers).
+On chains where no such native messaging bridge exists, UMA uses a multi-sig controlled by UMA core engineers at Risk Labs to relay disputes to the DVM, to return data from the DVM to requesters on that chain, and to execute governance actions (for instance, adding new identifiers).
 
 UMA is researching decentralized cross-chain messaging systems to make these chains fully permissionless.
 {% endhint %}
