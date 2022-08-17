@@ -5,7 +5,7 @@
 ## Developers
 
 * [Getting Started](developers/getting-started.md)
-* [Local Setup](developers/local-setup.md)
+* [Local Setup](developers/getting-started-1.md)
 * [Solidity Examples](developers/solidity-examples.md)
 * [In depth tutorial: Event-based prediction market](developers/in-depth-tutorial-event-based-prediction-market.md)
 * [SDK](developers/sdk.md)
@@ -25,13 +25,13 @@
 ## Using UMA
 
 * [Voting Walkthrough](using-uma/voting-walkthrough.md)
-* [Proposing Oracle Data](using-uma/proposing-oracle-data.md)
+* [Proposing Oracle Data](using-uma/providing-oracle-data.md)
 * [Disputing Oracle Data](using-uma/disputing-oracle-data.md)
 * [Resolving Disputes](using-uma/resolving-disputes.md)
 
 ## Resources
 
-* [Network Information](resources/network-information.md)
+* [Network Information](resources/network-addresses.md)
 * [Audit & Bug Bounty Programs](resources/audit-and-bug-bounty-programs.md)
 * [Approved Price Identifiers](resources/approved-price-identifiers.md)
 * [Approved Collateral Types](resources/approved-collateral-types.md)

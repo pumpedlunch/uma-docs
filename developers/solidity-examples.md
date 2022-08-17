@@ -1,6 +1,6 @@
 # Solidity Examples
 
-This section focuses on the Solidity code for important interactions with the Optimistic Oracle. We recommend starting with the [Getting Started](local-setup.md) tutorial that walks developers through setting up the [developer quickstart repo](https://github.com/UMAprotocol/dev-quickstart) and working with UMA contracts.
+This section focuses on the Solidity code for important interactions with the Optimistic Oracle. We recommend starting with the [Getting Started](getting-started-1.md) tutorial that walks developers through setting up the [developer quickstart repo](https://github.com/UMAprotocol/dev-quickstart) and working with UMA contracts.
 
 #### UMA Contract Lifecycle
 
