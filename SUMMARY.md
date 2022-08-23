@@ -37,5 +37,6 @@
 * [Approved Collateral Types](resources/approved-collateral-types.md)
 * [Subgraphs](resources/subgraphs.md)
 * [Voting with a 2-Key Contract](resources/voting-with-a-2-key-contract.md)
+* [Unsupported Synthetic Token Contracts](resources/unsupported-synthetic-token-contracts.md)
 * [Glossary](resources/glossary.md)
 * [Links](resources/links.md)
