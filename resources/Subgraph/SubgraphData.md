@@ -7,7 +7,7 @@ title: Subgraph Data Introduction
 
 This section explains the UMA Subgraph and how to interact with it. The UMA subgraph indexes data from the UMA contracts over time. It organizes data about tokenholders, contracts, DVM requests, and more. The subgraph updates any time a transaction is made on UMA. The subgraph runs on [The Graph](https://thegraph.com/) protocol’s hosted service and can be openly queried.
 
-Uma has a GraphQL API Endpoint hosted by [The Graph](https://thegraph.com/docs/about/introduction#what-the-graph-is) called a subgraph for indexing and organizing data from the Snapshot smart contracts.
+Uma has a GraphQL API Endpoint hosted by [The Graph](https://thegraph.com/docs/about/introduction#what-the-graph-is) called a subgraph for indexing and organizing data from the Snapshot smart contracts. The schema of GraphQL elements available is defined in [`/schema.graphql` ](https://github.com/balancer-labs/balancer-subgraph-v2/blob/master/schema.graphql)
 
 ## Ethereum Mainnet
 
