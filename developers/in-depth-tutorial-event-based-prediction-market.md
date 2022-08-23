@@ -1,6 +1,6 @@
 # In depth tutorial: Event-based prediction market
 
-In this section, we'll talk about the [Event Based Prediction market contract](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/EventBasedPredictionMarket.sol), which you can find in the [developer's quick-start repo](https://github.com/UMAprotocol/dev-quickstart). In this advanced tutorial, we'll show how event-based price requests can be used in a binary prediction market.
+In this section, we'll talk about the [Event Based Prediction market contract](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/EventBasedPredictionMarket.sol), which you can find in the [developer's quick-start repo](https://github.com/UMAprotocol/dev-quickstart). This tutorial will show how event-based OO data requests can be used in a binary prediction market.
 
 You will find out how this smart contract works and how to test it and deploy it. Refer to the  [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol) contract for additional information on the event-based price requests.
 
