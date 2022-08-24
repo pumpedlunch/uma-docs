@@ -36,7 +36,7 @@
 * [Approved Price Identifiers](resources/approved-price-identifiers.md)
 * [Approved Collateral Types](resources/approved-collateral-types.md)
 * [Subgraphs](resources/Subgraph/SubgraphData.md)
-  * [Mainnet Voting Entities](resources/Subgraph/Mainnet Voting Entities.md)
+  * [Mainnet Voting Entities](resources/Subgraph/MainnetVotingEntities.md)
   * [Queries](resources/Subgraph/Queries.md)
 * [Voting with a 2-Key Contract](resources/voting-with-a-2-key-contract.md)
 * [Unsupported Contracts](resources/unsupported-contracts.md)
