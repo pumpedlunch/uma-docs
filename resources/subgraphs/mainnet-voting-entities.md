@@ -22,10 +22,10 @@ Description:
 
 | Field           | Type   | Description                                                                                                                                |
 | --------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| id              | ID!    | Utility entity that links data from a single ethereum address. Id of the entity is the ethereum address itself                             |
+| id              | ID!    | Utility entity that links data from a single Ethereum address. Id of the entity is the Ethereum address itself                             |
 | address         | Bytes! |                                                                                                                                            |
 | countReveals    | BigInt | Number of price requests that this user has revealed a vote for, and therefore participated in as a voter                                  |
-| countRetrievals | BigInt | Provides a lower-bound on # of votes that user has correctly voted for. User may not have retrieved rewards for all of their correct votes |
+| countRetrievals | BigInt | Provides a lower bound on # of votes that user has correctly voted for. User may not have retrieved rewards for all of their correct votes |
 | votesCommited   | Int!   |                                                                                                                                            |
 
 ## Collateral
@@ -59,7 +59,7 @@ Description:
 | --------------------- | ------------------------------------------ | ------------------------------------------------------------------ |
 | id                    | ID!                                        | ID is the PriceIdentifier ID + the timestamp                       |
 | isResolved            | Boolean!                                   | Depicts whether the request has been resolved                      |
-| Price                 | BigInt                                     | Price resolved for this request                                    |
+| price                 | BigInt                                     | Price resolved for this request                                    |
 | latestRound           | PriceRequestRound                          | PriceRequestRound entity corresponding to the last round of voting |
 | time                  | BigInt!                                    |                                                                    |
 | identifier            | PriceIdentifier!                           | PriceIdentifier for the request                                    |
@@ -84,26 +84,26 @@ Description:
 | ancillaryData                      | String                               |                                                                                           |
 | time                               | BigInt!                              |                                                                                           |
 | snapshotId                         | BigInt                               |                                                                                           |
-| votorsAmount                       | BigDecimal!                          | Total amount of users who voted on this round                                             |
+| votersAmount                       | BigDecimal!                          | Total amount of users who voted on this round                                             |
 | votersClaimedAmount                | BigDecimal!                          | Total amount of users who claimed rewards on this round                                   |
 | totalVotesRevealed                 | BigDecimal!                          |                                                                                           |
 | totaRewardsClaimed                 | BigDecimal!                          |                                                                                           |
 | totalSupplyAtSnapshot              | BigDecimal                           |                                                                                           |
 | tokenVoteParticipationRatio        | BigDecimal                           | Ratio of the total supply of tokens that were weighted on this vote                       |
 | tokenVoteParticipationPercentage   | BigDecimal                           | Ratio of correct voters over total voters on this price request                           |
-| votorsEligibleForRewardRatio       | BigDecimal                           | Ratio of correct voters over total voters on this price request                           |
+| votersEligibleForRewardRatio       | BigDecimal                           | Ratio of correct voters over total voters on this price request                           |
 | votersEligibleForRewardsPercentage | BigDecimal                           | Percentage of correct voters over total voters on this price request                      |
 | votersClaimRatio                   | BigDecimal                           | Ratio of correct voters who claimed their rewards                                         |
 | votersClaimedPercentage            | BigDecimal                           | Percentage of correct voters who claimed their rewards                                    |
 | tokensClaimedRatio                 | BigDecimal                           | Ratio of rewards claimed over total supply of voting token                                |
 | tokensClaimedPercentage            | BigDecimal                           | Percentage of rewards claimed over total supply of voting token                           |
-| getPercentageRaw                   | BigDecimal                           | gatPercentage expressed exactly as in the contract. 1 = 100%                              |
-| getPercentage                      | BigDecimal                           | gatPercentage expressed as a percentage value                                             |
+| getPercentageRaw                   | BigDecimal                           | getPercentage expressed exactly as in the contract. 1 = 100%                              |
+| getPercentage                      | BigDecimal                           | getPercentage expressed as a percentage value                                             |
 | inflationRateRaw                   | BigDecimal                           | inflationRate expressed exactly as in the contract. 1 = 100%                              |
 | inflationRate                      | BigDecimal                           | inflationRate expressed as a percentage value                                             |
 | winnerGroup                        | VoterGroup                           |                                                                                           |
 | committedVotes                     | [`CommittedVote!`](#committedvote)   |                                                                                           |
-| revealVotes                        | [`RevealedVote!`](#revealedvote)     |                                                                                           |
+| revealedVotes                        | [`RevealedVote!`](#revealedvote)     |                                                                                           |
 | groups                             | [`VoterGroup!`](#votergroup)         |                                                                                           |
 | rewardsClaimed                     | [`RewardsClaimed!`](#rewardsclaimed) |                                                                                           |
 
@@ -128,7 +128,7 @@ Description:
 
 | Field         | Type               | Description                                                                              |
 | ------------- | ------------------ | ---------------------------------------------------------------------------------------- |
-| id            | ID!                | Commited votes won't show the price until a reveal happens and a RevealedVote is created |
+| id            | ID!                | Committed votes won't show the price until a reveal happens and a RevealedVote is created |
 | identifier    | PriceIdentifier!   |                                                                                          |
 | ancillaryData | String             |                                                                                          |
 | request       | PriceRequest!      |                                                                                          |
