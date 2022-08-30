@@ -175,6 +175,7 @@ Description:
 
 | Field                 | Type    | Description                                                                                              |
 | --------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| id                    | ID!     | This entity represents a contract that can make price requests to the DVM. ID is address of the contract |
+| id                    | ID!     | This entity represents a contract that can make price requests to the DVM. ID is the address of the contract |
+
 | creator               | Bytes!  |                                                                                                          |
 | registrationTimestamp | BigInt! |                                                                                                          |
