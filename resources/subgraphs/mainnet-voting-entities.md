@@ -49,7 +49,8 @@ Description:
 | Field         | Type                             | Description                                                                                                                                                 |
 | ------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | id            | ID!                              |                                                                                                                                                             |
-| isSupported   | Boolean!                         | Depicts whether this PriceIdentifier is currently among the identifiers supported on the whitelist. Will only be false if it was removed from the whitelist |
+| isSupported   | Boolean!                         | Depicts whether this PriceIdentifier is currently among the identifiers supported on the whitelist. It will only be false if it was removed from the whitelist |
+
 | priceRequests | [`PriceRequest!`](#pricerequest) | List of all the PriceRequest entities related to this particular PriceIdentifier                                                                            |
 
 ## PriceRequest
