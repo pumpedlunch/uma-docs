@@ -5,7 +5,8 @@ title: Subgraph Data Introduction
 
 # UMA Subgraph Introduction
 
-This section explains the UMA subgraph and how to interact with it. The UMA subgraph indexes data from UMA contracts over time. It organizes data about tokenholders, contracts, DVM requests, voting, and more. The subgraph updates any time a transaction is made on UMA. The subgraph runs on [The Graph](https://thegraph.com/) protocol’s hosted service and can be openly queried.
+This section explains the UMA subgraph and how to interact with it. The UMA subgraph indexes data from UMA contracts over time. It organizes data about tokenholders, contracts, DVM requests, voting, and more. The subgraph updates for each UMA contract interaction. The subgraph runs on [The Graph](https://thegraph.com/) protocol’s hosted service and can be openly queried.
+
 
 UMA has a GraphQL API Endpoint hosted by [The Graph](https://thegraph.com/docs/about/introduction#what-the-graph-is) called a subgraph for indexing and organizing data from the smart contracts. The schema of GraphQL elements available is defined in [`the subgraphs repo` ](https://github.com/UMAprotocol/subgraphs/).
 
