@@ -13,7 +13,7 @@ UMA has a GraphQL API Endpoint hosted by [The Graph](https://thegraph.com/docs/a
 
 [Creating an API Key Video Tutorial](https://www.youtube.com/watch?v=UrfIpm-Vlgs)
 
-- [Explorer Page](https://thegraph.com/explorer/subgraph?id=41LCrgtCNBQyDiVVyZEuPxbvkBH9BxxLU3nEZst77V8o&view=Overview))
+- [Explorer Page](https://thegraph.com/explorer/subgraph?id=41LCrgtCNBQyDiVVyZEuPxbvkBH9BxxLU3nEZst77V8o&view=Overview)
 - Graphql Endpoint: https://gateway.thegraph.com/api/[api-key]/subgraphs/id//41LCrgtCNBQyDiVVyZEuPxbvkBH9BxxLU3nEZst77V8o
 - [Code Repo](https://github.com/UMAprotocol/subgraphs)
 
