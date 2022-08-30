@@ -25,7 +25,8 @@ Description:
 | id              | ID!    | Utility entity that links data from a single Ethereum address. Id of the entity is the Ethereum address itself                             |
 | address         | Bytes! |                                                                                                                                            |
 | countReveals    | BigInt | Number of price requests that this user has revealed a vote for, and therefore participated in as a voter                                  |
-| countRetrievals | BigInt | Provides a lower bound on # of votes that user has correctly voted for. User may not have retrieved rewards for all of their correct votes |
+| countRetrievals | BigInt | Provides a lower bound on the number of votes a user has correctly voted for. Users may not have retrieved rewards for all of their correct votes |
+
 | votesCommited   | Int!   |                                                                                                                                            |
 
 ## Collateral
