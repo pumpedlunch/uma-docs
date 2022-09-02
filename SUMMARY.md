@@ -7,6 +7,7 @@
 * [Getting Started](developers/getting-started.md)
 * [Local Setup](developers/getting-started-1.md)
 * [Solidity Examples](developers/solidity-examples.md)
+* [Setting Custom Bond and Liveness Parameters](developers/setting-custom-bond-and-liveness-parameters.md)
 * [In depth tutorial: Event-based prediction market](developers/in-depth-tutorial-event-based-prediction-market.md)
 * [SDK](developers/sdk.md)
 
