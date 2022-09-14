@@ -22,6 +22,6 @@ This tutorial describes how to propose answers to data requests. The data could 
 
 **Step 6:** Once you are sure of the proposed value and connected to your wallet, input the value and click the 'Submit Proposal' button.
 
-![](../.gitbook/assets/image.png)
+![](<../.gitbook/assets/image (1) (1) (1).png>)
 
 **Step 7:** Confirm the transaction details through your wallet provider. After confirming, the proposal will be sent!
