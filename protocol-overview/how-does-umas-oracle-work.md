@@ -1,6 +1,6 @@
 # How does UMA's Oracle work?
 
-UMA's Optimistic Oracle allows contracts to quickly request and receive price information. The Optimistic Oracle acts as a generalized escalation game between contracts that initiate a price request and UMA's dispute resolution system known as the Data Verification Mechanism (DVM). Prices proposed by the Optimistic Oracle will not be sent to the DVM unless it is disputed. This enables contracts to obtain price information within any pre-defined length of time without the need to have the price of an asset written on-chain.
+UMA's Optimistic Oracle allows contracts to quickly request and receive data information. The Optimistic Oracle acts as a generalized escalation game between contracts that initiate a price request and UMA's dispute resolution system known as the Data Verification Mechanism (DVM). Prices proposed by the Optimistic Oracle will not be sent to the DVM unless it is disputed. This enables contracts to obtain price information within any pre-defined length of time without the need to have the price of an asset written on-chain.
 
 If a dispute is raised, a request is sent to the DVM. All contracts built on UMA use the DVM as a backstop to resolve disputes. Disputes sent to the DVM will be resolved 48 hours after UMA tokenholders vote on the price of the asset at a given time.
 
