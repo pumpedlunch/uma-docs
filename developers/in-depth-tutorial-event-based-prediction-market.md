@@ -2,7 +2,7 @@
 
 In this section, we'll talk about the [Event Based Prediction market contract](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/EventBasedPredictionMarket.sol), which you can find in the [developer's quick-start repo](https://github.com/UMAprotocol/dev-quickstart). This tutorial will show how event-based OO data requests can be used in a binary prediction market.
 
-You will find out how this smart contract works and how to test it and deploy it. Refer to the  [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol) contract for additional information on the event-based price requests.
+You will find out how this smart contract works and how to test it and deploy it. Refer to the [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol) contract for additional information on the event-based price requests.
 
 ### The Event-Based Prediction Market
 
@@ -26,7 +26,7 @@ To install dependencies, you will need to install the long-term support version 
 yarn
 ```
 
-#### Compiling your contracts&#x20;
+#### Compiling your contracts
 
 We will need to run the following command to compile the contracts and make the typescript interfaces so that they are easy to work with:
 
@@ -38,9 +38,9 @@ yarn hardhat compile
 
 #### Contract creation and initialization
 
-The contract is created by setting up the prediction market with a series of parameters. With the parameters, you can choose what kind of collateral you want to use with `_collateralToken`. With `_pairName`, we can choose a name for the pair of long and short tokens. `_customAncillaryData` is where we define the price request question. The addresses of the `_finder` and `_timerAddress` set the rest of the contracts addresses we interact with.  For reference, [here](https://github.com/UMAprotocol/protocol/tree/master/packages/core/networks) is the full list of UMA contract deployments.
+The contract is created by setting up the prediction market with a series of parameters. With the parameters, you can choose what kind of collateral you want to use with `_collateralToken`. With `_pairName`, we can choose a name for the pair of long and short tokens. `_customAncillaryData` is where we define the price request question. The addresses of the `_finder` and `_timerAddress` set the rest of the contracts addresses we interact with. For reference, [here](https://github.com/UMAprotocol/protocol/tree/master/packages/core/networks) is the full list of UMA contract deployments.
 
-```
+```solidity
     constructor(
         string memory _pairName,
         ExpandedERC20 _collateralToken,
@@ -56,7 +56,7 @@ Also observe how `priceIdentifier` is set to `"YES_OR_NO_QUERY"`.\
 \
 This function sets up the prediction market by getting the proposer reward and calling `_requestOraclePrice`. This last function starts the price request in [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol) and sets up a number of options that are explained below.
 
-```
+```solidity
  function _requestOraclePrice() internal {
         OptimisticOracleV2Interface optimisticOracle = getOptimisticOracle();
 
@@ -106,12 +106,12 @@ This function sets up the prediction market by getting the proposer reward and c
 
 #### Long and Short tokens creation and redemption
 
-Any user can now call the `create` function with the `tokensToCreate` parameter to mint the same number of short and long tokens. Having both tokens in the same proportion means being in a neutral position, as is the case when calling `create`.&#x20;
+Any user can now call the `create` function with the `tokensToCreate` parameter to mint the same number of short and long tokens. Having both tokens in the same proportion means being in a neutral position, as is the case when calling `create`.
 
 \
 Holding only long tokens (by transferring short tokens to another wallet or adding liquidity to an AMM pair), gives exposition to the long position and vice versa.
 
-```
+```solidity
     function create(uint256 tokensToCreate) public requestInitialized {
         collateralToken.safeTransferFrom(msg.sender, address(this), tokensToCreate);
 
@@ -124,7 +124,7 @@ Holding only long tokens (by transferring short tokens to another wallet or addi
 
 At any time a token holder with both tokens in the same proportion can exchange them for collateral with redeem.
 
-```
+```solidity
     function redeem(uint256 tokensToRedeem) public {
         require(longToken.burnFrom(msg.sender, tokensToRedeem));
         require(shortToken.burnFrom(msg.sender, tokensToRedeem));
@@ -138,7 +138,7 @@ At any time a token holder with both tokens in the same proportion can exchange 
 Any long-short token holder can settle tokens for collateral with `settle` if the oracle has processed the price request.\
 The returned collateral amount is a function of `longTokensToRedeem`, `shortTokensToRedeem`, and `settlementPrice`.
 
-```
+```solidity
     function settle(uint256 longTokensToRedeem, uint256 shortTokensToRedeem)
         public
         returns (uint256 collateralReturned)
@@ -162,11 +162,11 @@ The returned collateral amount is a function of `longTokensToRedeem`, `shortToke
 
 #### Price request lifecycle callbacks: priceSettled and priceDisputed
 
-When the price request we set up above is settled in the [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol), the `priceSettled` function of this contract is invoked.&#x20;
+When the price request we set up above is settled in the [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol), the `priceSettled` function of this contract is invoked.
 
 This function calculates and stores settlementPrice as `0`, `0.5`, or `1`. This number is used in the `settle` function to calculate the collateral to pay in exchange of the long and short tokens.
 
-```
+```solidity
 function priceSettled(
     bytes32 identifier,
     uint256 timestamp,
@@ -193,9 +193,9 @@ function priceSettled(
 }
 ```
 
-In the same way, this contract's `priceDisputed` function is called when a price request is disputed. This function re-starts the same price request with the bond amount that was given back to the requester, which in our case is the `EventBasedPredictionMarket`.&#x20;
+In the same way, this contract's `priceDisputed` function is called when a price request is disputed. This function re-starts the same price request with the bond amount that was given back to the requester, which in our case is the `EventBasedPredictionMarket`.
 
-```
+```solidity
 function priceDisputed(
         bytes32 identifier,
         uint256 timestamp,
@@ -229,6 +229,6 @@ Before deploying the contract check/edit the default arguments defined in [the d
 
 To deploy `EventBasedPredictionMarket` in Görli network, run:
 
-```
+```bash
 yarn hardhat deploy --network goerli --tags EventBasedPredictionMarket
 ```
