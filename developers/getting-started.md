@@ -8,7 +8,9 @@ The primary integration point into the UMA ecosystem is the Optimistic Oracle (O
 
 This getting started tutorial will show you how to go from 0 to 1 with the Optimistic Oracle by executing the simplest possible request flow. Later in the docs you can find more information on [how the Optimistic Oracle works](../protocol-overview/how-does-umas-oracle-work.md#optimistic-oracle) and dig deeper into its mechanism and [more sophisticated code examples](in-depth-tutorial-event-based-prediction-market.md).&#x20;
 
-[**Here**](https://www.youtube.com/watch?v=tyi6PnlIHw8\&t=26s) **is an awesome Youtube video that walks through this tutorial.**
+**If you prefer, you can also watch the following video tutorial in which we follow the step-by-step instructions described below.**
+
+{% embed url="https://www.youtube.com/watch?v=tyi6PnlIHw8&t=26s" %}
 
 ### **A minimum viable Optimistic Oracle integration**
 
