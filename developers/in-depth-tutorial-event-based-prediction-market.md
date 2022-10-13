@@ -57,43 +57,38 @@ Also observe how `priceIdentifier` is set to `"YES_OR_NO_QUERY"`.\
 This function sets up the prediction market by getting the proposer reward and calling `_requestOraclePrice`. This last function starts the price request in [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol) and sets up a number of options that are explained below.
 
 ```solidity
- function _requestOraclePrice() internal {
-        OptimisticOracleV2Interface optimisticOracle = getOptimisticOracle();
+function _requestOraclePrice() internal {
+    OptimisticOracleV2Interface optimisticOracle = getOptimisticOracle();
 
-        collateralToken.safeApprove(address(optimisticOracle), proposerReward);
+    collateralToken.safeApprove(address(optimisticOracle), proposerReward);
 
-        optimisticOracle.requestPrice(
-            priceIdentifier,
-            expirationTimestamp,
-            customAncillaryData,
-            collateralToken,
-            proposerReward
-        );
+    optimisticOracle.requestPrice(
+        priceIdentifier,
+        requestTimestamp,
+        customAncillaryData,
+        collateralToken,
+        proposerReward
+    );
 
-        // Set the Optimistic oracle liveness for the price request.
-        optimisticOracle.setCustomLiveness(
-            priceIdentifier,
-            expirationTimestamp,
-            customAncillaryData,
-            optimisticOracleLivenessTime
-        );
+    // Set the Optimistic oracle liveness for the price request.
+    optimisticOracle.setCustomLiveness(
+        priceIdentifier,
+        requestTimestamp,
+        customAncillaryData,
+        optimisticOracleLivenessTime
+    );
 
-        // Set the Optimistic oracle proposer bond for the price request.
-        optimisticOracle.setBond(
-            priceIdentifier,
-            expirationTimestamp,
-            customAncillaryData,
-            optimisticOracleProposerBond
-        );
+    // Set the Optimistic oracle proposer bond for the price request.
+    optimisticOracle.setBond(priceIdentifier, requestTimestamp, customAncillaryData, optimisticOracleProposerBond);
 
-        // Make the request an event-based request.
-        optimisticOracle.setEventBased(priceIdentifier, expirationTimestamp, customAncillaryData);
+    // Make the request an event-based request.
+    optimisticOracle.setEventBased(priceIdentifier, requestTimestamp, customAncillaryData);
 
-        // Enable the priceDisputed and priceSettled callback
-        optimisticOracle.setCallbacks(priceIdentifier, expirationTimestamp, customAncillaryData, false, true, true);
+    // Enable the priceDisputed and priceSettled callback
+    optimisticOracle.setCallbacks(priceIdentifier, requestTimestamp, customAncillaryData, false, true, true);
 
-        priceRequested = true;
-    }
+    priceRequested = true;
+}
 ```
 
 `_requestOraclePrice` is in charge of initializing the price request in the [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol) by performing the following actions:
@@ -176,9 +171,11 @@ function priceSettled(
     OptimisticOracleV2Interface optimisticOracle = getOptimisticOracle();
     require(msg.sender == address(optimisticOracle), "not authorized");
 
-    require(timestamp == expirationTimestamp, "different timestamps");
     require(identifier == priceIdentifier, "same identifier");
     require(keccak256(ancillaryData) == keccak256(customAncillaryData), "same ancillary data");
+
+    // We only want to process the price if it is for the current price request.
+    if (timestamp != requestTimestamp) return;
 
     // Calculate the value of settlementPrice using either 0, 0.5e18, or 1e18 as the expiryPrice.
     if (price >= 1e18) {
@@ -197,22 +194,22 @@ In the same way, this contract's `priceDisputed` function is called when a price
 
 ```solidity
 function priceDisputed(
-        bytes32 identifier,
-        uint256 timestamp,
-        bytes memory ancillaryData,
-        uint256 refund
-    ) external {
-        OptimisticOracleV2Interface optimisticOracle = getOptimisticOracle();
-        require(msg.sender == address(optimisticOracle), "not authorized");
+    bytes32 identifier,
+    uint256 timestamp,
+    bytes memory ancillaryData,
+    uint256 refund
+) external {
+    OptimisticOracleV2Interface optimisticOracle = getOptimisticOracle();
+    require(msg.sender == address(optimisticOracle), "not authorized");
 
-        expirationTimestamp = getCurrentTime();
-        require(timestamp <= expirationTimestamp, "different timestamps");
-        require(identifier == priceIdentifier, "same identifier");
-        require(keccak256(ancillaryData) == keccak256(customAncillaryData), "same ancillary data");
-        require(refund == proposerReward, "same proposerReward amount");
+    requestTimestamp = getCurrentTime();
+    require(timestamp <= requestTimestamp, "different timestamps");
+    require(identifier == priceIdentifier, "same identifier");
+    require(keccak256(ancillaryData) == keccak256(customAncillaryData), "same ancillary data");
+    require(refund == proposerReward, "same proposerReward amount");
 
-        _requestOraclePrice();
-    }
+    _requestOraclePrice();
+}
 ```
 
 #### Tests
