@@ -46,7 +46,7 @@ yarn hardhat compile
         address _currency,
         address _timer
     ) Testable(_timerAddress) {
-        finder = FinderInterface(_finderAddress);
+        finder =_finderAddress;
         currency = IERC20(_currency);
         oo = OptimisticOracleV2Interface(finder.getImplementationAddress(OracleInterfaces.OptimisticOracleV2));
     }
