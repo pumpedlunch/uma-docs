@@ -97,7 +97,7 @@ Optimistic Oracle data request is initiated with above calculated parameters wit
         oo.requestPrice(priceIdentifier, timestamp, ancillaryData, currency, 0);
 ```
 
-Before the proposal is made Optimistic Oracle allows the requesting contract (this Insurance Arbitrator) to set additional parameters like bonding, liveness and callback settings. This requires passing the same `priceIdentifier`, `timestamp` and `ancillaryData` parameters to identify the request.
+Before the proposal is made the Optimistic Oracle allows the requesting contract (this Insurance Arbitrator) to set additional parameters like bonding, liveness, and callback settings. This requires passing the same `priceIdentifier`, `timestamp`, and `ancillaryData` parameters to identify the request.
 
 Total bond to be pulled from the claim initiator consists of Optimistic Oracle proposer bond and final fee for the relevant `currency` token. This contract sets proposer bond as fixed percentage (constant `oracleBondPercentage`) from `insuredAmount`. When calling `setBond` method the Optimistic Oracle calculates and returns the total bond that would be pulled when making proposal:
 
