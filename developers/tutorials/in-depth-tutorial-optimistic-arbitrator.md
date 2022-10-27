@@ -2,13 +2,13 @@
 description: Wrapping Optimistic Oracle functionality into individual function calls
 ---
 
-# Optimistic Arbitrator
+# 🛠 Optimistic Arbitrator
 
 ### The Optimistic Arbitrator
 
 The Optimistic Arbitrator (OA) is a contract constructed on top of the [Optimistic Oracle (OO)](https://docs.umaproject.org/protocol-overview/how-does-umas-oracle-work#optimistic-oracle) in order to abstract some mechanics and make them easier to use/implement for the assert and ratify pattern proposed in the OA.
 
-It should be noted that the uses permitted by the OA were always permitted by the OO; the OA merely formalises these specific modes of use in a more developer-friendly implementation for this particular purpose. This pattern can also be used as inspiration in your projects when you request and propose (or request, propose and dispute) requests against the OO in one function call.&#x20;
+It should be noted that the uses permitted by the OA were always permitted by the OO; the OA merely formalizes these specific modes of use in a more developer-friendly implementation for this particular purpose. This pattern can also be used as inspiration in your projects when you request and propose (or request, propose and dispute) requests against the OO in one function call.&#x20;
 
 In short, the OA allows a user to make an assertion, i.e. to propose an answer to a question directly. He can optionally ratify the assertion, by tracing the question directly to the [UMA's Data Verification Mechanism (DVM)](https://docs.umaproject.org/protocol-overview/how-does-umas-oracle-work#umas-data-verification-mechanism) where all UMA token holders vote on it.
 

@@ -6,11 +6,11 @@
 
 * [Getting Started](developers/getting-started.md)
 * [Tutorials](developers/tutorials/README.md)
-  * [Deposit Box](developers/tutorials/solidity-examples.md)
-  * [Event-Based Prediction Market](developers/tutorials/in-depth-tutorial-event-based-prediction-market.md)
-  * [Internal Optimistic Oracle](developers/tutorials/internal-optimistic-oracle.md)
-  * [Insurance Claim Arbitration](developers/tutorials/in-depth-tutorial-insurance-claims-arbitration.md)
-  * [Optimistic Arbitrator](developers/tutorials/in-depth-tutorial-optimistic-arbitrator.md)
+  * [🎁 Deposit Box](developers/tutorials/solidity-examples.md)
+  * [🕖 Event-Based Prediction Market](developers/tutorials/in-depth-tutorial-event-based-prediction-market.md)
+  * [⛽ Internal Optimistic Oracle](developers/tutorials/internal-optimistic-oracle.md)
+  * [👨🏫 Insurance Claim Arbitration](developers/tutorials/in-depth-tutorial-insurance-claims-arbitration.md)
+  * [🛠 Optimistic Arbitrator](developers/tutorials/in-depth-tutorial-optimistic-arbitrator.md)
 * [Setting Custom Bond and Liveness Parameters](developers/setting-custom-bond-and-liveness-parameters.md)
 * [SDK](developers/sdk.md)
 
