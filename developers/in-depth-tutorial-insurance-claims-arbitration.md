@@ -118,7 +118,7 @@ In contrast to earlier versions, the Optimistic Oracle V2 by default does not us
         oo.setCallbacks(priceIdentifier, timestamp, ancillaryData, false, false, true);
 ```
 
-After `totalBond` amount of `currency` token is pulled from the claim initiator and approved to be taken by Optimistic Oracle this contract proposes `1e18` representing the `YES` answer to the raised question. Requesting and proposing affirmative answer atomically allows to reduce number of steps to be taken by end users and it is most likely expected that the insured beneficiary would be initiating the claim.
+After `totalBond` amount of `currency` token is pulled from the claim initiator and approved to be taken by Optimistic Oracle, this contract proposes `1e18` representing the `YES` answer to the raised question. Requesting and proposing affirmative answers atomically allows us to reduce the number of steps taken by end users and it is most likely expected that the insured beneficiary would be initiating the claim.
 
 ```solidity
         oo.proposePriceFor(msg.sender, address(this), priceIdentifier, timestamp, ancillaryData, int256(1e18));
