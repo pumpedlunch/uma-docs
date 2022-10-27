@@ -81,7 +81,7 @@ Anyone can submit insurance claim on the issued policy by calling `submitClaim` 
 After checking that the `policyId` represents a valid unclaimed insurance policy, the contract gets the current `timestamp` and composes `ancillaryData` that will be required for making requests and proposals on Optimistic Oracle:
 
 ```solidity
-        uint256 timestamp = getCurrentTime();
+        uint256 timestamp = getCurrentTime(); // note that `getCurrentTime` is exported from testable to enable easy time manipulation.
         bytes memory ancillaryData = abi.encodePacked(ancillaryDataHead, claimedPolicy.insuredEvent, ancillaryDataTail);
         bytes32 claimId = _getClaimId(timestamp, ancillaryData);
         insuranceClaims[claimId] = policyId;
