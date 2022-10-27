@@ -8,7 +8,7 @@ You will find out how to test and deploy this smart contract and how it integrat
 
 This smart contract allows insurers to issue insurance policies by depositing insured amount, designating the insured beneficiary and describing insured event.
 
-At any time anyone can submit a claim that the insured event has occurred by posting oracle bonding. Insurance Arbitrator resolves the claim through Optimistic Oracle by passing a templated question with insured event description in ancillary data using `YES_OR_NO_QUERY` price identifier as specified in [UMIP-107](https://github.com/UMAprotocol/UMIPs/blob/master/UMIPs/umip-107.md).
+Anyone can submit a claim that the insured event has occurred at any time. Insurance Arbitrators resolves the claim through Optimistic Oracle by passing a templated question with the insured event description in ancillary data using `YES_OR_NO_QUERY` price identifier as specified in [UMIP-107](https://github.com/UMAprotocol/UMIPs/blob/master/UMIPs/umip-107.md).
 
 If the claim is confirmed and settled through Optimistic Oracle this contract automatically pays out insurance coverage to the insured beneficiary. If the claim is rejected the policy continues to be active ready for the subsequent claim attempts.
 
