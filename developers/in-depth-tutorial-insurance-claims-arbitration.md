@@ -139,7 +139,7 @@ For the sake of simplicity this contract does not implement a dispute method, bu
 
 Disputer should pass the address of this Insurance Arbitrator contract as `requester` and all the other parameters from the original request when claim was initiated as emitted by Optimistic Oracle in its `RequestPrice` event.
 
-If the claim is disputed the request is escalated to UMA DVM and it can be settled only after UMA voters have resolved it.
+If the claim is disputed then the request is escalated to UMA DVM and it can be settled only after UMA voters have resolved it. To learn more about the DVM see the docs section on the DVM [how does UMA's DVM works ](../protocol-overview/how-does-umas-oracle-work#umas-data-verification-mechanism).
 
 #### Settling insurance claim
 
