@@ -42,7 +42,7 @@ yarn hardhat compile
 
 ```solidity
     constructor(
-        address _finderAddress,
+        FinderInterface _finder,
         address _currency,
         address _timer
     ) Testable(_timerAddress) {
