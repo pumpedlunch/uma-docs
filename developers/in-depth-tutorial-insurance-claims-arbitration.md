@@ -24,7 +24,7 @@ yarn
 
 #### Compiling your contracts
 
-We will need to run the following command to compile the contracts and make the typescript interfaces so that they are easy to work with:
+We will need to run the following command to compile the contracts and make the Typescript interfaces so that they are easy to work with:
 
 ```bash
 yarn hardhat compile
