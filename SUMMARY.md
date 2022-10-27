@@ -10,6 +10,7 @@
 * [Setting Custom Bond and Liveness Parameters](developers/setting-custom-bond-and-liveness-parameters.md)
 * [In depth tutorial: Event-based prediction market](developers/in-depth-tutorial-event-based-prediction-market.md)
 * [In depth tutorial: Insurance claims arbitration](developers/in-depth-tutorial-insurance-claims-arbitration.md)
+* [In depth tutorial: Optimistic Arbitrator](developers/in-depth-tutorial-optimistic-arbitrator.md)
 * [SDK](developers/sdk.md)
 
 ## Protocol Overview
