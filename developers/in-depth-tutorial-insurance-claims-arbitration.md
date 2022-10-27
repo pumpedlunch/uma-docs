@@ -14,11 +14,13 @@ If the claim is confirmed and settled through Optimistic Oracle this contract au
 
 ### Development environment and tests
 
-#### Install dependencies
+#### Clone repository and Install dependencies&#x20;
 
-To install dependencies, you will need to install the long-term support version of Nodejs, currently Nodejs v16, and yarn. You can then install dependencies by running yarn with no arguments from the root of [developer's quick-start repo](https://github.com/UMAprotocol/dev-quickstart):
+Clone the UMA dev-quickstart repository and install the dependencies. To install dependencies, you will need to install the long-term support version of nodejs, currently Nodejs v16, and yarn. You can then install dependencies by running yarn with no arguments:
 
 ```bash
+git clone git@github.com:UMAprotocol/dev-quickstart.git
+cd dev-quickstart
 yarn
 ```
 
@@ -31,6 +33,8 @@ yarn hardhat compile
 ```
 
 ### Contract implementation
+
+The contract discussed in this tutorial can be found at `dev-quickstart/contracts/InsuranceArbitrator.sol` ([here](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/InsuranceArbitrator.sol)) within the repo.
 
 #### Contract creation and initialization
 
@@ -139,7 +143,7 @@ For the sake of simplicity this contract does not implement a dispute method, bu
 
 Disputer should pass the address of this Insurance Arbitrator contract as `requester` and all the other parameters from the original request when claim was initiated as emitted by Optimistic Oracle in its `RequestPrice` event.
 
-If the claim is disputed then the request is escalated to UMA DVM and it can be settled only after UMA voters have resolved it. To learn more about the DVM see the docs section on the DVM [how does UMA's DVM works ](../protocol-overview/how-does-umas-oracle-work#umas-data-verification-mechanism).
+If the claim is disputed then the request is escalated to UMA DVM and it can be settled only after UMA voters have resolved it. To learn more about the DVM see the docs section on the DVM [how does UMA's DVM works ](../protocol-overview/how-does-umas-oracle-work/#umas-data-verification-mechanism).
 
 #### Settling insurance claim
 
@@ -202,7 +206,7 @@ All the unit tests covering the functionality described above are available [her
 yarn test test/InsuranceArbitrator/*
 ```
 
-Before deploying the contract check the comments on available environment variables in [the deployment script](https://github.com/UMAprotocol/dev-quickstart/tree/main/deploy/003_deploy_insurance_arbitrator.ts). In case of Görli testnet the defaults would use the Finder instance that references [Mock Oracle](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/test/MockOracleAncillary.sol) implementation for resolving DVM requests. This exposes `pushPrice` method to be used for simulating resolved answer in case of disputed insurance claims. Also default Görli deployment would use already whitelisted `TestnetERC20` currency that can be minted by anyone using its `allocateTo` method.
+Before deploying the contract check the comments on available environment variables in [the deployment script](https://github.com/UMAprotocol/dev-quickstart/tree/main/deploy/003\_deploy\_insurance\_arbitrator.ts). In case of Görli testnet the defaults would use the Finder instance that references [Mock Oracle](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/test/MockOracleAncillary.sol) implementation for resolving DVM requests. This exposes `pushPrice` method to be used for simulating resolved answer in case of disputed insurance claims. Also default Görli deployment would use already whitelisted `TestnetERC20` currency that can be minted by anyone using its `allocateTo` method.
 
 To deploy this Insurance Arbitrator contract on Görli network, run:
 
@@ -215,7 +219,6 @@ Optionally you can verify the deployed contract on Etherscan:
 ```bash
 ETHERSCAN_API_KEY=YOUR_API_KEY yarn hardhat etherscan-verify --network goerli --license AGPL-3.0 --force-license --solc-input
 ```
-
 
 ### Interacting with deployed contract
 
