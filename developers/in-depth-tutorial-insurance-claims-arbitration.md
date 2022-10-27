@@ -34,7 +34,7 @@ yarn hardhat compile
 
 #### Contract creation and initialization
 
-`_finderAddress` parameter in the constructor points the Insurance Arbitrator to the entry point of the rest of UMA environment. This can be either fetched from the relevant [networks](https://github.com/UMAprotocol/protocol/tree/master/packages/core/networks) file looking up the address of deployed `Finder` contract or you can provide your own `Finder` instance if deploying UMA [protocol](https://github.com/UMAprotocol/protocol) in your own sandboxed environment.
+`_finder` parameter in the constructor points the Insurance Arbitrator to the entry point of the rest of UMA environment. This can be either fetched from the relevant [networks](https://github.com/UMAprotocol/protocol/tree/master/packages/core/networks) file looking up the address of deployed `Finder` contract or you can provide your own `Finder` instance if deploying UMA [protocol](https://github.com/UMAprotocol/protocol) in your own sandboxed environment.
 
 `_currency` parameter in the constructor allows choosing the settlement and bonding currency for insurance claims. This should be approved as whitelisted UMA collateral. Please check [Approved Collateral Types](../resources/approved-collateral-types.md) for production networks or call `getWhitelist()` for any of test networks to the [Address Whitelist](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/common/implementation/AddressWhitelist.sol) contract. Alternatively, one can approve the token with `addToWhitelist` method to the Address Whitelist contract if working in a sandboxed UMA environment.
 
