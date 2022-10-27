@@ -38,7 +38,7 @@ yarn hardhat compile
 
 `_currency` parameter in the constructor allows choosing the settlement and bonding currency for insurance claims. This should be approved as whitelisted UMA collateral. Please check [Approved Collateral Types](../resources/approved-collateral-types.md) for production networks or call `getWhitelist()` for any of test networks to the [Address Whitelist](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/common/implementation/AddressWhitelist.sol) contract. Alternatively, one can approve the token with `addToWhitelist` method to the Address Whitelist contract if working in a sandboxed UMA environment.
 
-`_timerAddress` is used only when running unit tests locally to simulate advancement of time. For all the public networks (including testnets) zero address should be used.
+`_timer` is used only when running unit tests locally to simulate the advancement of time. For all the public networks (including testnets) zero address should be used.
 
 ```solidity
     constructor(
