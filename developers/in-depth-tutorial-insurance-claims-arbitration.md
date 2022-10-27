@@ -143,7 +143,7 @@ If the claim is disputed then the request is escalated to UMA DVM and it can be 
 
 #### Settling insurance claim
 
-Similarly as dispute the claim settlement should be initiated through Optimistic Oracle by calling its `settle` method with the same parameters:
+Similarly, as dispute the claim settlement should be initiated through Optimistic Oracle by calling its `settle` method with the same parameters:
 
 ```solidity
     function settle(
