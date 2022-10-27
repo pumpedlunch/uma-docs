@@ -1,4 +1,8 @@
-# In depth tutorial: Optimistic Arbitrator
+---
+description: Wrapping Optimistic Oracle functionality into individual function calls
+---
+
+# Optimistic Arbitrator
 
 ### The Optimistic Arbitrator
 

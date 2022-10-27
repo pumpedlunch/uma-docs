@@ -1,4 +1,10 @@
-# In depth tutorial: Internal Optimistic Oracle
+---
+description: >-
+  Using the Optimistic Oracle to verify arbitrary data type results proposed
+  through an external contract
+---
+
+# Internal Optimistic Oracle
 
 ### The Internal Optimistic Oracle
 

@@ -1,6 +1,12 @@
-# Solidity Examples
+---
+description: >-
+  Simple deposit box example that showcases the basic request propose lifecycle
+  of the UMA Optimistic Oracle
+---
 
-This section focuses on the Solidity code for important interactions with the Optimistic Oracle. We recommend starting with the [Getting Started](getting-started-1.md) tutorial that walks developers through setting up the [developer quickstart repo](https://github.com/UMAprotocol/dev-quickstart) and working with UMA contracts.
+# Deposit Box
+
+This section focuses on the Solidity code for important interactions with the Optimistic Oracle. We recommend starting with the [Getting Started](broken-reference) tutorial that walks developers through setting up the [developer quickstart repo](https://github.com/UMAprotocol/dev-quickstart) and working with UMA contracts.
 
 #### UMA Contract Lifecycle
 
@@ -16,7 +22,7 @@ Proposers respond to price requests by referencing off-chain price feeds to subm
 
 Disputers can refute a price submitted by a Proposer within the proposal liveness period by referencing their own off-chain price feeds. The proposal liveness period is a pre-defined amount of time a proposal can be disputed before the Requestor receives the price of the asset.
 
-f Disputers do not refute the price submitted by the Proposer within the proposal liveness period, the price is sent to the Requestor. If a proposal is disputed, the price will be submitted to UMA’s DVM and resolved after a 48-96 hour voting period.
+If Disputers do not refute the price submitted by the Proposer within the proposal liveness period, the price is sent to the Requestor. If a proposal is disputed, the price will be submitted to UMA’s DVM and resolved after a 48-96 hour voting period.
 
 #### Integrating with the Optimistic Oracle
 

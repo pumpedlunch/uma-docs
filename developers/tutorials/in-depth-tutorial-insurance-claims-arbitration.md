@@ -1,8 +1,12 @@
-# In depth tutorial: Insurance claims arbitration
+---
+description: Using the Optimistic Oracle to allow for verification of insurance claims
+---
 
-This section covers [Insurance claims arbitration contract](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/InsuranceArbitrator.sol), which is available at the [developer's quick-start repo](https://github.com/UMAprotocol/dev-quickstart). This tutorial shows example on how insurance claims can be resolved and settled through [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol).
+# Insurance Claim Arbitration
 
-You will find out how to test and deploy this smart contract and how it integrates with Optimistic Oracle. Please see more details on [how does UMA's Oracle work](../protocol-overview/how-does-umas-oracle-work.md) section.
+This section covers the [insurance claims arbitration contract](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/InsuranceArbitrator.sol), which is available at the [developer's quick-start repo](https://github.com/UMAprotocol/dev-quickstart). This tutorial shows example on how insurance claims can be resolved and settled through [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol).
+
+You will find out how to test and deploy this smart contract and how it integrates with Optimistic Oracle. Please see more details on [how does UMA's Oracle work](../../protocol-overview/how-does-umas-oracle-work.md) section.
 
 ### Insurance Arbitrator Contract
 
@@ -40,7 +44,7 @@ The contract discussed in this tutorial can be found at `dev-quickstart/contract
 
 `_finder` parameter in the constructor points the Insurance Arbitrator to the entry point of the rest of UMA environment. This can be either fetched from the relevant [networks](https://github.com/UMAprotocol/protocol/tree/master/packages/core/networks) file looking up the address of deployed `Finder` contract or you can provide your own `Finder` instance if deploying UMA [protocol](https://github.com/UMAprotocol/protocol) in your own sandboxed environment.
 
-`_currency` parameter in the constructor allows choosing the settlement and bonding currency for insurance claims. This should be approved as whitelisted UMA collateral. Please check [Approved Collateral Types](../resources/approved-collateral-types.md) for production networks or call `getWhitelist()` for any of test networks to the [Address Whitelist](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/common/implementation/AddressWhitelist.sol) contract. Alternatively, one can approve the token with `addToWhitelist` method to the Address Whitelist contract if working in a sandboxed UMA environment.
+`_currency` parameter in the constructor allows choosing the settlement and bonding currency for insurance claims. This should be approved as whitelisted UMA collateral. Please check [Approved Collateral Types](../../resources/approved-collateral-types.md) for production networks or call `getWhitelist()` for any of test networks to the [Address Whitelist](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/common/implementation/AddressWhitelist.sol) contract. Alternatively, one can approve the token with `addToWhitelist` method to the Address Whitelist contract if working in a sandboxed UMA environment.
 
 `_timer` is used only when running unit tests locally to simulate the advancement of time. For all the public networks (including testnets) zero address should be used.
 
@@ -143,7 +147,7 @@ For the sake of simplicity this contract does not implement a dispute method, bu
 
 Disputer should pass the address of this Insurance Arbitrator contract as `requester` and all the other parameters from the original request when claim was initiated as emitted by Optimistic Oracle in its `RequestPrice` event.
 
-If the claim is disputed then the request is escalated to UMA DVM and it can be settled only after UMA voters have resolved it. To learn more about the DVM see the docs section on the DVM [how does UMA's DVM works ](../protocol-overview/how-does-umas-oracle-work/#umas-data-verification-mechanism).
+If the claim is disputed then the request is escalated to UMA DVM and it can be settled only after UMA voters have resolved it. To learn more about the DVM see the docs section on the DVM [how does UMA's DVM works ](../../protocol-overview/how-does-umas-oracle-work/#umas-data-verification-mechanism).
 
 #### Settling insurance claim
 
