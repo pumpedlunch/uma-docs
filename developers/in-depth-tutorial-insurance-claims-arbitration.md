@@ -112,7 +112,7 @@ Optimistic Oracle liveness is set by calling `setCustomLiveness` method. This co
         oo.setCustomLiveness(priceIdentifier, timestamp, ancillaryData, optimisticOracleLivenessTime);
 ```
 
-In contrast to earlier versions Optimistic Oracle V2 by default does not use callbacks and requesting contracts have to explicitly subscribe to them if intending to perform any logic when data request has changed state. Here in calling `setCallbacks` this contract only subscribes to callback only for when the request will have settled at the Optimistic Oracle as implemented in the `priceSettled` method. Subscribing to any other callbacks that are not implemented at the requesting contract would make data requests unresolvable.
+In contrast to earlier versions, the Optimistic Oracle V2 by default does not use callbacks and requesting contracts have to explicitly subscribe to them if intending to perform any logic when data request has changed state. Here, in calling `setCallbacks`, this contract only subscribes to callback only for when the request will have settled at the Optimistic Oracle as implemented in the `priceSettled` method. Subscribing to any other callbacks that are not implemented at the requesting contract would make data requests unresolvable.
 
 ```solidity
         oo.setCallbacks(priceIdentifier, timestamp, ancillaryData, false, false, true);
