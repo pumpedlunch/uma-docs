@@ -16,7 +16,7 @@ If the claim is confirmed and settled through Optimistic Oracle this contract au
 
 #### Install dependencies
 
-To install dependencies, you will need to install the long-term support version of nodejs, currently nodejs v16, and yarn. You can then install dependencies by running yarn with no arguments from the root of [developer's quick-start repo](https://github.com/UMAprotocol/dev-quickstart):
+To install dependencies, you will need to install the long-term support version of Nodejs, currently Nodejs v16, and yarn. You can then install dependencies by running yarn with no arguments from the root of [developer's quick-start repo](https://github.com/UMAprotocol/dev-quickstart):
 
 ```bash
 yarn
