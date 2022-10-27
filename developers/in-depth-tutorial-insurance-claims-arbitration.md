@@ -78,7 +78,7 @@ Anyone can submit insurance claim on the issued policy by calling `submitClaim` 
     function submitClaim(bytes32 policyId) ...
 ```
 
-After checking that the `policyId` represents a valid unclaimed insurance policy the contract gets the current `timestamp` and composes `ancillaryData` that will be required for making request and proposal on Optimistic Oracle:
+After checking that the `policyId` represents a valid unclaimed insurance policy, the contract gets the current `timestamp` and composes `ancillaryData` that will be required for making requests and proposals on Optimistic Oracle:
 
 ```solidity
         uint256 timestamp = getCurrentTime();
