@@ -45,6 +45,8 @@ yarn hardhat compile
 
 ### Contract Implementation
 
+The contract discussed in this tutorial can be found at `dev-quickstart/contracts/OptimisticArbitrator.sol`([here](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/OptimisticArbitrator.sol)) within the repo.
+
 #### Contract creation and initialisation
 
 The constructor of the Optimistic Arbitrator contract takes two parameters:
