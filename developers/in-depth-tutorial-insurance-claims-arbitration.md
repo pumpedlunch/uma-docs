@@ -44,7 +44,7 @@ yarn hardhat compile
     constructor(
         address _finderAddress,
         address _currency,
-        address _timerAddress
+        address _timer
     ) Testable(_timerAddress) {
         finder = FinderInterface(_finderAddress);
         currency = IERC20(_currency);
