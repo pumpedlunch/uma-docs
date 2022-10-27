@@ -26,8 +26,7 @@ Description:
 | address         | Bytes! |                                                                                                                                            |
 | countReveals    | BigInt | Number of price requests that this user has revealed a vote for, and therefore participated in as a voter                                  |
 | countRetrievals | BigInt | Provides a lower bound on the number of votes a user has correctly voted for. Users may not have retrieved rewards for all of their correct votes |
-
-| votesCommited   | Int!   |                                                                                                                                            |
+| votesCommited   | Int!   |   |                                                                                                                                         
 
 ## Collateral
 
@@ -50,8 +49,7 @@ Description:
 | ------------- | -------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | id            | ID!                              |                                                                                                                                                             |
 | isSupported   | Boolean!                         | Depicts whether this PriceIdentifier is currently among the identifiers supported on the whitelist. It will only be false if it was removed from the whitelist |
-
-| priceRequests | [`PriceRequest!`](#pricerequest) | List of all the PriceRequest entities related to this particular PriceIdentifier                                                                            |
+| priceRequests | [`PriceRequest!`](#pricerequest) | List of all the PriceRequest entities related to this particular PriceIdentifier|                                                                            
 
 ## PriceRequest
 
@@ -178,6 +176,5 @@ Description:
 | Field                 | Type    | Description                                                                                              |
 | --------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
 | id                    | ID!     | This entity represents a contract that can make price requests to the DVM. ID is the address of the contract |
-
 | creator               | Bytes!  |                                                                                                          |
 | registrationTimestamp | BigInt! |                                                                                                          |
