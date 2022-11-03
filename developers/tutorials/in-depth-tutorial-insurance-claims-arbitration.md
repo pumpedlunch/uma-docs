@@ -2,19 +2,19 @@
 description: Using the Optimistic Oracle to allow for verification of insurance claims
 ---
 
-# Insurance Claim Arbitration
+# 👨🏫 Insurance Claim Arbitration
 
-This section covers the [insurance claims arbitration contract](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/InsuranceArbitrator.sol), which is available at the [developer's quick-start repo](https://github.com/UMAprotocol/dev-quickstart). This tutorial shows example on how insurance claims can be resolved and settled through [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol).
+This section covers the [insurance claims arbitration contract](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/InsuranceArbitrator.sol), which is available in the [developer's quick-start repo](https://github.com/UMAprotocol/dev-quickstart). This tutorial shows an example of how insurance claims can be resolved and settled through the [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol) contract.
 
-You will find out how to test and deploy this smart contract and how it integrates with Optimistic Oracle. Please see more details on [how does UMA's Oracle work](../../protocol-overview/how-does-umas-oracle-work.md) section.
+You will find out how to test and deploy this smart contract and how it integrates with the Optimistic Oracle. You can find more details on [how UMA's Oracle works here](../../protocol-overview/how-does-umas-oracle-work.md).
 
 ### Insurance Arbitrator Contract
 
-This smart contract allows insurers to issue insurance policies by depositing insured amount, designating the insured beneficiary and describing insured event.
+This smart contract allows insurers to issue insurance policies by depositing the insured amount, designating the insured beneficiary, and describing the insured event.
 
-Anyone can submit a claim that the insured event has occurred at any time. Insurance Arbitrators resolves the claim through Optimistic Oracle by passing a templated question with the insured event description in ancillary data using `YES_OR_NO_QUERY` price identifier as specified in [UMIP-107](https://github.com/UMAprotocol/UMIPs/blob/master/UMIPs/umip-107.md).
+Anyone can submit a claim that the insured event has occurred at any time. Insurance Arbitrators resolve the claim through the Optimistic Oracle by passing a question with a description of the insured event in ancillary data using the `YES_OR_NO_QUERY` price identifier specified in [UMIP-107](https://github.com/UMAprotocol/UMIPs/blob/master/UMIPs/umip-107.md).
 
-If the claim is confirmed and settled through Optimistic Oracle this contract automatically pays out insurance coverage to the insured beneficiary. If the claim is rejected the policy continues to be active and ready for subsequent claim attempts.
+If the claim is confirmed and settled through the Optimistic Oracle, this contract automatically pays out insurance coverage to the beneficiary. If the claim is rejected, the policy continues to be active and ready for subsequent claim attempts.
 
 ### Development environment and tests
 
@@ -42,11 +42,13 @@ The contract discussed in this tutorial can be found at `dev-quickstart/contract
 
 #### Contract creation and initialization
 
-`_finder` parameter in the constructor points the Insurance Arbitrator to the entry point of the rest of UMA environment. This can be either fetched from the relevant [networks](https://github.com/UMAprotocol/protocol/tree/master/packages/core/networks) file looking up the address of deployed `Finder` contract or you can provide your own `Finder` instance if deploying UMA [protocol](https://github.com/UMAprotocol/protocol) in your own sandboxed environment.
+`_finder` parameter in the constructor points the Insurance Arbitrator to the Finder contract that stores the addresses of the rest of the UMA contracts. The Finder address can be fetched from the relevant [networks](https://github.com/UMAprotocol/protocol/tree/master/packages/core/networks) file, if you are on a live network, or you can provide your own `Finder` instance if deploying UMA [protocol](https://github.com/UMAprotocol/protocol) in your own sandboxed testing environment.
 
-`_currency` parameter in the constructor allows choosing the settlement and bonding currency for insurance claims. This should be approved as whitelisted UMA collateral. Please check [Approved Collateral Types](../../resources/approved-collateral-types.md) for production networks or call `getWhitelist()` for any of test networks to the [Address Whitelist](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/common/implementation/AddressWhitelist.sol) contract. Alternatively, one can approve the token with `addToWhitelist` method to the Address Whitelist contract if working in a sandboxed UMA environment.
+`_currency` parameter in the constructor identifies the token used for settlement of insurance claims, as well as the bond currency for proposals and disputes. This token should be approved as whitelisted UMA collateral. Please check [Approved Collateral Types](../../resources/approved-collateral-types.md) for production networks or call `getWhitelist()` on the [Address Whitelist](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/common/implementation/AddressWhitelist.sol) contract for any of the test networks.
 
-`_timer` is used only when running unit tests locally to simulate the advancement of time. For all the public networks (including testnets) zero address should be used.
+Alternatively, you can approve a new token address with `addToWhitelist` method in the Address Whitelist contract if working in a sandboxed UMA environment.
+
+`_timer` is used only when running unit tests locally to simulate the advancement of time. For all the public networks (including testnets) the zero address should be used.
 
 ```solidity
     constructor(
