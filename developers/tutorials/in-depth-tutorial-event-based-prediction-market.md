@@ -123,7 +123,7 @@ Holding only long tokens (by transferring short tokens to another wallet or addi
     }
 ```
 
-At any time a token holder with both tokens in the same proportion can exchange them for collateral with redeem.
+At any time a token holder with both tokens in the same proportion can exchange them for collateral with \`redeem\`.
 
 ```solidity
     function redeem(uint256 tokensToRedeem) public {
