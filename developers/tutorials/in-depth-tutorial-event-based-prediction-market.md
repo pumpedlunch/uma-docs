@@ -4,7 +4,7 @@ description: >-
   settlement and event identification
 ---
 
-# Event-Based Prediction Market
+# 🕖 Event-Based Prediction Market
 
 In this section, we'll talk about the [Event Based Prediction market contract](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/EventBasedPredictionMarket.sol), which you can find in the [developer's quick-start repo](https://github.com/UMAprotocol/dev-quickstart). This tutorial will show how event-based OO data requests can be used in a binary prediction market.
 
@@ -110,7 +110,7 @@ function _requestOraclePrice() internal {
 Any user can now call the `create` function with the `tokensToCreate` parameter to mint the same number of short and long tokens. Having both tokens in the same proportion means being in a neutral position, as is the case when calling `create`.
 
 \
-Holding only long tokens (by transferring short tokens to another wallet or adding liquidity to an AMM pair), gives exposition to the long position and vice versa.
+Holding only long tokens (by transferring short tokens to another wallet or adding liquidity to an AMM pair), gives exposure to the long position and vice versa.
 
 ```solidity
     function create(uint256 tokensToCreate) public requestInitialized {
