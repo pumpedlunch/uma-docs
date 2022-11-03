@@ -4,29 +4,30 @@ description: >-
   through an external contract
 ---
 
-# ⛽ Internal Optimistic Oracle
+# Internal Optimistic Oracle
 
 ### The Internal Optimistic Oracle
 
-The Internal Optimistic Oracle (IOO) implements the [Optimistic Oracle's (OO)](https://docs.umaproject.org/protocol-overview/how-does-umas-oracle-work#optimistic-oracle) internal escalation game logic for price requests and price proposals within another contract. The disputes are escalated through the canonical [Optimistic Oracle](https://docs.umaproject.org/protocol-overview/how-does-umas-oracle-work#optimistic-oracle) to [UMA's Data Verification Mechanism](https://docs.umaproject.org/protocol-overview/how-does-umas-oracle-work#umas-data-verification-mechanism).&#x20;
+The Internal Optimistic Oracle (IOO) implements the [Optimistic Oracle's (OO)](https://docs.umaproject.org/protocol-overview/how-does-umas-oracle-work#optimistic-oracle) internal escalation game logic for price requests and price proposals locally. The disputes are escalated through the canonical [Optimistic Oracle](https://docs.umaproject.org/protocol-overview/how-does-umas-oracle-work#optimistic-oracle) to the [UMA's Data Verification Mechanism](https://docs.umaproject.org/protocol-overview/how-does-umas-oracle-work#umas-data-verification-mechanism).&#x20;
 
-The IOO contract is meant to be utilized as a type of OO that permits customized escalation game logic and custom data structures. This pattern provides the most gas efficient route to building an OO integration by removing the need to perform cross-contract calls in all cases except for when a dispute is raised via the internal escalation game.
+The IOO contract is meant to be utilised as a type of OO that permits customized escalation game logic and custom price data structures. This pattern provides the most gas efficient route to building an OO integration by removing the need to perform cross-contract calls in all cases except for when a dispute is raised via the internal escalation game.
 
 The IOO is intended to be the simplest implementation possible, allowing it to serve as a starting point for any project that can benefit from these functionalities.
 
+\
 The following table shows how the Internal Optimistic Oracle differs from the [Optimistic Oracle](https://docs.umaproject.org/protocol-overview/how-does-umas-oracle-work#optimistic-oracle) and why using the Internal Optimistic Oracle could be useful:
 
-| Optimistic Oracle (OO)                                                                                                                                                                  | Internal Optimistic Oracle (IOO)                                                                                                                                                  |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Using the OO from an external contract incurs gas costs that, while not excessive, might be reduced with customized implementations like the IOO.                                       | Lower gas costs because price requests are processed locally.                                                                                                                     |
-| The requested data types from the OO are always `int256`.                                                                                                                               | Customized data structures: the data requested from the oracle can be of any type (`uint256` in this IOO implementation).                                                         |
-| The OO design is agnostic and adaptable to every use case, but adding more advanced functionality to price requests, such as defining who can propose values, requires some extra work. | Additional customization is allowed: in the example implementation, a price request is coupled with the `msg.sender`, requiring the requester and proposer to be same.            |
-| Disputes are resolved in the [DVM](https://docs.umaproject.org/protocol-overview/how-does-umas-oracle-work#umas-data-verification-mechanism) through a vote of UMA token holders.       | Disputes are resolved in the [DVM](https://docs.umaproject.org/protocol-overview/how-does-umas-oracle-work#umas-data-verification-mechanism) through a vote of UMA token holders. |
+| Optimistic Oracle (OO)                                                                                                                                                                    | Internal Optimistic Oracle (IOO)                                                                                                                                                        |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Using the OO from an external contract incurs gas costs that, while not excessive, might be reduced with customised implementations like the IOO.                                         | Lower gas costs because price requests are processed locally.                                                                                                                           |
+| The requested data types to the OO are always `int256`.                                                                                                                                   | Customised data structures: the data requested to the oracle can be of any type (`uint256` in this IOO implementation).                                                                 |
+| The OO design is agnostic and adaptable to every use case, but adding more advanced functionality to pricing requests, such as defining who can propose values, requires some extra work. | Additional customisation is allowed: in the example of the implementation, a price request is coupled with the `msg.sender`, requiring the requester and proposer to be same.           |
+| Disputes are resolved in the [DVM](https://docs.umaproject.org/protocol-overview/how-does-umas-oracle-work#umas-data-verification-mechanism) where they are voted by UMA token holders.   | Disputes are resolved in the [DVM](https://docs.umaproject.org/protocol-overview/how-does-umas-oracle-work#umas-data-verification-mechanism) where they are voted by UMA token holders. |
 
-In this simple implementation, we highlight these functionalities, however, if you wish to go further, consider the following:
+In this simple implementation, we highlight these functionalities, however if you wish to go farther, consider the following:
 
-* The data type of the "price" (`proposedPrice`) could be any: structs, arrays, bytes. In the example, we chose `uint256`, but you can modify it to suit your requirements. _(Note: For historical reasons, the data is referred to as a "price" throughout UMA's code, but can be any type of data, not just data related to asset prices.)_
-* Any further logic could be added to the requests and proposals, such as permitting only addresses on a whitelist to submit answers (`proposePrice` function).
+* The type of requested price (`proposedPrice`) could be any: structs, arrays, bytes. In the example, we chose `uint256`, but you can modify it to suit your requirements.
+* Any further logic could be added to the request and proposals, such as permitting only addresses on a whitelist to submit answers (`proposePrice` function).
 
 ### Development environment and tests
 
@@ -56,7 +57,7 @@ The contract discussed in this tutorial can be found at `dev-quickstart/contract
 
 The constructor of the Internal Optimistic Oracle contract takes three parameters:
 
-`_finderAddress` finder contract used to get addresses of other UMA contracts.
+`_finderAddress` finder to use to get addresses of DVM contracts.
 
 `_currency` the collateral token used to pay fees.
 
@@ -74,17 +75,17 @@ constructor(
 }
 ```
 
-As part of initialization, the `oo` variable is set to the address of the `OptimisticOracleV2` implementation as discovered through the `getImplementationAddress` method in the [Finder](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/Finder.sol) contract. This address will vary depending on which chain this contract is deployed to.
+As part of initialization `oo` variable is set to the address of `OptimisticOracleV2` implementation as discovered through `getImplementationAddress` method in the [Finder](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/Finder.sol) contract.
 
 #### Requesting a price
 
-The following function allows you to request a price internally in the IOO.  For simplicity the [price identifier](https://docs.umaproject.org/resources/approved-price-identifiers) has been hardcoded to `YES_OR_NO_QUERY`. This imposes a set of rules on how the assertion is formulated and formatted, which are specified in [UMIP-107](https://github.com/UMAprotocol/UMIPs/blob/master/UMIPs/umip-107.md).\
+The following function allows to request a price internally in the IOO.  For simplicity the [price identifier](https://docs.umaproject.org/resources/approved-price-identifiers) has been hardcoded to `YES_OR_NO_QUERY`. This imposes a set of rules on how the assertion is formulated and formatted, these rules to be complied with are specified in [UMIP-107](https://github.com/UMAprotocol/UMIPs/blob/master/UMIPs/umip-107.md).\
 \
-The `requestPrice` function takes the following arguments:&#x20;
+The `requestPrice` take the following arguments:&#x20;
 
 * `timestamp` timestamp used to identify the request, usually the current timestamp.
 * `ancillaryData` the byte-converted question that we want to ask (e.g. '`q: "What uint256 are we looking for?"'`)
-* `reward` the amount of the `currency` defined in the constructor to pay to the proposer on settlement
+* `reward` the amount of the currency to pay to the proposer on settlement
 * `bond` the bond in the `currency` defined in the constructor that we want to require on top of the [`finalFee`](https://docs.umaproject.org/resources/approved-collateral-types) (\~1500 USD worth of the currency). The [`finalFee`](https://docs.umaproject.org/resources/approved-collateral-types) can be viewed as the minimum bond required by the system to process a dispute, and the bond is any additional amount we to require on top.
 * `liveness` time period during which the proposal can be disputed
 
@@ -131,8 +132,7 @@ These are the arguments that `proposePrice` receives:
 * `ancillaryData` the byte-converted question that we want to ask.
 * `proposedPrice` the price proposed to the request
 
-Note: The `proposePrice` function requires the caller to approve the IOO to spend the `bond + finalFee` amount of the `currency`.
-
+Note: The `proposePrice` function requires the caller to approve again the IOO to spend the `bond + finalFee` amount of the `currency`.\
 Note: Because of the `_getId` function definition, the requester and the proposer must be the same person.&#x20;
 
 ```solidity
@@ -209,11 +209,9 @@ All the unit tests covering the functionality described above are available [her
 yarn test test/InternalOptimisticOracle/*
 ```
 
-Before deploying the contract check the comments on available environment variables in [the deployment script](https://github.com/UMAprotocol/dev-quickstart/tree/main/deploy).
+Before deploying the contract check the comments on available environment variables in [the deployment script](https://github.com/UMAprotocol/dev-quickstart/tree/main/deploy). In case of Görli testnet the defaults would use the Finder instance that references [Mock Oracle](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/test/MockOracleAncillary.sol) implementation for resolving DVM requests. This exposes `pushPrice` method to be used for simulating resolved answer in case of disputed insurance claims. Also default Görli deployment would use already whitelisted `TestnetERC20` currency that can be minted by anyone using its `allocateTo` method.
 
-In the case of the Görli testnet, the defaults would use the Finder instance that references the [Mock Oracle](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/test/MockOracleAncillary.sol) implementation for resolving DVM requests. This exposes a `pushPrice` method to be used for simulating a resolved answer in case of disputed proposals. Also, the default Görli deployment would use the already whitelisted `TestnetERC20` currency that can be minted by anyone using its `allocateTo` method.
-
-To deploy the Internal Optimistic Oracle contract on Görli, run:
+To deploy the Internal Optimistic Oracle contract on Görli network, run:
 
 ```shell
 NODE_URL_5=YOUR_GOERLI_NODE MNEMONIC=YOUR_MNEMONIC yarn hardhat deploy --network goerli --tags InternalOptimisticOracle
