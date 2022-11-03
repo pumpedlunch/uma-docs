@@ -4,7 +4,7 @@ description: >-
   settlement and event identification
 ---
 
-# 🕖 Event-Based Prediction Market
+# Event-Based Prediction Market
 
 In this section, we'll talk about the [Event Based Prediction market contract](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/EventBasedPredictionMarket.sol), which you can find in the [developer's quick-start repo](https://github.com/UMAprotocol/dev-quickstart). This tutorial will show how event-based OO data requests can be used in a binary prediction market.
 
@@ -14,9 +14,7 @@ You will find out how this smart contract works and how to test it and deploy it
 
 This smart contract lets you set up prediction markets that are based on an event-based price request.
 
-For example, you could ask a question like, "Will BTC be over $1M when the first Moon hotel opens?"
-
-_(Note: Although these are called "price" requests in the code, you can request any kind of data from the optimistic oracle. If it's helpful, you can mentally replace "price" with "data" when you see it in the code and documentation.)_
+One of these price requests could be, "When X happens, will the price of Y equal Z?".
 
 In addition, an event-based price request cannot expire early and automatically returns the requester's reward in the event of a dispute.\
 \
@@ -26,11 +24,7 @@ This contract's logic is a streamlined version of the [LongShortPair](https://gi
 
 ### Development environment and tests
 
-#### Clone the dev-quickstart repo
-
-```
-git clone https://github.com/UMAprotocol/dev-quickstart.git
-```
+#### Install dependencies
 
 To install dependencies, you will need to install the long-term support version of nodejs, currently nodejs v16, and yarn. You can then install dependencies by running yarn with no arguments:
 
@@ -116,7 +110,7 @@ function _requestOraclePrice() internal {
 Any user can now call the `create` function with the `tokensToCreate` parameter to mint the same number of short and long tokens. Having both tokens in the same proportion means being in a neutral position, as is the case when calling `create`.
 
 \
-Holding only long tokens (by transferring short tokens to another wallet or adding liquidity to an AMM pair), gives exposure to the long position and vice versa.
+Holding only long tokens (by transferring short tokens to another wallet or adding liquidity to an AMM pair), gives exposition to the long position and vice versa.
 
 ```solidity
     function create(uint256 tokensToCreate) public requestInitialized {
@@ -129,7 +123,7 @@ Holding only long tokens (by transferring short tokens to another wallet or addi
     }
 ```
 
-At any time a token holder with both tokens in the same proportion can exchange them for collateral with \`redeem\`.
+At any time a token holder with both tokens in the same proportion can exchange them for collateral with redeem.
 
 ```solidity
     function redeem(uint256 tokensToRedeem) public {
@@ -142,9 +136,7 @@ At any time a token holder with both tokens in the same proportion can exchange 
     }
 ```
 
-Any long-short token holder can settle tokens for collateral with `settle` if the oracle has processed the price request.
-
-\
+Any long-short token holder can settle tokens for collateral with `settle` if the oracle has processed the price request.\
 The returned collateral amount is a function of `longTokensToRedeem`, `shortTokensToRedeem`, and `settlementPrice`.
 
 ```solidity
@@ -173,7 +165,7 @@ The returned collateral amount is a function of `longTokensToRedeem`, `shortToke
 
 When the price request we set up above is settled in the [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol), the `priceSettled` function of this contract is invoked.
 
-This function calculates and stores settlementPrice as `0`, `0.5`, or `1`. This number is used in the `settle` function to calculate the collateral to pay in exchange for long tokens and short tokens.
+This function calculates and stores settlementPrice as `0`, `0.5`, or `1`. This number is used in the `settle` function to calculate the collateral to pay in exchange of the long and short tokens.
 
 ```solidity
 function priceSettled(
@@ -231,9 +223,7 @@ function priceDisputed(
 To execute the EventBasedPredictionMarket tests, run:
 
 ```
-yarn test test/EventBasedPredictionMarket/EventBasedPredictionMarket.Dispute.ts
-yarn test test/EventBasedPredictionMarket/EventBasedPredictionMarket.Lifecycle.ts
-yarn test test/EventBasedPredictionMarket/EventBasedPredictionMarket.Unresolved.ts
+yarn test test/EventBasedPredictionMarket.ts
 ```
 
 #### Deployment
