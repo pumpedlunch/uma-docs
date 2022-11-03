@@ -24,7 +24,11 @@ This contract's logic is a streamlined version of the [LongShortPair](https://gi
 
 ### Development environment and tests
 
-#### Install dependencies
+#### Clone the dev-quickstart repo
+
+```
+git clone https://github.com/UMAprotocol/dev-quickstart.git
+```
 
 To install dependencies, you will need to install the long-term support version of nodejs, currently nodejs v16, and yarn. You can then install dependencies by running yarn with no arguments:
 
