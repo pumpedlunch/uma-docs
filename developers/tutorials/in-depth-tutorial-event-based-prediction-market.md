@@ -12,7 +12,9 @@ You will find out how this smart contract works and how to test it and deploy it
 
 ### The Event-Based Prediction Market
 
-This smart contract lets you set up prediction markets that are based on an event-based price request. For example, you could ask a question like, "Will the Philadelphia Phillies win the 2022 World Series?" to resolve a sports prediction market.
+This smart contract lets you set up prediction markets that are based on an event-based price request.
+
+For example, you could ask a question like, "Will BTC be over $1M when the first Moon hotel opens?"
 
 _(Note: Although these are called "price" requests in the code, you can request any kind of data from the optimistic oracle. If it's helpful, you can mentally replace "price" with "data" when you see it in the code and documentation.)_
 
