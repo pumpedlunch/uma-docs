@@ -229,7 +229,9 @@ function priceDisputed(
 To execute the EventBasedPredictionMarket tests, run:
 
 ```
-yarn test test/EventBasedPredictionMarket.ts
+yarn test test/EventBasedPredictionMarket/EventBasedPredictionMarket.Dispute.ts
+yarn test test/EventBasedPredictionMarket/EventBasedPredictionMarket.Lifecycle.ts
+yarn test test/EventBasedPredictionMarket/EventBasedPredictionMarket.Unresolved.ts
 ```
 
 #### Deployment
