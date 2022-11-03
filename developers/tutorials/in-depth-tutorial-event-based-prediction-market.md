@@ -136,7 +136,9 @@ At any time a token holder with both tokens in the same proportion can exchange 
     }
 ```
 
-Any long-short token holder can settle tokens for collateral with `settle` if the oracle has processed the price request.\
+Any long-short token holder can settle tokens for collateral with `settle` if the oracle has processed the price request.
+
+\
 The returned collateral amount is a function of `longTokensToRedeem`, `shortTokensToRedeem`, and `settlementPrice`.
 
 ```solidity
@@ -165,7 +167,7 @@ The returned collateral amount is a function of `longTokensToRedeem`, `shortToke
 
 When the price request we set up above is settled in the [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol), the `priceSettled` function of this contract is invoked.
 
-This function calculates and stores settlementPrice as `0`, `0.5`, or `1`. This number is used in the `settle` function to calculate the collateral to pay in exchange of the long and short tokens.
+This function calculates and stores settlementPrice as `0`, `0.5`, or `1`. This number is used in the `settle` function to calculate the collateral to pay in exchange for long tokens and short tokens.
 
 ```solidity
 function priceSettled(
