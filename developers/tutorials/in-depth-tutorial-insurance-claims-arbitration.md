@@ -212,11 +212,9 @@ All the unit tests covering the functionality described above are available [her
 yarn test test/InsuranceArbitrator/*
 ```
 
-Before deploying the contract check the comments on available environment variables in [the deployment script](https://github.com/UMAprotocol/dev-quickstart/tree/main/deploy).
+Before deploying the contract check the comments on available environment variables in [the deployment script](https://github.com/UMAprotocol/dev-quickstart/tree/main/deploy/003\_deploy\_insurance\_arbitrator.ts). In case of Görli testnet the defaults would use the Finder instance that references [Mock Oracle](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/test/MockOracleAncillary.sol) implementation for resolving DVM requests. This exposes `pushPrice` method to be used for simulating resolved answer in case of disputed insurance claims. Also default Görli deployment would use already whitelisted `TestnetERC20` currency that can be minted by anyone using its `allocateTo` method.
 
-In the case of the Görli testnet, the defaults would use the Finder instance that references the [Mock Oracle](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/test/MockOracleAncillary.sol) implementation for resolving DVM requests. This exposes a `pushPrice` method to be used for simulating a resolved answer in case of disputed proposals. Also, the default Görli deployment would use the already whitelisted `TestnetERC20` currency that can be minted by anyone using its `allocateTo` method.
-
-To deploy the Insurance Arbitrator contract on Görli, run:
+To deploy this Insurance Arbitrator contract on Görli network, run:
 
 ```bash
 NODE_URL_5=YOUR_GOERLI_NODE MNEMONIC=YOUR_MNEMONIC yarn hardhat deploy --network goerli --tags InsuranceArbitrator
@@ -230,7 +228,7 @@ ETHERSCAN_API_KEY=YOUR_API_KEY yarn hardhat etherscan-verify --network goerli --
 
 ### Interacting with deployed contract
 
-The following section provide instructions on how to interact with the deployed contract from the Hardhat console, though one can also use it for guidance for interacting through another interface (e.g. Remix or Etherscan).
+The following section provide instructions on how to interact with deployed contract from Hardhat console, though one can also use it as a guidance if interacting thorough another interface (e.g. REMIX on Etherscan).
 
 Start Hardhat console with:
 
@@ -240,7 +238,7 @@ NODE_URL_5=YOUR_GOERLI_NODE MNEMONIC=YOUR_MNEMONIC yarn hardhat console --networ
 
 #### Initial setup
 
-From the Hardhat console, start by adding the required `getAbi` dependency for interacting with UMA contracts and use the first two accounts as insurer and insured beneficiary:
+From the Hardhat console start by adding required `getAbi` dependency for interacting with UMA contracts and use first two accounts as insurer and insured beneficiary:
 
 ```javascript
 const { getAbi } = require("@uma/contracts-node");
@@ -260,7 +258,7 @@ const insuranceArbitrator = new ethers.Contract(
 
 #### Issue insurance
 
-Assuming `TestnetERC20` was used as `currency` when deploying, mint the required insurance amount (e.g. 10,000 TEST tokens) and approve the Insurance Arbitrator to pull them:
+Assuming `TestnetERC20` was used as `currency` when deploying mint the required insurance amount (e.g. 10000 TEST tokens) and approve Insurance Arbitrator to pull them:
 
 ```javascript
 const insuredAmount = ethers.utils.parseEther("10000");
@@ -269,7 +267,7 @@ await (await currency.connect(insurer).allocateTo(insurer.address, insuredAmount
 await (await currency.connect(insurer).approve(insuranceArbitrator.address, insuredAmount)).wait();
 ```
 
-Issue the insurance policy and grab the resulting `policyId` from the emitted `PolicyIssued` event:
+Issue the insurance policy and grab resulting `policyId` from emitted `PolicyIssued` event:
 
 ```javascript
 const issueReceipt = await (await insuranceArbitrator.connect(insurer).issueInsurance(
@@ -286,13 +284,13 @@ const policyId = (await insuranceArbitrator.queryFilter(
 
 #### Submit insurance claim
 
-First calculate the expected proposer bond:
+First calculate expected proposer bond:
 
 ```javascript
 const proposerBond = insuredAmount.mul(await insuranceArbitrator.oracleBondPercentage()).div(ethers.utils.parseEther("1"));
 ```
 
-Fetch the expected final fee from the `Store` contract (which is discovered through the `Finder`):
+Fetch expected final fee from the `Store` contract to be discovered through the linked `Finder`:
 
 ```javascript
 const finder = new ethers.Contract(await insuranceArbitrator.finder(), getAbi("Finder"), ethers.provider);
@@ -303,7 +301,7 @@ const store = new ethers.Contract(await finder.getImplementationAddress(
 const finalFee = (await store.computeFinalFee(currency.address)).rawValue;
 ```
 
-Calculate the expected total bond and provide funding/approval for the insured claimant:
+Calculate expected total bond and provide funding/approval for the insured claimant:
 
 ```javascript
 const totalBond = proposerBond.add(finalFee);
@@ -311,7 +309,7 @@ await (await currency.connect(insured).allocateTo(insured.address, totalBond)).w
 await (await currency.connect(insured).approve(insuranceArbitrator.address, totalBond)).wait();
 ```
 
-Now initiate the insurance claim and grab request details from the `RequestPrice` event emitted by the Optimistic Oracle:
+Now initiate the insurance claim and grab request details from `RequestPrice` event emitted by Optimistic Oracle:
 
 ```javascript
 const oo = new ethers.Contract(await insuranceArbitrator.oo(), getAbi("OptimisticOracleV2"), ethers.provider);
@@ -321,14 +319,14 @@ const request = (await oo.queryFilter("RequestPrice", claimReceipt.blockNumber, 
 
 #### Dispute insurance claim
 
-Before liveness passes, the insurer can dispute the claim through the Optimistic Oracle. First, they must fund and approve with the same bonding amount:
+Before liveness passes the insurer can dispute the claim through Optimistic Oracle first funding and approving with the same bonding amount:
 
 ```javascript
 await (await currency.connect(insurer).allocateTo(insurer.address, totalBond)).wait();
 await (await currency.connect(insurer).approve(oo.address, totalBond)).wait();
 ```
 
-If you are on a testnet like Göerli, in order to simulate UMA voting on a testnet, you can use the [Mock Oracle](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/test/MockOracleAncillary.sol):
+In order to simulate UMA voting get the instance of [Mock Oracle](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/test/MockOracleAncillary.sol) assuming the test contract was deployed with `Finder` instance that references it as `Oracle` for resolving DVM requests:
 
 ```javascript
 const mockOracle = new ethers.Contract(await finder.getImplementationAddress(
@@ -337,7 +335,7 @@ const mockOracle = new ethers.Contract(await finder.getImplementationAddress(
 	ethers.provider);
 ```
 
-Now initiate the dispute and grab the vote request details from the `PriceRequestAdded` event emitted by the Mock Oracle:
+Now initiate the dispute and grab the voting request details from `PriceRequestAdded` event emitted by Mock Oracle:
 
 ```javascript
 const disputeReceipt = await (await oo.connect(insurer).disputePrice(
@@ -355,7 +353,7 @@ const voteRequest = (await mockOracle.queryFilter(
 
 #### Settle insurance claim
 
-Before settling the claim, we can take a look at the vote request as seen by UMA voters:
+Before settling the claim we can take a look at the voting request as seen by UMA voters:
 
 ```javascript
 console.log("identifier:", ethers.utils.parseBytes32String(voteRequest.identifier));
@@ -363,9 +361,9 @@ console.log("time:", Number(voteRequest.time));
 console.log("ancillaryData:", ethers.utils.toUtf8String(voteRequest.ancillaryData));
 ```
 
-The `ancillaryData` should start with `q:"Had the following insured event occurred as of request timestamp: Bad things have happened?"`. It is then followed by the `ooRequester` key with our Insurance Arbitrator address in its value.
+The `ancillaryData` should start with `q:"Had the following insured event occurred as of request timestamp: Bad things have happened?"`. It is then followed by `ooRequester` key with our Insurance Arbitrator address in its value.
 
-In order to simulate `YES` as the resolved answer we would pass `1e18` as the `price` parameter in the Mock Oracle `pushPrice` method:
+In order to simulate `YES` as resolved answer we would pass `1e18` as `price` parameter in the Mock Oracle `pushPrice` method:
 
 ```javascript
 await (await mockOracle.connect(insured).pushPrice(
@@ -376,7 +374,7 @@ await (await mockOracle.connect(insured).pushPrice(
 )).wait();
 ```
 
-Now we can settle the request through the Optimistic Oracle and observe the emitted `ClaimAccepted` from our Insurance Arbitrator contract:
+Now we can settle the request through Optimistic Oracle and observe the emitted `ClaimAccepted` from our Insurance Arbitrator contract:
 
 ```javascript
 const settleReceipt = await (await oo.connect(insured).settle(
@@ -393,6 +391,6 @@ const claimSettlementEvent = (await insuranceArbitrator.queryFilter(
 console.log(claimSettlementEvent);
 ```
 
-The above settlement transaction should also transfer `insuredAmount` tokens to the insured beneficiary as well as return the proposer bond to the claim initiator.
+The above settlement transaction should also transfer `insuredAmount` tokens to the insured beneficiary as well as return bonding (total bond plus half of proposal bond) to the claim initiator.
 
-Alternatively, if `0` value was resolved, the settlement transaction should emit the `ClaimRejected` event without paying out the `insuredAmount` and returning the bond to the disputer, along with half of the proposer's bond.
+Alternatively, if `0` value was resolved the settlement transaction should emit `ClaimRejected` event without paying out the `insuredAmount` and returning bonding to the disputer.

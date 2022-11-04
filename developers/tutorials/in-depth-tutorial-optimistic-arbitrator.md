@@ -152,9 +152,11 @@ All the unit tests covering the functionality described above are available [her
 yarn test test/OptimisticArbitrator/*
 ```
 
-Before deploying the contract check the comments on available environment variables in [the deployment script](https://github.com/UMAprotocol/dev-quickstart/tree/main/deploy). In case of Görli testnet the defaults would use the Finder instance that references [Mock Oracle](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/test/MockOracleAncillary.sol) implementation for resolving DVM requests. This exposes `pushPrice` method to be used for simulating resolved answer in case of disputed insurance claims. Also default Görli deployment would use already whitelisted `TestnetERC20` currency that can be minted by anyone using its `allocateTo` method.
+Before deploying the contract check the comments on available environment variables in [the deployment script](https://github.com/UMAprotocol/dev-quickstart/tree/main/deploy).
 
-To deploy the Optimistic Arbitrator contract on Görli network, run:
+In the case of the Görli testnet, the defaults would use the Finder instance that references the [Mock Oracle](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/test/MockOracleAncillary.sol) implementation for resolving DVM requests. This exposes a `pushPrice` method to be used for simulating a resolved answer in case of disputed proposals. Also, the default Görli deployment would use the already whitelisted `TestnetERC20` currency that can be minted by anyone using its `allocateTo` method.
+
+To deploy the Optimistic Arbitrator contract on Görli, run:
 
 ```shell
 NODE_URL_5=YOUR_GOERLI_NODE MNEMONIC=YOUR_MNEMONIC yarn hardhat deploy --network goerli --tags OptimisticArbitrator
