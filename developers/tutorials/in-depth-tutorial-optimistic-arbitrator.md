@@ -170,7 +170,7 @@ ETHERSCAN_API_KEY=YOUR_API_KEY yarn hardhat etherscan-verify --network goerli --
 
 ### Interacting with deployed contract
 
-The following section provide instructions on how to interact with deployed contract from Hardhat console, though one can also use it as a guidance if interacting thorough another interface (e.g. REMIX on Etherscan).
+The following section provide instructions on how to interact with the deployed contract from the Hardhat console, though one can also use it for guidance for interacting through another interface (e.g. Remix or Etherscan).
 
 Start Hardhat console with:
 
