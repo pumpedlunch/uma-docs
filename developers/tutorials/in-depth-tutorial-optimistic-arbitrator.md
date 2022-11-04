@@ -55,7 +55,7 @@ The contract discussed in this tutorial can be found at `dev-quickstart/contract
 
 The constructor of the Optimistic Arbitrator contract takes two parameters:
 
-`_finderAddress` finder to use to get addresses of DVM contracts.
+`_finderAddress` the Finder contract stores the addresses of all of the other relevant UMA contracts, which vary from chain to chain.
 
 `_currency` the collateral token used to pay fees.
 
@@ -67,18 +67,18 @@ constructor(address _finderAddress, address _currency) {
 }
 ```
 
-As part of initialization `oo` variable is set to the address of `OptimisticOracleV2` implementation as discovered through `getImplementationAddress` method in the [Finder](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/Finder.sol) contract.
+As part of initialization, the `oo` variable is set to the address of the `OptimisticOracleV2` implementation as discovered through the `getImplementationAddress` method in the [Finder](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/Finder.sol) contract.
 
 #### Making an assertion
 
-The following function allows to make an assertion. Behind the scenes it uses a `OO.priceRequest` with a `YES_OR_NO_QUERY` [price identifier](https://docs.umaproject.org/resources/approved-price-identifiers). This imposes a set of rules on how the assertion is formulated and formatted, these rules to be complied with are specified in [UMIP-107](https://github.com/UMAprotocol/UMIPs/blob/master/UMIPs/umip-107.md).\
+The following function allows a user to make an assertion. Behind the scenes it uses an `OO.priceRequest` with a `YES_OR_NO_QUERY` [price identifier](https://docs.umaproject.org/resources/approved-price-identifiers). This imposes a set of rules on how the assertion is formulated and formatted, as specified in [UMIP-107](https://github.com/UMAprotocol/UMIPs/blob/master/UMIPs/umip-107.md).\
 \
-The `makeAssertion` take the following arguments:&#x20;
+The `makeAssertion` function takes the following arguments:&#x20;
 
 * `timestamp` timestamp used to identify the assertion, usually the current timestamp.
 * `ancillaryData` the byte-converted question for which we want to assert (e.g. `'q: Was the price of BTC above 18000 USD for the duration of October 10 2022 UTC time considering top 5 volume weighted markets'`)
 * `assertedValue` our response to the question. (e.g. `1e18` for yes `0` for no)
-* `bond` the bond in the `currency` defined in the constructor that we want to require on top of the [`finalFee`](https://docs.umaproject.org/resources/approved-collateral-types) (\~1500 USD worth of the currency). The [`finalFee`](https://docs.umaproject.org/resources/approved-collateral-types) can be viewed as the minimum bond required by the system, and the bond is any additional amount we to require on top.
+* `bond` the bond in the `currency` defined in the constructor that we want to require on top of the [`finalFee`](https://docs.umaproject.org/resources/approved-collateral-types) (\~1,500 USD worth of the currency). The [`finalFee`](https://docs.umaproject.org/resources/approved-collateral-types) can be viewed as the minimum bond required by the system, and the bond is any additional amount we require on top of that.
 * `liveness` time period during which the proposal can be disputed
 
 Note: The `makeAssertion` function requires the caller to approve the OA to spend the `bond+finalFee` amount of the `currency`.
@@ -98,12 +98,12 @@ function makeAssertion(
 
 #### Ratifying an assertion
 
-Once an assertion has been made, it can be ratified. This function will, behind the scenes, dispute an existing assertion in the OA, i.e., a OO dispute will be made against the OO proposal made by `makeAssertion`. This time, the method accepts only the two arguments that we utilised in `makeAssertion`:
+Once an assertion has been made, it can be ratified. This function will, behind the scenes, dispute an existing assertion in the OA, i.e., an OO dispute will be made against the OO proposal made in `makeAssertion`. The method accepts only the two arguments that we utilized in `makeAssertion`:
 
 * `timestamp` timestamp used to identify the assertion, usually the current timestamp.
-* `ancillaryData` the byte-converted question for which we want to assert.
+* `ancillaryData` the byte-converted question which we want to assert.
 
-Note: The `ratifyAssertion` function requires the caller to approve again the OA to spend the `bond+finalFee` amount of the `currency`.
+Note: The `ratifyAssertion` function requires the caller to again approve the OA to spend the `bond+finalFee` amount of the `currency`.
 
 ```solidity
 function ratifyAssertion(uint256 timestamp, bytes memory ancillaryData) public {
@@ -120,7 +120,7 @@ function ratifyAssertion(uint256 timestamp, bytes memory ancillaryData) public {
 
 #### Ratifying and asserting
 
-This function allows to do both assert and ratify, in a single transaction, hence simplifying the arguments. This is the function to utilise if we wish to initiate ratification immediately. This kind of pattern might be useful if you want to bi-pass the OO and directly use the UMA DVM when asking/asserting questions. We've seen this as a useful integration path in a number of projects that maintain their own internal escalation games within their contracts and just want to use the UMA DVM for arbitration.
+This function allows the user to both assert and ratify, in a single transaction, hence simplifying the arguments. This is the function to utilize if we wish to initiate ratification immediately. This kind of pattern might be useful if you want to bypass the OO and directly use the UMA DVM when asking/asserting questions. We've seen this as a useful integration path in a number of projects that maintain their own internal escalation games within their contracts and just want to use the UMA DVM for arbitration.
 
 `assertAndRatify` takes three arguments:
 
@@ -128,9 +128,9 @@ This function allows to do both assert and ratify, in a single transaction, henc
 * `ancillaryData` the byte-converted question for which we want to assert (e.g. `'q: "Was the price of BTC above 18000 USD for the duration of October 10 2022 UTC time considering top 5 volume weighted markets"'`)
 * `assertedValue` our response to the question. (e.g. `1e18` for yes `0` for no)
 
-Note 1: Here, we do not set a `bond` on top of the `finalFee` because it is set to zero by default due to the fact that the `proposer` and `disputer` are the same wallet. Adding a bond would increase the final cost of ratification for consumer users.
+Note 1: Here, we do not set a `bond` on top of the `finalFee` because it is set to zero by default due to the fact that the `proposer` and `disputer` are the same wallet. Adding a bond would increase the final cost of ratification for users.
 
-Note 2: The `assertAndRatify` function requires the caller to approve the OA to spend the `2*bond+finalFee` amount of the `currency`. In this function we are acting as the Optimistic Oracle requestor, proposer and disputer all in one transaction. proposing and disputing a price both require the posting of the final fee and so to these actions in one go we require to pull 2x the final fee to pay this.
+Note 2: The `assertAndRatify` function requires the caller to approve the OA to spend the `2*bond+finalFee` amount of the `currency`. In this function we are acting as the Optimistic Oracle requestor, proposer and disputer all in one transaction. Proposing and disputing a price both require the posting of the final fee and so to do these actions in one go we are required to pull 2x the final fee as payment.
 
 ```solidity
 function assertAndRatify(
@@ -180,7 +180,7 @@ NODE_URL_5=YOUR_GOERLI_NODE MNEMONIC=YOUR_MNEMONIC yarn hardhat console --networ
 
 **Initial setup**
 
-Get the libraries and connect to the necessary contracts that we are going to use. In this tutorial we are using the `TestnetERC20` as `currency` as described in the deployment script.
+You will need to get the libraries and connect to the necessary contracts that we are going to use. In this tutorial we are using the `TestnetERC20` token as the `currency` as described in the deployment script.
 
 ```javascript
 const { getAbi, getAddress } = require("@uma/contracts-node");
@@ -217,7 +217,7 @@ const mockOracle = new hre.ethers.Contract(
 
 **Make an assertion**
 
-First we need to mint the `bond + finalFee` amount and approve the Optimistic Arbitrator to pull them. This amount of `currency` tokens will be used to propose the assertion to the Optimistic Oracle behind the scenes:
+First we need to mint the `bond + finalFee` amount and approve the Optimistic Arbitrator to pull the tokens. This amount of `currency` tokens will be used to propose the assertion to the Optimistic Oracle behind the scenes:
 
 ```javascript
 const bond = ethers.utils.parseUnits("500", 18);
@@ -228,7 +228,7 @@ await (await currency.connect(signer).allocateTo(signer.address, totalAmount)).w
 await (await currency.connect(signer).approve(optimisticArbitrator.address, totalAmount)).wait();
 ```
 
-Then we can procede to make the assertion in the Optimistic Arbitrator:
+Then we can proceed to make the assertion in the Optimistic Arbitrator:
 
 ```javascript
 const YES_ANSWER = ethers.utils.parseUnits("1", 18);
@@ -243,14 +243,14 @@ await (
   await optimisticArbitrator.connect(signer).makeAssertion(
     requestTimestamp,
     ancillaryData,
-    YES_ANSWER, // We are asserting afirmatively the ancilliaryData yes or no question
+    YES_ANSWER, // We are asserting affirmatively the ancilliaryData yes or no question
     bond,
     60 // 1 minute for test purposes
   )
 ).wait();
 ```
 
-Then, wait one minute for the proposal's liveness time to expire. Then, we may settle the assertion to receive back the `bond + finalFee`  as we haven't been disputed. We also can verify that the assertion's result that we proposed, a `YES_ANSWER` answer, meaning that the assertion has been accepted.
+Then, wait one minute for the proposal's liveness time to expire. Then, we may settle the assertion to receive back the `bond + finalFee`  as we haven't been disputed. We also can verify the assertion's result that we proposed, `YES_ANSWER`, meaning that the assertion has been accepted.
 
 ```javascript
 await (await optimisticArbitrator.connect(signer).settleAndGetResult(requestTimestamp, ancillaryData)).wait();
@@ -260,11 +260,11 @@ console.log("The assertion has been accepted :", result.eq(YES_ANSWER));
 
 **Make assertion and ratify**
 
-To ratify an assertion and escalate its resolution to the DVM, we will utilise the `assertAndRatify` method, which combines assertion and ratification in a single transaction.
+To ratify an assertion and escalate its resolution to the DVM, we will utilize the `assertAndRatify` method, which combines assertion and ratification into a single transaction.
 
 The Optimistic Arbitrator must be approved once more, but this time the fee is double the `finalFee`, as both proposing and disputing in the Optimistic Oracle require placing a bond.&#x20;
 
-At the end of the procedure, we will receive half of the bond, or `1 x finalFee`. The remainder (`1 x finalFee`) will be consumed: asserting and ratifying will cost the caller `1 x finalFee`:
+At the end of the procedure, we will receive half of the bond, or `1 x finalFee`. The remainder (`1 x finalFee`) will be consumed; asserting and ratifying will cost the caller `1 x finalFee`:
 
 ```javascript
 const totalAmountAssertAndRatify = ethers.BigNumber.from(2).mul(bond.add(finalFee.rawValue));
@@ -280,7 +280,7 @@ We can then proceed to assert and verify:
 let receipt = await (await optimisticArbitrator.connect(signer).assertAndRatify(requestTimestamp, ancillaryData, YES_ANSWER)).wait();
 ```
 
-As we are in a test environment, we can simulate the vote that will occur after we assert and ratify by pushing a price to the mockOracle:
+As we are in a test environment, we can simulate the vote that will occur after we assert and ratify by pushing a price to the `mockOracle`:
 
 ```javascript
 const disputedPriceRequest = (
