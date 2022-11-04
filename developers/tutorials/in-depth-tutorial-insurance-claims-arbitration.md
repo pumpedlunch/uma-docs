@@ -153,7 +153,7 @@ If the claim is disputed, the request is escalated to the UMA DVM and it can be 
 
 #### Settling insurance claim
 
-Similarly, as dispute the claim settlement should be initiated through Optimistic Oracle by calling its `settle` method with the same parameters:
+Similar to disputes, claim settlement should be initiated through the Optimistic Oracle contract by calling its `settle` method with the same parameters:
 
 ```solidity
     function settle(
@@ -164,7 +164,7 @@ Similarly, as dispute the claim settlement should be initiated through Optimisti
     ) ...
 ```
 
-In case the liveness has expired or dispute has been resolved by UMA DVM this call would initiate `priceSettled` callback on this Insurance Arbitrator contract:
+In case the liveness has expired or a dispute has been resolved by the UMA DVM, this call would initiate a `priceSettled` callback in the Insurance Arbitrator contract:
 
 ```solidity
     function priceSettled(
@@ -175,19 +175,19 @@ In case the liveness has expired or dispute has been resolved by UMA DVM this ca
     ) ...
 ```
 
-Based on the received callback parameters this contract can identify the relevant `claimId` that is later used to get the stored insurance policy:
+Based on the received callback parameters, this contract can identify the relevant `claimId` that is used to get the stored insurance policy:
 
 ```solidity
         bytes32 claimId = _getClaimId(timestamp, ancillaryData);
 ```
 
-Importantly, all callbacks should be restricted to accept calls only from the Optimistic Oracle to avoid someone spoofing resolved answer:
+Importantly, all callbacks should be restricted to accept calls only from the Optimistic Oracle to avoid someone spoofing a resolved answer:
 
 ```solidity
         require(address(oo) == msg.sender, "Unauthorized callback");
 ```
 
-Depending on the resolved answer received as `price` parameter this contract would either pay out the insured beneficiary and delete the insurance (in case of `1e18` representing answer `YES`, the insurance claim was valid) or reject the payout and open the policy for any subsequent claims:
+Depending on the resolved answer, this contract would either pay out the insured beneficiary and delete the insurance (in case of `1e18` representing the answer `YES`, the insurance claim was valid) or reject the payout and re-open the policy for any subsequent claims:
 
 ```solidity
         // Deletes insurance policy and transfers claim amount if the claim was confirmed.
