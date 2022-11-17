@@ -14,7 +14,7 @@ This getting started tutorial will show you how to go from 0 to 1 with the Optim
 
 ### **A minimum viable Optimistic Oracle integration**
 
-You will be working through a simple smart contract that asks the oracle the question: `Q:Did the temperature on the 25th of July 2022 in New York City exceed 90 degrees Fahrenheit? A:1e18 for yes. 0 for no.`  After submitting the request, you will propose a solution using the UMA Optimistic Oracle UI.
+You will be working through a simple smart contract that asks the oracle the question: `Q:Did the temperature on the 25th of July 2022 in Manhattan NY exceed 35c? A:1 for yes. 0 for no.`  After submitting the request, you will propose a solution using the UMA Optimistic Oracle UI.
 
 Once through liveness, you will fetch the price from the smart contract. This shows the full lifecycle of an Optimistic Oracle data request on the Görli testnet, interacting with an actual Optimistic Oracle contract deployment, without needing to write any code or clone any repos. It should give you the basic intuition as to how the Optimistic Oracle works without too much overhead and is a great starting point before digging deeper.  Let's get started!
 
