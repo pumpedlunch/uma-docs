@@ -44,5 +44,6 @@
   * [Queries](resources/subgraphs/queries.md)
 * [Voting with a 2-Key Contract](resources/voting-with-a-2-key-contract.md)
 * [Unsupported Contracts](resources/unsupported-contracts.md)
+* [Additional Resources](resources/additional-resources.md)
 * [Glossary](resources/glossary.md)
 * [Links](resources/links.md)
