@@ -4,15 +4,17 @@
 
 ## Developers
 
-* [Getting Started](developers/getting-started.md)
-* [Tutorials](developers/tutorials/README.md)
-  * [🎁 Deposit Box](developers/tutorials/solidity-examples.md)
-  * [🕖 Event-Based Prediction Market](developers/tutorials/in-depth-tutorial-event-based-prediction-market.md)
-  * [⛽ Internal Optimistic Oracle](developers/tutorials/internal-optimistic-oracle.md)
-  * [👨🏫 Insurance Claim Arbitration](developers/tutorials/in-depth-tutorial-insurance-claims-arbitration.md)
-  * [🛠 Optimistic Arbitrator](developers/tutorials/in-depth-tutorial-optimistic-arbitrator.md)
-* [Setting Custom Bond and Liveness Parameters](developers/setting-custom-bond-and-liveness-parameters.md)
-* [SDK](developers/sdk.md)
+* [Quick start](developers/quick-start.md)
+* [Optimistic Oracle](developers/optimistic-oracle/README.md)
+  * [🚀 OO Quick Start](developers/optimistic-oracle/getting-started.md)
+  * [🎁 Deposit Box](developers/optimistic-oracle/solidity-examples.md)
+  * [🕖 Event-Based Prediction Market](developers/optimistic-oracle/in-depth-tutorial-event-based-prediction-market.md)
+  * [⛽ Internal Optimistic Oracle](developers/optimistic-oracle/internal-optimistic-oracle.md)
+  * [👨🏫 Insurance Claim Arbitration](developers/optimistic-oracle/in-depth-tutorial-insurance-claims-arbitration.md)
+  * [🛠 Optimistic Arbitrator](developers/optimistic-oracle/in-depth-tutorial-optimistic-arbitrator.md)
+* [How UMA works](developers/how-uma-works/README.md)
+  * [Setting Custom Bond and Liveness Parameters](developers/how-uma-works/setting-custom-bond-and-liveness-parameters.md)
+* [Optimistic Asserter](developers/optimistic-asserter.md)
 
 ## Protocol Overview
 

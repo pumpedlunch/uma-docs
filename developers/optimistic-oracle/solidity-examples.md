@@ -4,7 +4,7 @@ description: >-
   of the UMA Optimistic Oracle
 ---
 
-# Deposit Box
+# 🎁 Deposit Box
 
 This section focuses on the Solidity code for important interactions with the Optimistic Oracle. We recommend starting with the [Getting Started](broken-reference) tutorial that walks developers through setting up the [developer quickstart repo](https://github.com/UMAprotocol/dev-quickstart) and working with UMA contracts.
 

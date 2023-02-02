@@ -2,11 +2,11 @@
 description: 0 to 1 Optimistic Oracle integration by example.
 ---
 
-# Getting Started
+# 🚀 OO Quick Start
 
 The primary integration point into the UMA ecosystem is the Optimistic Oracle (OO). The OO is an _ **oracle for arbitrary off-chain data** _ which leverages an interactive escalation game between _requesters_, _proposers_ and _disputers_ and is secured by _economic incentives_.
 
-This getting started tutorial will show you how to go from 0 to 1 with the Optimistic Oracle by executing the simplest possible request flow. Later in the docs you can find more information on [how the Optimistic Oracle works](../protocol-overview/how-does-umas-oracle-work.md#optimistic-oracle) and dig deeper into its mechanism and [more sophisticated code examples](tutorials/in-depth-tutorial-event-based-prediction-market.md).&#x20;
+This getting started tutorial will show you how to go from 0 to 1 with the Optimistic Oracle by executing the simplest possible request flow. Later in the docs you can find more information on [how the Optimistic Oracle works](../../protocol-overview/how-does-umas-oracle-work.md#optimistic-oracle) and dig deeper into its mechanism and [more sophisticated code examples](in-depth-tutorial-event-based-prediction-market.md).&#x20;
 
 **If you prefer, you can also watch the following video tutorial in which we follow the step-by-step instructions described below.**
 
@@ -28,7 +28,7 @@ To complete this tutorial you will need**:**
 
 ### Requesting data
 
-First, we will work through the basic flow for _asking the oracle for a piece of data_. In this example, we are asking the Oracle for information on the weather but the request could be much more complex to could power any kind of smart contract system requiring data. See [approved price identifies](../resources/approved-price-identifiers.md) and the sample projects for more inspiration on what is possible with the OO.
+First, we will work through the basic flow for _asking the oracle for a piece of data_. In this example, we are asking the Oracle for information on the weather but the request could be much more complex to could power any kind of smart contract system requiring data. See [approved price identifies](../../resources/approved-price-identifiers.md) and the sample projects for more inspiration on what is possible with the OO.
 
 The contract used in this tutorial is meant to be a simple data request flow. The contract exposes a simple `requestData` function which asks the OO a simple question about the weather.
 
@@ -60,8 +60,8 @@ Finally, we can fetch the data proposed in the previous step from the smart cont
 1. After the transaction finalizes, wait 30 seconds (the challenge window) and then click `settleRequest` on the `OO_GettingStarted` contract on Remix. Confirm the transaction in your wallet. Because the proposal was not disputed within the challenge window, it can now be settled.
 2. Click `getSettledPrice` to get the settled value. It should look like `int256: 0` under `getSettledPrice` if you proposed an answer of `0`. You can also see details in the console logs.
 
-Congratulations! you've successfully integrated with the Optimistic Oracle, requested data, proposed data and fetched it within your smart contract! Note that the incentives in this toy example mean that there is no reason that anyone would provide the _correct_ price (there was no reward for the proposers or disputes and there was no bond). A real world version of this should [leverage custom bonds and more realistic liveness parameters](setting-custom-bond-and-liveness-parameters.md).
+Congratulations! you've successfully integrated with the Optimistic Oracle, requested data, proposed data and fetched it within your smart contract! Note that the incentives in this toy example mean that there is no reason that anyone would provide the _correct_ price (there was no reward for the proposers or disputes and there was no bond). A real world version of this should [leverage custom bonds and more realistic liveness parameters](../how-uma-works/setting-custom-bond-and-liveness-parameters.md).
 
 ### Next Steps
 
-Hopefully you got a basic understanding of the OO request flow from this getting started guide.  Check out some of the [example tutorials](tutorials/solidity-examples.md) where we walk through more details on the functions discussed in this guide.
+Hopefully you got a basic understanding of the OO request flow from this getting started guide.  Check out some of the [example tutorials](solidity-examples.md) where we walk through more details on the functions discussed in this guide.
