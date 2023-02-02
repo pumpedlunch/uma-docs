@@ -60,7 +60,7 @@ Finally, we can fetch the data proposed in the previous step from the smart cont
 1. After the transaction finalizes, wait 30 seconds (the challenge window) and then click `settleRequest` on the `OO_GettingStarted` contract on Remix. Confirm the transaction in your wallet. Because the proposal was not disputed within the challenge window, it can now be settled.
 2. Click `getSettledPrice` to get the settled value. It should look like `int256: 0` under `getSettledPrice` if you proposed an answer of `0`. You can also see details in the console logs.
 
-Congratulations! you've successfully integrated with the Optimistic Oracle, requested data, proposed data and fetched it within your smart contract! Note that the incentives in this toy example mean that there is no reason that anyone would provide the _correct_ price (there was no reward for the proposers or disputes and there was no bond). A real world version of this should [leverage custom bonds and more realistic liveness parameters](../how-uma-works/setting-custom-bond-and-liveness-parameters.md).
+Congratulations! you've successfully integrated with the Optimistic Oracle, requested data, proposed data and fetched it within your smart contract! Note that the incentives in this toy example mean that there is no reason that anyone would provide the _correct_ price (there was no reward for the proposers or disputes and there was no bond). A real world version of this should [leverage custom bonds and more realistic liveness parameters](../setting-custom-bond-and-liveness-parameters.md).
 
 ### Next Steps
 

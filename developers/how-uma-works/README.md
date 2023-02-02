@@ -1,2 +1,0 @@
-# How UMA works
-

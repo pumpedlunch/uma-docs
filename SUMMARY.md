@@ -14,8 +14,7 @@
   * [⛽ Internal Optimistic Oracle](developers/optimistic-oracle/internal-optimistic-oracle.md)
   * [👨🏫 Insurance Claim Arbitration](developers/optimistic-oracle/in-depth-tutorial-insurance-claims-arbitration.md)
   * [🛠 Optimistic Arbitrator](developers/optimistic-oracle/in-depth-tutorial-optimistic-arbitrator.md)
-* [How UMA works](developers/how-uma-works/README.md)
-  * [Setting Custom Bond and Liveness Parameters](developers/how-uma-works/setting-custom-bond-and-liveness-parameters.md)
+* [Setting Custom Bond and Liveness Parameters](developers/setting-custom-bond-and-liveness-parameters.md)
 
 ## Protocol Overview
 
