@@ -5,6 +5,8 @@
 ## Developers
 
 * [Quick start](developers/quick-start.md)
+* [Optimistic Asserter](developers/optimistic-asserter/README.md)
+  * [⚖ Escalation Managers](developers/optimistic-asserter/escalation-managers.md)
 * [Optimistic Oracle](developers/optimistic-oracle/README.md)
   * [🚀 OO Quick Start](developers/optimistic-oracle/getting-started.md)
   * [🎁 Deposit Box](developers/optimistic-oracle/solidity-examples.md)
@@ -14,7 +16,6 @@
   * [🛠 Optimistic Arbitrator](developers/optimistic-oracle/in-depth-tutorial-optimistic-arbitrator.md)
 * [How UMA works](developers/how-uma-works/README.md)
   * [Setting Custom Bond and Liveness Parameters](developers/how-uma-works/setting-custom-bond-and-liveness-parameters.md)
-* [Optimistic Asserter](developers/optimistic-asserter.md)
 
 ## Protocol Overview
 
