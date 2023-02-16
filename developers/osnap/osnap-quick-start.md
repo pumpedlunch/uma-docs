@@ -1,6 +1,6 @@
 # 🚀 oSnap Quick Start
 
-<figure><img src="https://lh6.googleusercontent.com/ga6q0H-OT2TjxL6mmpzefST8tUDNxHioCF8T-2Ot37NPL0dvyIgXaDqpaNltJ5ezgAqmbv7sc061hiUbA1LxDeISmUMigIwO_PvtucfnfY-zIkvPe7x1FC0mn6PKdOMxvQ3eCYGfaz0k_EIMsBCLSXY" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/UMA-oSnap-process3.png" alt=""><figcaption></figcaption></figure>
 
 “oSnap” is short for Optimistic Snapshot Execution.&#x20;
 
