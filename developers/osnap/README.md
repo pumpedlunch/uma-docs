@@ -8,3 +8,5 @@ The process of integrating oSnap includes:
 * [Snapshot tutorial ](snapshot-tutorial.md)to configure and execute transactions with Snapshot proposals
 * An overview on [verifying and disputing](osnap-proposal-verification.md) proposed transactions
 * Updating the oSnap using [admin functions](osnap-module-admin-functions.md)
+
+Or you can get a high-level overview with our [Quick Start guide](osnap-quick-start.md).
