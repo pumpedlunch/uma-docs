@@ -6,7 +6,7 @@ This tutorial describes how to propose answers to data requests. The data could 
 
 **Step 2:** Locate requests under the Requests tab for outstanding requests.
 
-![](<../.gitbook/assets/image (4) (1).png>)
+![](<../.gitbook/assets/image (4).png>)
 
 **Step 3:** Click on the request you are interested in proposing data for.
 

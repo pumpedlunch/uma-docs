@@ -25,6 +25,7 @@
 ## Protocol Overview
 
 * [How does UMA's Oracle work?](protocol-overview/how-does-umas-oracle-work.md)
+* [DVM 2.0](protocol-overview/dvm-2.0.md)
 * [Example Projects](protocol-overview/example-projects.md)
 
 ## Community
