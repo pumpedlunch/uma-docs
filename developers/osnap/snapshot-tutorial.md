@@ -73,7 +73,7 @@ After transactions have been proposed, a bond is taken from the Proposer and a c
 
 After the challenge period has been completed, the Snapshot proposal gives the user the option to 'Execute transaction batch'. Signing this transaction will execute the proposal and return the bond to the proposer.
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 After executing our example proposal, the below shows the 0.000005 ETH transfer being executed.
 
