@@ -1,5 +1,9 @@
 # oSnap
 
+{% embed url="https://www.youtube.com/watch?v=R97GIW5M_r0" %}
+Simple guide for setting up and using oSnap
+{% endembed %}
+
 This section showcases oSnap, which lets members of a DAO execute the results of any given Snapshot vote via a Safe with validation by UMA. This is made possible by having a published set of rules and public information secured by UMA’s optimistic oracle.
 
 The process of integrating oSnap includes:

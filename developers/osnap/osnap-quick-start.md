@@ -1,10 +1,14 @@
 # 🚀 oSnap Quick Start
 
-<figure><img src="../../.gitbook/assets/UMA-oSnap-process3.png" alt=""><figcaption></figcaption></figure>
+{% embed url="https://www.youtube.com/watch?v=R97GIW5M_r0" %}
+Simple guide for setting up and using oSnap
+{% endembed %}
 
 “oSnap” is short for Optimistic Snapshot Execution.&#x20;
 
 oSnap lets DAOs propose transactions, do an off-chain governance vote, and have the transaction data submitted in a trustless fashion.
+
+<figure><img src="../../.gitbook/assets/UMA-oSnap-process3.png" alt=""><figcaption></figcaption></figure>
 
 What you need to get started
 
