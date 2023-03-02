@@ -5,14 +5,6 @@
 ## Developers
 
 * [Quick start](developers/quick-start.md)
-* [Optimistic Asserter](developers/optimistic-asserter/README.md)
-  * [⚖ Escalation Managers](developers/optimistic-asserter/escalation-managers.md)
-* [oSnap](developers/osnap/README.md)
-  * [🚀 oSnap Quick Start](developers/osnap/osnap-quick-start.md)
-  * [🎯 oSnap Deployment Tutorial](developers/osnap/osnap-deployment-tutorial.md)
-  * [⚡ Snapshot Tutorial](developers/osnap/snapshot-tutorial.md)
-  * [✅ oSnap Proposal Verification](developers/osnap/osnap-proposal-verification.md)
-  * [⛏ oSnap Module Admin Functions](developers/osnap/osnap-module-admin-functions.md)
 * [Optimistic Oracle](developers/optimistic-oracle/README.md)
   * [🚀 OO Quick Start](developers/optimistic-oracle/getting-started.md)
   * [🎁 Deposit Box](developers/optimistic-oracle/solidity-examples.md)
@@ -20,6 +12,14 @@
   * [⛽ Internal Optimistic Oracle](developers/optimistic-oracle/internal-optimistic-oracle.md)
   * [👨🏫 Insurance Claim Arbitration](developers/optimistic-oracle/in-depth-tutorial-insurance-claims-arbitration.md)
   * [🛠 Optimistic Arbitrator](developers/optimistic-oracle/in-depth-tutorial-optimistic-arbitrator.md)
+* [Optimistic Oracle v3](developers/optimistic-oracle-v3/README.md)
+  * [⚖ Escalation Managers](developers/optimistic-oracle-v3/escalation-managers.md)
+* [oSnap](developers/osnap/README.md)
+  * [🚀 oSnap Quick Start](developers/osnap/osnap-quick-start.md)
+  * [🎯 oSnap Deployment Tutorial](developers/osnap/osnap-deployment-tutorial.md)
+  * [⚡ Snapshot Tutorial](developers/osnap/snapshot-tutorial.md)
+  * [✅ oSnap Proposal Verification](developers/osnap/osnap-proposal-verification.md)
+  * [⛏ oSnap Module Admin Functions](developers/osnap/osnap-module-admin-functions.md)
 * [Setting Custom Bond and Liveness Parameters](developers/setting-custom-bond-and-liveness-parameters.md)
 
 ## Protocol Overview
