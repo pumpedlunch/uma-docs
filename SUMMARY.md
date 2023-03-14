@@ -14,6 +14,7 @@
   * [🛠 Optimistic Arbitrator](developers/optimistic-oracle/in-depth-tutorial-optimistic-arbitrator.md)
 * [Optimistic Oracle v3](developers/optimistic-oracle-v3/README.md)
   * [⚖ Escalation Managers](developers/optimistic-oracle-v3/escalation-managers.md)
+  * [👨🏫 Insurance](developers/optimistic-oracle-v3/in-depth-tutorial-insurance.md)
 * [oSnap](developers/osnap/README.md)
   * [🚀 oSnap Quick Start](developers/osnap/osnap-quick-start.md)
   * [🎯 oSnap Deployment Tutorial](developers/osnap/osnap-deployment-tutorial.md)
