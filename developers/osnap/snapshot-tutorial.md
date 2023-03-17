@@ -6,7 +6,7 @@ If you do not have a Snapshot space created, follow [these instructions](https:/
 
 <figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
 
-Scroll down until you get to the Plugins section and click 'Add plugin'. In the modal that opens, click the 'Gnosis SafeSnap' option.
+Click 'Advanced' on the sidebar. Then in the Plugins container, click 'Add plugin'. In the modal that opens, click the 'Gnosis SafeSnap' option.
 
 <figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
 
