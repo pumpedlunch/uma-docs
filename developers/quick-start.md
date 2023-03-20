@@ -36,7 +36,7 @@ The contract used in this tutorial is meant to be a simple data assertion flow. 
 4. Under the "Contract" dropdown, select `OOV3_GettingStarted`.
 5. Click "Deploy" and confirm the transaction with your wallet.
 6. You should now see the `OOV3_GettingStarted` contract under "Deployed Contracts". Clicking the dropdown carrot will reveal buttons for each of the functions in the contract.
-7. Click `assertClaim` to request the data specified in the contract's ancillary data, asserting the truth about the outcome of the Fifa world cup. This will submit a data assertion to the Optimistic Asserter and the assertion will enter the challenge period.
+7. Click `assertTruth` to request the data specified in the contract's ancillary data, asserting the truth about the outcome of the Fifa world cup. This will submit a data assertion to the Optimistic Asserter and the assertion will enter the challenge period.
 
 What we've done in the above steps is: a) deploy a smart contract and b) submit a "data assertion" to the Optimistic Oracle V3 through the call to the Optimistic Oracle V3's `assertTruthWithDefaults` function. Now, the assertion has entered the challenge window and can be disputed by someone who disagrees with the assertion. If you click the `getAssertion` you can see some of the fields that are associated with the assertion. For more details on what these fields mean you can look at the OOV3 interface [here](https://github.com/UMAprotocol/protocol/blob/7a93650a7494eaee83756382a18ecf11314499cf/packages/core/contracts/optimistic-oracle-v3/interfaces/OptimisticOracleV3Interface.sol).
 
@@ -46,7 +46,7 @@ The default liveness for an assertion is 120 seconds (2 minutes). Wait this time
 
 Once the assertion has settled, and assuming no one has disputed it, we can settle it! Do the following:
 
-1. Click `settleAndGetAssertion` in remix. This will send a transaction to settle the assertion and return the settlement value.
+1. Click `settleAndGetAssertionResult` in remix. This will send a transaction to settle the assertion and return the settlement value.
 2. Wait for the transaction to mine.
 3. Once mined you can expand the transaction output block inline with the green tick arrow. If you scroll down here you can find some information about the assertion, such as the settlement value (which should be `true` as it was not disputed).
 
