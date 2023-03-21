@@ -4,6 +4,8 @@ description: Integrations use the Optimistic Oracle for various use cases.
 
 # Example Projects
 
+For a complete list of all current integrations see: [projects.uma.xyz](https://projects.uma.xyz/)
+
 | Integrations                                      | Description                                                                                                                                                                                                                                                                                                                                                              |
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | [Across](https://across.to/)                      | Across protocol is a novel bridging method that combines UMA's Optimistic Oracle with bonded relayers and single-sided liquidity pools to provide decentralized instant transactions from rollup chains to Ethereum mainnet.                                                                                                                                             |
