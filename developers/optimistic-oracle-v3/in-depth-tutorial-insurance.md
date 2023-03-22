@@ -1,5 +1,5 @@
 ---
-description: Using the Optimistic Oracle V3 to allow for verification of insurance claims
+description: Using the Optimistic Oracle V3 to allow for verification of insurance claims.
 ---
 
 # 👨🏫 Insurance
@@ -20,7 +20,7 @@ There is no limit to the number of payout requests that can be made of the same 
 
 #### Clone repository and Install dependencies&#x20;
 
-Clone the UMA Optimistic Oracle V3 quick-start repository and install the dependencies. To install dependencies, you will need to install the long-term support version of nodejs and yarn. You can then install package dependencies by running `yarn` with no arguments:
+Clone the UMA [Optimistic Oracle V3 quick-start repository](https://github.com/UMAprotocol/dev-quickstart-oov3) and install the dependencies. To install dependencies, you will need to install the long-term support version of nodejs and yarn. You can then install package dependencies by running `yarn` with no arguments:
 
 <pre class="language-bash"><code class="lang-bash"><strong>git clone https://github.com/UMAprotocol/dev-quickstart-oov3.git
 </strong>cd dev-quickstart-oov3
