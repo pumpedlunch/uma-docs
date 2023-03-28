@@ -8,7 +8,7 @@ UMA is an optimistic oracle and dispute arbitration system that securely allows 
 
 UMA's oracle is used to create many other types of products and protocols. For information about Outcome, a DAO tooling platform built on UMA that supports KPI Options, Success Tokens and optimistic governance, refer [here](https://www.outcome.finance/). For information about Across, a cross-chain asset bridge secured by UMA, refer [here](https://across.to/).
 
-## [Developers](resources/optimistic-oracle-v2/getting-started.md)
+## [Developers](developers/optimistic-oracle/getting-started.md)
 
 ## [Protocol Overview](protocol-overview/how-does-umas-oracle-work.md)
 

@@ -17,5 +17,5 @@ You can keep up to date with what is happening with UMA across our various socia
 
 If you are interested in working at UMA, please see our vacancies below. If you know someone that might be a good fit, check out our “talent referral options” program that offers up to 1000 $UMA to anyone who refers suitably qualified candidates for any of our open positions.
 
-* [UMA Outstanding Vacancies](https://angel.co/company/uma-project)
+* [Risk Labs Job Postings](https://jobs.lever.co/risklabs)
 * ["Talent Referral Options" Program](https://medium.com/uma-project/talent-referral-options-program-170bc347542a)
