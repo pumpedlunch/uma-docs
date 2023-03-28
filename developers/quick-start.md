@@ -4,7 +4,7 @@ description: 0 to 1 integration with the Optimistic Oracle V3.
 
 # Quick start
 
-The primary integration point into the UMA ecosystem is the Optimistic Oracle V3 (OOV3). The OOV3 is an _ **oracle for arbitrary off-chain data** _ which leverages an interactive escalation game between _asserters_ and _disputers_ and is secured by _economic incentives_. It differs from the Optimistic Oracle V2 (getting started can be found [here](optimistic-oracle/getting-started.md)) by being easier to reason about and simpler in integration points.
+The primary integration point into the UMA ecosystem is the Optimistic Oracle V3 (OOV3). The OOV3 is an _ **oracle for arbitrary off-chain data** _ which leverages an interactive escalation game between _asserters_ and _disputers_ and is secured by _economic incentives_. It differs from the Optimistic Oracle V2 (getting started can be found [here](../resources/optimistic-oracle-v2/getting-started.md)) by being easier to reason about and simpler in integration points.
 
 This getting started tutorial will show you how to go from 0 to 1 with the OOV3 by executing the simplest possible assertion flow. Later in the docs you can find more information on how the OOV3 works and dig deeper into its mechanism and more sophisticated code examples.&#x20;
 
@@ -56,4 +56,4 @@ Once the assertion has settled, and assuming no one has disputed it, we can sett
 
 ### Next Steps
 
-Hopefully you got a basic understanding of the Optimistic Oracle V3 request flow from this getting started guide. Note that this kind of example would not really work on mainnet as: a) there were no bonds for the asserter (and therefore no rewards for disputers) b) the challenge window was too short. The Optimistic Oracle V3 works due to economic incentives between the asserter and disputers, which was absent in this example to keep things simple. For some incentive compatible examples check out some of the example tutorials where we walk through more details on the functions discussed in this guide.
+Hopefully you got a basic understanding of the Optimistic Oracle V3 request flow from this getting started guide. Note that this kind of example would not really work on mainnet as: a) there were no bonds for the asserter (and therefore no rewards for disputers) b) the challenge window was too short. The Optimistic Oracle V3 works due to economic incentives between the asserter and disputers, which was absent in this example to keep things simple. For some incentive compatible examples check out some of the example tutorials where we walk through more details on the functions discussed in this guide. Those can be found [here](optimistic-oracle/).
