@@ -16,20 +16,20 @@ description: >-
 
 ### Introduction <a href="#introduction" id="introduction"></a>
 
-The [Full Policy Escalation Manager](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-asserter/implementation/escalation-manager/FullPolicyEscalationManager.sol) is an example implementation of [Escalation Manager](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-asserter/interfaces/EscalationManagerInterface.sol) that allows for a high level of control over the arbitration process in the [Optimistic Asserter](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-asserter/implementation/OptimisticAsserter.sol). It can be used to set various policy parameters such as who is able to assert truths, who is able to file disputes, and whether disputes should be arbitrated via the escalation manager or the  [UMA Data Verification Mechanism (DVM)](../../protocol-overview/how-does-umas-oracle-work.md#umas-data-verification-mechanism). By using the Escalation Managers, such as the  [Full Policy Escalation Manager](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-asserter/implementation/escalation-manager/FullPolicyEscalationManager.sol), users can better tailor the arbitration process to suit their specific needs and security requirements.
+The [Full Policy Escalation Manager](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-oracle-v3/implementation/escalation-manager/FullPolicyEscalationManager.sol)[ ](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-oracle-v3/implementation/escalation-manager/FullPolicyEscalationManager.sol#L6)is an example implementation of [Escalation Manager](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-oracle-v3/implementation/escalation-manager/BaseEscalationManager.sol) that allows for a high level of control over the arbitration process in the [Optimistic Oracle V3](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-oracle-v3/implementation/OptimisticOracleV3.sol). It can be used to set various policy parameters such as who is able to assert truths, who is able to file disputes, and whether disputes should be arbitrated via the escalation manager or the  [UMA Data Verification Mechanism (DVM)](../../protocol-overview/how-does-umas-oracle-work.md#umas-data-verification-mechanism). By using the Escalation Managers, such as the  Full Policy Escalation Manager, users can better tailor the arbitration process to suit their specific needs and security requirements.
 
-An [Escalation Manager](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-asserter/interfaces/EscalationManagerInterface.sol) is a smart contract that is used in the [Optimistic Asserter](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-asserter/implementation/OptimisticAsserter.sol) to handle the escalation policy for assertions and can also be used to arbitrate disputes. When one party makes an assertion, it might be challenged by another, known as the disputer. In the event of a dispute, the [Escalation Manager](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-asserter/interfaces/EscalationManagerInterface.sol) is used to decide how the dispute should be handled and how the [Optimistic Asserter](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-asserter/implementation/OptimisticAsserter.sol) should respond to it.
+An Escalation Manager is a smart contract that is used in the Optimistic Oracle V3 to handle the escalation policy for assertions and can also be used to arbitrate disputes. When one party makes an assertion, it might be challenged by another, known as the disputer. In the event of a dispute, the Escalation Manager is used to decide how the dispute should be handled and how the Optimistic Oracle V3 should respond to it.
 
-The [Full Policy Escalation Manager](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-asserter/implementation/escalation-manager/FullPolicyEscalationManager.sol) is an [Escalation Manager](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-asserter/interfaces/EscalationManagerInterface.sol) implementation that allows the contract owner to set all policy parameters and store arbitration resolutions for the Escalation Manager.
+The Full Policy Escalation Manager is an Escalation Manager implementation that allows the contract owner to set all policy parameters and store arbitration resolutions for the Escalation Manager.
 
-Some of the key functionality that the [Full Policy Escalation Manager](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-asserter/implementation/escalation-manager/FullPolicyEscalationManager.sol) allows are:
+Some of the key functionality that the Full Policy Escalation Manager allows are:
 
 * Enabling a whitelist of asserting callers, asserters and disputers. This allows the owner to limit who can assert truths, and who can dispute assertions.
-* Determining whether disputes should be arbitrated by the [Escalation Manager](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-asserter/interfaces/EscalationManagerInterface.sol) or by the[ Data Verification Mechanism (DVM)](../../protocol-overview/how-does-umas-oracle-work.md#umas-data-verification-mechanism).
+* Determining whether disputes should be arbitrated by the Escalation Manager or by the Data Verification Mechanism (DVM).
 * Determining whether the resolution of a potential dispute arbitrated by the Oracle should be disregarded (i.e a disputed assertion defaults to false outcome).
 * Storing and managing the arbitration resolutions for a given identifier, time and ancillary data.
 
-This smart contract is ideal for use cases where a high degree of control over the behavior of the [Escalation Manager](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-asserter/interfaces/EscalationManagerInterface.sol) is needed, and where the owner wants to have a say in how disputes are handled and acts as a good starting point for projects that want to build their own escalation managers that implement custom logic.
+This smart contract is ideal for use cases where a high degree of control over the behaviour of the Escalation Manager is needed, and where the owner wants to have a say in how disputes are handled and acts as a good starting point for projects that want to build their own escalation managers that implement custom logic.
 
 ### Use Cases
 
@@ -122,7 +122,7 @@ This function returns whether a given disputerCaller is authorized to dispute a 
 
 **Notes**
 
-* In order for this function to be used by the Optimistic Asserter, validateDisputers must be set to true.
+* In order for this function to be used by the Optimistic Oracle V3, validateDisputers must be set to true.
 * The whitelistedDisputeCallers is a mapping that contains the addresses of the authorized disputers, which are set through the setDisputeCallerInWhitelist function.
 
 ### **`configureEscalationManager`**
@@ -223,13 +223,13 @@ async function main() {
 
   const networkId = Number(await hre.getChainId());
 
-  const optimisticAsserter = getAddress("OptimisticAsserter", networkId);
+  const optimisticOracleV3 = getAddress("OptimisticOracleV3", networkId);
 
   const fullPolicyEscalationManagerFactory: FullPolicyEscalationManagerEthers__factory = await getContractFactory(
     "FullPolicyEscalationManager"
   );
 
-  const fullPolicyEscalationManager = await fullPolicyEscalationManagerFactory.deploy(optimisticAsserter);
+  const fullPolicyEscalationManager = await fullPolicyEscalationManagerFactory.deploy(optimisticOracleV3);
 
   console.log("Deployed FullPolicyEscalationManager: ", fullPolicyEscalationManager.address);
 }
