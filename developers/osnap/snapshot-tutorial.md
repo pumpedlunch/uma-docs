@@ -43,7 +43,7 @@ This configuration uses the oSnap module contract `0x0696a608DEB38ec0494165E5CDE
     {
       "network": "5",
       "realityAddress": "0xSWITCH_WITH_REALITY_MODULE_ADDRESS",
-      "umaAddress": "0x0696a608DEB38ec0494165E5CDE6e0C518c63044"
+      "umaAddress": "0x82FDCED1c10CA20fEa9A202a39255C89ae89C548"
     }
   ]
 }
