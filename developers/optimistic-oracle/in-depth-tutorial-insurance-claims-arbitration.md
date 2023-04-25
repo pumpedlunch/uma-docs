@@ -4,9 +4,9 @@ description: Using the Optimistic Oracle to allow for verification of insurance 
 
 # 👨🏫 Insurance Claim Arbitration
 
-This section covers the [insurance claims arbitration contract](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/InsuranceArbitrator.sol), which is available in the [developer's quick-start repo](https://github.com/UMAprotocol/dev-quickstart). This tutorial shows an example of how insurance claims can be resolved and settled through the [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol) contract.
+This section covers the [insurance claims arbitration contract](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/InsuranceArbitrator.sol), which is available in the [developer's quick-start repo](https://github.com/UMAprotocol/dev-quickstart). This tutorial shows an example of how insurance claims can be resolved and settled through the [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-oracle-v2/implementation/OptimisticOracleV2.sol) contract.
 
-You will find out how to test and deploy this smart contract and how it integrates with the Optimistic Oracle. You can find more details on [how UMA's Oracle works here](../../protocol-overview/how-does-umas-oracle-work.md).
+You will find out how to test and deploy this smart contract and how it integrates with the Optimistic Oracle.
 
 ### Insurance Arbitrator Contract
 
@@ -62,7 +62,7 @@ Alternatively, you can approve a new token address with `addToWhitelist` method 
     }
 ```
 
-As part of initialization, the `oo` variable is set to the address of the `OptimisticOracleV2` implementation as discovered through `getImplementationAddress` method in the [Finder](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/Finder.sol) contract.
+As part of initialization, the `oo` variable is set to the address of the `OptimisticOracleV2` implementation as discovered through `getImplementationAddress` method in the [Finder](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/data-verification-mechanism/implementation/Finder.sol) contract.
 
 #### Issuing insurance
 
@@ -149,7 +149,7 @@ For the sake of simplicity this contract does not implement a dispute method, bu
 
 The disputer should pass the address of this Insurance Arbitrator contract as `requester` and all the other parameters from the original request when the claim was initiated as emitted by the Optimistic Oracle in its `RequestPrice` event.
 
-If the claim is disputed, the request is escalated to the UMA DVM and it can be settled only after UMA voters have resolved it. To learn more about the DVM, see the docs section on the DVM: [how does UMA's DVM work](../../protocol-overview/how-does-umas-oracle-work/#umas-data-verification-mechanism).
+If the claim is disputed, the request is escalated to the UMA DVM and it can be settled only after UMA voters have resolved it. To learn more about the DVM, see the docs section on the DVM: [how does UMA's DVM work](../../protocol-overview/how-does-umas-oracle-work.md#umas-data-verification-mechanism).
 
 #### Settling insurance claim
 
@@ -212,7 +212,7 @@ All the unit tests covering the functionality described above are available [her
 yarn test test/InsuranceArbitrator/*
 ```
 
-Before deploying the contract check the comments on available environment variables in [the deployment script](https://github.com/UMAprotocol/dev-quickstart/tree/main/deploy).
+Before deploying the contract check the comments on available environment variables in [the deployment script](https://github.com/UMAprotocol/dev-quickstart/blob/main/deploy/003\_deploy\_insurance\_arbitrator.ts).
 
 In the case of the Görli testnet, the defaults would use the Finder instance that references the [Mock Oracle](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/test/MockOracleAncillary.sol) implementation for resolving DVM requests. This exposes a `pushPrice` method to be used for simulating a resolved answer in case of disputed proposals. Also, the default Görli deployment would use the already whitelisted `TestnetERC20` currency that can be minted by anyone using its `allocateTo` method.
 
@@ -328,7 +328,7 @@ await (await currency.connect(insurer).allocateTo(insurer.address, totalBond)).w
 await (await currency.connect(insurer).approve(oo.address, totalBond)).wait();
 ```
 
-If you are on a testnet like Göerli, in order to simulate UMA voting on a testnet, you can use the [Mock Oracle](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/test/MockOracleAncillary.sol):
+If you are on a testnet like Göerli, in order to simulate UMA voting on a testnet, you can use the [Mock Oracle](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/data-verification-mechanism/test/MockOracleAncillary.sol):
 
 ```javascript
 const mockOracle = new ethers.Contract(await finder.getImplementationAddress(

@@ -8,7 +8,7 @@ description: >-
 
 In this section, we'll talk about the [Event Based Prediction market contract](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/EventBasedPredictionMarket.sol), which you can find in the [developer's quick-start repo](https://github.com/UMAprotocol/dev-quickstart). This tutorial will show how event-based OO data requests can be used in a binary prediction market.
 
-You will find out how this smart contract works and how to test it and deploy it. Refer to the [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol) contract for additional information on the event-based price requests.
+You will find out how this smart contract works and how to test it and deploy it. Refer to the [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-oracle-v2/implementation/OptimisticOracleV2.sol) contract for additional information on the event-based price requests.
 
 ### The Event-Based Prediction Market
 
@@ -67,7 +67,7 @@ Once the contract has been deployed, the owner can call `initializeMarket()` aft
 
 Also observe how `priceIdentifier` is set to `"YES_OR_NO_QUERY"`.\
 \
-This function sets up the prediction market by getting the proposer reward and calling `_requestOraclePrice`. This last function starts the price request in [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol) and sets up a number of options that are explained below.
+This function sets up the prediction market by getting the proposer reward and calling `_requestOraclePrice`. This last function starts the price request in [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-oracle-v2/implementation/OptimisticOracleV2.sol) and sets up a number of options that are explained below.
 
 ```solidity
 function _requestOraclePrice() internal {
@@ -104,7 +104,7 @@ function _requestOraclePrice() internal {
 }
 ```
 
-`_requestOraclePrice` is in charge of initializing the price request in the [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol) by performing the following actions:
+`_requestOraclePrice` is in charge of initializing the price request in the [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-oracle-v2/implementation/OptimisticOracleV2.sol) by performing the following actions:
 
 1. Create the price request with the above-mentioned parameters.
 2. Define the custom liveness period that a proposed oracle response must sit through before being accepted as truth.
@@ -172,7 +172,7 @@ The returned collateral amount is a function of `longTokensToRedeem`, `shortToke
 
 #### Price request lifecycle callbacks: priceSettled and priceDisputed
 
-When the price request we set up above is settled in the [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracleV2.sol), the `priceSettled` function of this contract is invoked.
+When the price request we set up above is settled in the [Optimistic Oracle V2](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-oracle-v2/implementation/OptimisticOracleV2.sol), the `priceSettled` function of this contract is invoked.
 
 This function calculates and stores settlementPrice as `0`, `0.5`, or `1`. This number is used in the `settle` function to calculate the collateral to pay in exchange for long tokens and short tokens.
 
@@ -237,7 +237,7 @@ yarn test test/EventBasedPredictionMarket/*
 
 #### Deployment
 
-Before deploying the contract check/edit the default arguments defined in [the deployment script](https://github.com/UMAprotocol/dev-quickstart/tree/main/deploy).
+Before deploying the contract check/edit the default arguments defined in [the deployment script](https://github.com/UMAprotocol/dev-quickstart/blob/main/deploy/002\_deploy\_event\_based\_prediction\_market.ts).
 
 To deploy `EventBasedPredictionMarket` in Görli network, run:
 

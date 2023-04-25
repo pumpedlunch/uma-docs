@@ -6,8 +6,6 @@ description: >-
 
 # 🎁 Deposit Box
 
-This section focuses on the Solidity code for important interactions with the Optimistic Oracle. We recommend starting with the [Getting Started](broken-reference) tutorial that walks developers through setting up the [developer quickstart repo](https://github.com/UMAprotocol/dev-quickstart) and working with UMA contracts.
-
 #### UMA Contract Lifecycle
 
 UMA's Optimistic Oracle allows contracts to quickly request and receive price information. A request is made when a contract submits the following parameters with a request to the Optimistic Oracle contract:
@@ -66,7 +64,7 @@ Example arguments used to deploy the contract can be found and tested in the [Op
 
 #### Requesting a Price
 
-A price request is made when the `requestWithdrawal` [method](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/OptimisticDepositBox.sol#L162) is called. A depositor submits the `denominatedCollateralAmount` to withdrawal and a `requestPrice` call is constructed with the following arguments [shown above](solidity-examples.md#requesting-a-price) and in the[ requestPrice interface](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/interfaces/OptimisticOracleInterface.sol#L45):
+A price request is made when the `requestWithdrawal` [method](https://github.com/UMAprotocol/dev-quickstart/blob/main/contracts/OptimisticDepositBox.sol#L162) is called. A depositor submits the `denominatedCollateralAmount` to withdrawal and a `requestPrice` call is constructed with the following arguments [shown above](solidity-examples.md#requesting-a-price) and in the [requestPrice interface](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-oracle-v2/interfaces/OptimisticOracleV2Interface.sol#L111):
 
 ```solidity
 function requestWithdrawal(uint256 denominatedCollateralAmount)
@@ -109,7 +107,7 @@ await expect(optimisticeDepositBox.connect(depositor).requestWithdrawal(amountTo
 
 The code snippets above represent the core functionality for deploying a minimal contract and requesting a price. The next step in the contract lifecycle after a request has been made is a price can be proposed.&#x20;
 
-[Here](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/oracle/implementation/OptimisticOracle.sol#L312) is the `proposePriceFor` function from the Optimistic Oracle contract that is used to propose a price for requests. The price proposal will revert if the parameters do not match an existing price request. For reference, the [developer quickstart repo](https://github.com/UMAprotocol/dev-quickstart/blob/main/test/OptimisticDepositBox.Proposal.ts#L26) demonstrates how to call the `proposePriceFor` method.
+[Here](https://github.com/UMAprotocol/protocol/blob/b0558f37a5ce240a08d694ebd40f9ed327c897ed/packages/core/contracts/optimistic-oracle-v2/implementation/OptimisticOracleV2.sol#L304) is the `proposePriceFor` function from the Optimistic Oracle contract that is used to propose a price for requests. The price proposal will revert if the parameters do not match an existing price request. For reference, the [developer quickstart repo](https://github.com/UMAprotocol/dev-quickstart/blob/0c46e1fcdeb0a2543fa3ea0dbeebcfe2da072632/test/OptimisticDepositBox/OptimisticDepositBox.Proposal.ts#L26) demonstrates how to call the `proposePriceFor` method.
 
 #### Liveness
 
