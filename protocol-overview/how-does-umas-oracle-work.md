@@ -4,7 +4,7 @@ UMA's Optimistic Oracle allows contracts to quickly request and receive data inf
 
 If a dispute is raised, a request is sent to the DVM. All contracts built on UMA use the DVM as a backstop to resolve disputes. Disputes sent to the DVM will be resolved within a few days - after UMA tokenholders vote on what the correct outcome should have been.
 
-<figure><img src="../.gitbook/assets/Optimistic-Oracle-DVM-Overview-Updated (1).png" alt=""><figcaption><p>Oracle system diagram</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/Asserterupdatemarch.png" alt=""><figcaption><p>Oracle system diagram</p></figcaption></figure>
 
 ### Optimistic Oracle
 

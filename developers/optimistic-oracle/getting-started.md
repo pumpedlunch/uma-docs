@@ -4,7 +4,7 @@ description: 0 to 1 Optimistic Oracle integration by example.
 
 # 🚀 OO Quick Start
 
-The primary integration point into the UMA ecosystem is the Optimistic Oracle (OO). The OO is an _ **oracle for arbitrary off-chain data** _ which leverages an interactive escalation game between _requesters_, _proposers_ and _disputers_ and is secured by _economic incentives_.
+The primary integration point into the UMA ecosystem is the Optimistic Oracle (OO). The OO is an _**oracle for arbitrary off-chain data**_ which leverages an interactive escalation game between _requesters_, _proposers_ and _disputers_ and is secured by _economic incentives_.
 
 This getting started tutorial will show you how to go from 0 to 1 with the Optimistic Oracle by executing the simplest possible request flow. Later in the docs you can find more information on [how the Optimistic Oracle works](../../protocol-overview/how-does-umas-oracle-work.md#optimistic-oracle) and dig deeper into its mechanism and [more sophisticated code examples](in-depth-tutorial-event-based-prediction-market.md).&#x20;
 
