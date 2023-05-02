@@ -178,8 +178,8 @@ export DATA_ASSERTER=$(forge create src/DataAsserter.sol:DataAsserter --mnemonic
 
 Finally, we can verify the deployed (if deployed to a public network) contract with `forge verify-contract`:
 
-```
-forge verify-contract --chain-id $(cast chain-id) --constructor-args $(cast abi-encode "constructor(address,address)" $DEFAULT_CURRENCY_ADDRESS $OOV3_ADDRESS) $DATA_ASSERTER
+```bash
+forge verify-contract --chain-id $(cast chain-id) --constructor-args $(cast abi-encode "constructor(address,address)" $DEFAULT_CURRENCY_ADDRESS $OOV3_ADDRESS) $DATA_ASSERTER DataAsserter
 ```
 
 ### Interacting with deployed contract
