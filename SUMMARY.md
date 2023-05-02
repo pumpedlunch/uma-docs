@@ -32,7 +32,6 @@
 * [Governance](community/governance/README.md)
   * [The UMIP Process](community/governance/the-umip-process.md)
   * [DAO Proposals](community/governance/dao-proposals.md)
-* [The SuperUMAn DAO](community/the-superuman-dao.md)
 
 ## Using UMA
 

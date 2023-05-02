@@ -63,7 +63,7 @@ Now that the oSnap module has been configured with Snapshot, you can use the tra
 
 After the voting period has ended, if the proposal passes and meets the criteria set in the rules of the oSnap module, the 0.000005 ETH transfer can be proposed. Anyone can propose the transactions by clicking the 'Request execution' button.
 
-<figure><img src="../../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (2).png" alt=""><figcaption></figcaption></figure>
 
 After transactions have been proposed, a bond is taken from the Proposer and a challenge period starts where anyone can dispute a proposal. The Snapshot proposal will alert the users when the liveness period is complete which is when the transaction can be executed and the bond will be returned to the Proposer.
 
@@ -73,7 +73,7 @@ After transactions have been proposed, a bond is taken from the Proposer and a c
 
 After the challenge period has been completed, the Snapshot proposal gives the user the option to 'Execute transaction batch'. Signing this transaction will execute the proposal and return the bond to the proposer.
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 After executing our example proposal, the below shows the 0.000005 ETH transfer being executed.
 
