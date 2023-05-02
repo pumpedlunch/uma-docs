@@ -17,6 +17,7 @@
   * [⚡ Snapshot Tutorial](developers/osnap/snapshot-tutorial.md)
   * [✅ oSnap Proposal Verification](developers/osnap/osnap-proposal-verification.md)
   * [⛏ oSnap Module Admin Functions](developers/osnap/osnap-module-admin-functions.md)
+  * [🤖 Monitoring Bot Setup](developers/osnap/monitoring-bot-setup.md)
 * [Setting Custom Bond and Liveness Parameters](developers/setting-custom-bond-and-liveness-parameters.md)
 
 ## Protocol Overview
