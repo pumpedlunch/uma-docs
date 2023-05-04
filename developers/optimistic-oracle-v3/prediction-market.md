@@ -6,7 +6,7 @@ description: >-
 
 # 🕖 Prediction Market
 
-This section covers the [prediction market contract](https://github.com/UMAprotocol/dev-quickstart-oov3/blob/master/src/PredictionMarket.sol), which is available in the Optimistic oracle [quick-start repo](https://github.com/UMAprotocol/dev-quickstart-oov3/blob/master/src/PredictionMarket.sol) repo and enables the creation of a binary prediction market using [Optimistic Oracle V3 (OOV3)](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-oracle-v3/implementation/OptimisticOracleV3.sol) assertions.
+This section covers the [Prediction market contract](https://github.com/UMAprotocol/dev-quickstart-oov3/blob/master/src/PredictionMarket.sol), which is available in the Optimistic Oracle V3 [quick-start repo](https://github.com/UMAprotocol/dev-quickstart-oov3) and enables the creation of a binary prediction market using [Optimistic Oracle V3 (OOV3)](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-oracle-v3/implementation/OptimisticOracleV3.sol) assertions.
 
 ### Prediction Market
 
@@ -21,37 +21,23 @@ This smart contract enables the creation of prediction markets based on any off-
 
 By participating in the prediction market, individuals can create outcome tokens (shares) and buy and sell them of the different outcomes based on their assessment of the likelihood of each outcome occurring. The market determines the price of each share based on supply and demand, and individuals can profit by purchasing shares whose value grows as the likelihood of a certain event increases. Nevertheless, this contract does not cover the selling of outcome tokens; only their creation is covered.
 
-### Development environment and tests
+### Development environment
 
-#### Clone the dev-quickstart-oov3 repo
+Clone the UMA [Optimistic Oracle V3 quick-start repository](https://github.com/UMAprotocol/dev-quickstart-oov3) and install the dependencies. You will need git, the long-term support version of nodejs and yarn. You can then install package dependencies by running `yarn` with no arguments:
 
-```
-git clone git@github.com:UMAprotocol/dev-quickstart-oov3.git
+```bash
+git clone https://github.com/UMAprotocol/dev-quickstart-oov3.git
 cd dev-quickstart-oov3
 yarn
 ```
 
-This project uses [forge](https://github.com/foundry-rs/foundry/tree/master/forge) as the ethereum testing framework. You will need to install foundry, refer to [foundry installation documentation](https://book.getfoundry.sh/getting-started/installation) if you don't have it already.
+This project uses [forge](https://github.com/foundry-rs/foundry/tree/master/forge) as the Ethereum testing framework. You will also need to install Foundry, refer to [Foundry installation documentation](https://book.getfoundry.sh/getting-started/installation) if you don’t have it already.
 
-#### Compiling your contracts
+Instructions below for interacting with the contracts also assumes `bash` shell and `jq` tool is installed in order to parse transaction outputs.
 
-We will need to run the following command to compile the contracts and make the typescript interfaces so that they are easy to work with:
+### Contract implementation
 
-```
-forge build
-```
-
-#### Running the tests
-
-To run the contracts tests written in solidity with forge run the following command:
-
-```bash
-forge test --match-path *PredictionMarket*
-```
-
-### Contract design
-
-This contract allows the creation of any number of Markets, where each Market is a prediction market that consists of a pair of binary outcome tokens that represent the two possible outcomes of the prediction, such as "yes" and "no".
+The contract discussed in this tutorial can be found at `dev-quickstart-oov3/src/PredictionMarket.sol` ([here](https://github.com/UMAprotocol/dev-quickstart-oov3/blob/master/src/PredictionMarket.sol)) within the repo.
 
 #### Contract creation and initialization
 
@@ -99,8 +85,7 @@ To create a new market, the `initializeMarket()` function is called with the fol
 * `reward`: The amount of currency (in Wei) that will be available as a reward for the user that runs that creates the assertion in the OOV3, necessary to settle the market once it's ready.
 * `requiredBond`: The amount of currency (in Wei) that users must bond to assert the outcome of the event.
 
-Once the input checks are passed, the function creates two new ERC20 tokens (one for each outcome) using the `ExpandedERC20` contract, which extends the standard ERC20 contract by adding the ability to mint and burn tokens. The PredictionMarket is assigned the minter and burner roles to simplify how the outcome tokens handled when creating, redeeming or settling the tokens. \
-
+Once the input checks are passed, the function creates two new ERC20 tokens (one for each outcome) using the `ExpandedERC20` contract, which extends the standard ERC20 contract by adding the ability to mint and burn tokens. The PredictionMarket is assigned the minter and burner roles to simplify how the outcome tokens handled when creating, redeeming or settling the tokens.
 
 The `Market` is then created and stored internally associated to a `marketId` returned by the `initializeMarket()` and emitted in the `MarketInitialized` event at the end of the process together with the parameters defining the market.
 
@@ -113,7 +98,6 @@ The `createOutcomeTokens` function takes two parameters:
 * `tokensToCreate`: an unsigned integer (`uint256`) value representing the number of tokens to be created for each outcome. The total number of tokens created will be twice this value, as two outcome tokens are created for each market.
 * `marketId`: a `bytes32` value representing the unique identifier of the market for which the outcome tokens are being created.
 
-\
 The function first checks if the market exists. If the market exists, it transfers the specified amount of currency tokens from the caller to the contract using `safeTransferFrom` function from `currency` contract instance.
 
 Then, the function mints `tokensToCreate` amount of both outcome1 and outcome2 tokens to the caller using the `mint` function of the respective `ExpandedERC20` token instances. Finally, it emits an event to notify that tokens have been created.
@@ -168,6 +152,14 @@ If all checks pass, the function sets the `assertedOutcomeId` of the market to t
 
 Finally, the function stores information about the asserted market and emits a `MarketAsserted` event with the market ID, the asserted outcome, and the assertion ID.
 
+### Tests and deployment
+
+To run the contracts tests written in solidity with forge run the following command:
+
+```bash
+forge test --match-path *PredictionMarket*
+```
+
 #### Deployment
 
 Run a local node with anvil (included in foundry toolkit) in a console:
@@ -179,23 +171,23 @@ anvil
 In a second console continue running the rest of commands. Let's first export the environment variables for the wallets to use:
 
 ```bash
-export PRIVATE_KEY_ONE="0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80"
-export PRIVATE_KEY_TWO="0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d"
-export PRIVATE_KEY_THREE="0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a"
-export DEPLOYER_WALLET=$(cast wallet address --private-key "$PRIVATE_KEY_ONE")
-export USER_WALLET=$(cast wallet address --private-key "$PRIVATE_KEY_TWO")
-export ASSERTER_WALLET=$(cast wallet address --private-key "$PRIVATE_KEY_THREE")
-export NODE_URL="http://127.0.0.1:8545"
+export MNEMONIC="test test test test test test test test test test test junk"
+export USER_ID=1
+export ASSERTER_ID=2
+export DEPLOYER_WALLET=$(cast wallet address --mnemonic "$MNEMONIC")
+export USER_WALLET=$(cast wallet address --mnemonic "$MNEMONIC" --mnemonic-index $USER_ID)
+export ASSERTER_WALLET=$(cast wallet address --mnemonic "$MNEMONIC" --mnemonic-index $ASSERTER_ID)
+export ETH_RPC_URL="http://127.0.0.1:8545"
 ```
 
 Then Deploy the UMA Oracle Sandbox contracts to be used by running:
 
 ```bash
 forge script script/OracleSandbox.s.sol \
---fork-url $NODE_URL \
---private-key "$PRIVATE_KEY_ONE" \
---sender $DEPLOYER_WALLET \
---broadcast
+	--fork-url $ETH_RPC_URL \
+	--mnemonics "$MNEMONIC" \
+	--sender $DEPLOYER_WALLET \
+	--broadcast
 ```
 
 Find in the logs the `FINDER_ADDRESS` and export it with:
@@ -207,7 +199,8 @@ export FINDER_ADDRESS=<FINDER_ADDRESS>
 Then use the Finder to export rest of addresses by running the following commands:
 
 ```bash
-export OOV3_ADDRESS=$(cast call $FINDER_ADDRESS "getImplementationAddress(bytes32)(address)" $(cast --format-bytes32-string "OptimisticOracleV3"))
+export OOV3_ADDRESS=$(cast call $FINDER_ADDRESS "getImplementationAddress(bytes32)(address)" \
+	$(cast --format-bytes32-string "OptimisticOracleV3"))
 export DEFAULT_CURRENCY_ADDRESS=$(cast call $OOV3_ADDRESS "defaultCurrency()(address)")
 ```
 
@@ -215,107 +208,122 @@ We are ready to deploy the `PredictionMarket` contract with the following comman
 
 ```bash
 export PREDICTION_MARKET_ADDRESS=$(forge create src/PredictionMarket.sol:PredictionMarket \
---private-key "$PRIVATE_KEY_ONE" \
---json \
---constructor-args $FINDER_ADDRESS $DEFAULT_CURRENCY_ADDRESS $OOV3_ADDRESS \
-| jq -r .deployedTo)
-echo "PREDICTION MARKET DEPLOYED TO " $PREDICTION_MARKET_ADDRESS
+	--mnemonic "$MNEMONIC" \
+	--json \
+	--constructor-args $FINDER_ADDRESS $DEFAULT_CURRENCY_ADDRESS $OOV3_ADDRESS \
+	| jq -r .deployedTo)
+echo "PREDICTION MARKET DEPLOYED TO" $PREDICTION_MARKET_ADDRESS
 ```
 
-#### Interaction with the PredictionMarket
+### Interacting with deployed contract
 
-It's time initialise a market. Wes can first export the market parameters to use.\
-\
-Here the description shows that it's a market based on the outcome of a match between two teams. The two possible outcomes are `yes` or `no.` We offer `100` units of `DEFAULT_CURRENCY` to the asserter of the claim and require a bond of `5000` units of `DEFAULT_CURRENCY`to assert or dispute the assertion.
+It's time to initialise a market. We can first export the market parameters to use.
+
+Here the description shows that it's a market based on the outcome of a match between two teams. The two possible outcomes are `yes` or `no.` We offer `100` units of `DEFAULT_CURRENCY` to the asserter of the claim and require a bond of `5000` units of `DEFAULT_CURRENCY` to assert or dispute the assertion.
 
 ```bash
-export DESCRIPTION="The Glacial Storms beat the Electric Titans on March 8, 2023 at 3:00 PM UTC, which is equivalent to the Unix timestamp 1686258000 seconds." \
+export DESCRIPTION="The Glacial Storms beat the Electric Titans on March 8, 2023 at 3:00 PM UTC, \
+	which is equivalent to the Unix timestamp 1686258000 seconds."
 export OUTCOME_ONE="yes"
 export OUTCOME_TWO="no"
 export REWARD=$(cast --to-wei 100)
 export REQUIRED_BOND=$(cast --to-wei 5000)
 ```
 
-We need to have the amount of rewards to the asserter and approve it before creating the market:
+We need to mint the amount of asserter rewards and approve them before creating the market:
 
 ```bash
-cast send --private-key "$PRIVATE_KEY_ONE" $DEFAULT_CURRENCY_ADDRESS "allocateTo(address,uint256)" $DEPLOYER_WALLET $REWARD
-cast send --private-key "$PRIVATE_KEY_ONE" $DEFAULT_CURRENCY_ADDRESS "approve(address,uint256)" $PREDICTION_MARKET_ADDRESS $REWARD
+cast send --mnemonic "$MNEMONIC" \
+	$DEFAULT_CURRENCY_ADDRESS "allocateTo(address,uint256)" $DEPLOYER_WALLET $REWARD
+cast send --mnemonic "$MNEMONIC" \
+	$DEFAULT_CURRENCY_ADDRESS "approve(address,uint256)" $PREDICTION_MARKET_ADDRESS $REWARD
 ```
 
 Then we are ready to initialise the market with the `DEPLOYER_WALLET`
 
 ```bash
 export MARKET_ID_TX=$(cast send \
---private-key "$PRIVATE_KEY_ONE" \
---json \
-$PREDICTION_MARKET_ADDRESS "initializeMarket(string,string,string,uint256,uint256)(bytes32)" $OUTCOME_ONE $OUTCOME_TWO $DESCRIPTION $REWARD $REQUIRED_BOND \
-| jq -r .transactionHash)
-
+	--mnemonic "$MNEMONIC" \
+	--json \
+	$PREDICTION_MARKET_ADDRESS \
+	"initializeMarket(string,string,string,uint256,uint256)(bytes32)" \
+	$OUTCOME_ONE $OUTCOME_TWO "$DESCRIPTION" $REWARD $REQUIRED_BOND \
+	| jq -r .transactionHash)
 export MARKET_ID=$(cast receipt --json $MARKET_ID_TX | jq -r .logs[-1].topics[1])
-
-export OUTCOME_TOKEN_ONE_ADDRESS=$(cast --abi-decode "MarketInitializedNonIndexed()(string,string,string,address,address,uint256,uint256)" $(cast receipt --json $MARKET_ID_TX | jq -r .logs[-1].data) | awk 'NR==4 {print $1}')
-export OUTCOME_TOKEN_TWO_ADDRESS=$(cast --abi-decode "MarketInitializedNonIndexed()(string,string,string,address,address,uint256,uint256)" $(cast receipt --json $MARKET_ID_TX | jq -r .logs[-1].data) | awk 'NR==5 {print $1}')
+export OUTCOME_TOKEN_ONE_ADDRESS=$(cast --abi-decode \
+	"MarketInitializedNonIndexed()(string,string,string,address,address,uint256,uint256)" \
+	$(cast receipt --json $MARKET_ID_TX | jq -r .logs[-1].data) | awk 'NR==4 {print $1}')
+export OUTCOME_TOKEN_TWO_ADDRESS=$(cast --abi-decode \
+	"MarketInitializedNonIndexed()(string,string,string,address,address,uint256,uint256)" \
+	$(cast receipt --json $MARKET_ID_TX | jq -r .logs[-1].data) | awk 'NR==5 {print $1}')
 ```
 
 Then we can mint the necessary tokens to then create the outcome tokens:
 
 ```bash
 export AMOUNT=$(cast --to-wei 10000)
-cast send --private-key "$PRIVATE_KEY_ONE" $DEFAULT_CURRENCY_ADDRESS "allocateTo(address,uint256)" $DEPLOYER_WALLET $AMOUNT
-cast send --private-key "$PRIVATE_KEY_ONE" $DEFAULT_CURRENCY_ADDRESS "approve(address,uint256)" $PREDICTION_MARKET_ADDRESS $AMOUNT
+cast send --mnemonic "$MNEMONIC" \
+	$DEFAULT_CURRENCY_ADDRESS "allocateTo(address,uint256)" $DEPLOYER_WALLET $AMOUNT
+cast send --mnemonic "$MNEMONIC" \
+	$DEFAULT_CURRENCY_ADDRESS "approve(address,uint256)" $PREDICTION_MARKET_ADDRESS $AMOUNT
 ```
 
 We can now create the outcome tokens. With an amount `10000` units of `DEFAULT_CURRENCY` we get `10000` `OUTCOME_TOKEN_ONE` and 10000 `OUTCOME_TOKEN_TWO`
 
 ```bash
-cast send \
---private-key "$PRIVATE_KEY_ONE" \
-$PREDICTION_MARKET_ADDRESS "createOutcomeTokens(bytes32,uint256)" $MARKET_ID $AMOUNT
+cast send --mnemonic "$MNEMONIC" \
+	$PREDICTION_MARKET_ADDRESS "createOutcomeTokens(bytes32,uint256)" $MARKET_ID $AMOUNT
 ```
 
 ```bash
-echo "BALANCE OUTCOME TOKEN ONE" $(cast call $OUTCOME_TOKEN_ONE_ADDRESS "balanceOf(address)(uint256)" $DEPLOYER_WALLET)
-echo "BALANCE OUTCOME TOKEN TWO" $(cast call $OUTCOME_TOKEN_TWO_ADDRESS "balanceOf(address)(uint256)" $DEPLOYER_WALLET)
-echo "BALANCE DEFAULT_CURRENCY" $(cast call $DEFAULT_CURRENCY_ADDRESS "balanceOf(address)(uint256)" $DEPLOYER_WALLET)
+echo "BALANCE OUTCOME TOKEN ONE" $(cast call $OUTCOME_TOKEN_ONE_ADDRESS \
+	"balanceOf(address)(uint256)" $DEPLOYER_WALLET)
+echo "BALANCE OUTCOME TOKEN TWO" $(cast call $OUTCOME_TOKEN_TWO_ADDRESS \
+	"balanceOf(address)(uint256)" $DEPLOYER_WALLET)
+echo "BALANCE DEFAULT_CURRENCY" $(cast call $DEFAULT_CURRENCY_ADDRESS \
+	"balanceOf(address)(uint256)" $DEPLOYER_WALLET)
 ```
 
 At any point before the market is settled we can redeem outcome tokens. By redeeming an amount we are burning the same amount of `OUTCOME_TOKEN_ONE` and `OUTCOME_TOKEN_TWO` to receive that amount of `DEFAULT_CURRENCY`
 
 ```bash
-cast send \
---private-key "$PRIVATE_KEY_ONE" \
-$PREDICTION_MARKET_ADDRESS "redeemOutcomeTokens(bytes32,uint256)" $MARKET_ID $(cast --to-wei 5000)
+cast send --mnemonic "$MNEMONIC" \
+	$PREDICTION_MARKET_ADDRESS "redeemOutcomeTokens(bytes32,uint256)" \
+	$MARKET_ID $(cast --to-wei 5000)
 ```
 
-After redeeming 5000 tokens we can see how both balances of `OUTCOME_TOKEN_ONE` and `OUTCOME_TOKEN_TWO` have decreased 5000 and `DEFAULT_CURRENCY` has increased that same amount.
+After redeeming 5000 tokens we can see how both balances of `OUTCOME_TOKEN_ONE` and `OUTCOME_TOKEN_TWO` have decreased by 5000 and `DEFAULT_CURRENCY` has increased that same amount.
 
 ```bash
-echo "BALANCE OUTCOME TOKEN ONE" $(cast call $OUTCOME_TOKEN_ONE_ADDRESS "balanceOf(address)(uint256)" $DEPLOYER_WALLET)
-echo "BALANCE OUTCOME TOKEN TWO" $(cast call $OUTCOME_TOKEN_TWO_ADDRESS "balanceOf(address)(uint256)" $DEPLOYER_WALLET)
-echo "BALANCE DEFAULT_CURRENCY" $(cast call $DEFAULT_CURRENCY_ADDRESS "balanceOf(address)(uint256)" $DEPLOYER_WALLET)
+echo "BALANCE OUTCOME TOKEN ONE" $(cast call $OUTCOME_TOKEN_ONE_ADDRESS \
+	"balanceOf(address)(uint256)" $DEPLOYER_WALLET)
+echo "BALANCE OUTCOME TOKEN TWO" $(cast call $OUTCOME_TOKEN_TWO_ADDRESS \
+	"balanceOf(address)(uint256)" $DEPLOYER_WALLET)
+echo "BALANCE DEFAULT_CURRENCY" $(cast call $DEFAULT_CURRENCY_ADDRESS \
+	"balanceOf(address)(uint256)" $DEPLOYER_WALLET)
 ```
 
 Now, let's simulate how the `DEPLOYER_WALLET` would trade one position of the market by transferring the remaining 5000  `OUTCOME_TOKEN_ONE` to another user. By doing this, `DEPLOYER_WALLET` is now only exposed to the outcome two ("no") because he only holds `OUTCOME_TOKEN_TWO`. On the other side, `USER_WALLET` is exposed to the outcome one ("yes") as he has traded some other currency against `OUTCOME_TOKEN_ONE`. This trade is out of the scope of this example, thats why we simulate it by running the following transfer:
 
 ```bash
-cast send \
---private-key "$PRIVATE_KEY_ONE" \
-$OUTCOME_TOKEN_ONE_ADDRESS "transfer(address,uint256)" $USER_WALLET $(cast --to-wei 5000)
+cast send --mnemonic "$MNEMONIC" \
+	$OUTCOME_TOKEN_ONE_ADDRESS "transfer(address,uint256)" $USER_WALLET $(cast --to-wei 5000)
 ```
 
-At this point, let's imagine that the match between The Glacial Storms and the Electric Titans has taken place and that The Glacial Storms won. Then anyone can now `assert` that this has occoured by calling `assertMarket` with outcome `"yes"` as the claim defined in `DESCRIPTION` is true. We can do it, from the `ASSERTER_WALLET`, by running the following command:
+At this point, let's imagine that the match between The Glacial Storms and the Electric Titans has taken place and that The Glacial Storms won. Then anyone can now `assert` that this has occurred by calling `assertMarket` with outcome `"yes"` as the claim defined in `DESCRIPTION` is true. We can do it, from the `ASSERTER_WALLET`, by running the following command:
 
 ```bash
-cast send --private-key "$PRIVATE_KEY_ONE" $DEFAULT_CURRENCY_ADDRESS "allocateTo(address,uint256)" $ASSERTER_WALLET $REQUIRED_BOND
-cast send --private-key "$PRIVATE_KEY_THREE" $DEFAULT_CURRENCY_ADDRESS "approve(address,uint256)" $PREDICTION_MARKET_ADDRESS $REQUIRED_BOND
-
+cast send --mnemonic "$MNEMONIC" \
+	$DEFAULT_CURRENCY_ADDRESS "allocateTo(address,uint256)" \
+	$ASSERTER_WALLET $REQUIRED_BOND
+cast send --mnemonic "$MNEMONIC" --mnemonic-index $ASSERTER_ID \
+	$DEFAULT_CURRENCY_ADDRESS "approve(address,uint256)" \
+	$PREDICTION_MARKET_ADDRESS $REQUIRED_BOND
 export ASSERTION_TX=$(cast send \
---private-key "$PRIVATE_KEY_THREE" \
---json \
-$PREDICTION_MARKET_ADDRESS "assertMarket(bytes32,string)" $MARKET_ID "yes" \
-| jq -r .transactionHash)
-
+	--mnemonic "$MNEMONIC" --mnemonic-index $ASSERTER_ID \
+	--json \
+	$PREDICTION_MARKET_ADDRESS "assertMarket(bytes32,string)" $MARKET_ID "yes" \
+	| jq -r .transactionHash)
 export ASSERTION_ID=$(cast receipt --json $ASSERTION_TX | jq -r .logs[-1].topics[2])
 ```
 
@@ -323,45 +331,45 @@ Now, let's move forward 2 hours to go pass the challenge window of the assertion
 
 ```bash
 cast rpc evm_increaseTime 7200
-cast rpc evm_min
+cast rpc evm_mine
 ```
 
-No the assertion can be settled in the `OptimisticOracleV3`. We can do it by running the following command:
+Now the assertion can be settled in the `OptimisticOracleV3`. We can do it by running the following command:
 
 ```bash
-cast send \
---private-key "$PRIVATE_KEY_ONE" \
-$OOV3_ADDRESS "settleAssertion(bytes32)" $ASSERTION_ID
+cast send --mnemonic "$MNEMONIC" \
+	$OOV3_ADDRESS "settleAssertion(bytes32)" $ASSERTION_ID
 ```
 
 We can now check how the `ASSERTER_WALLET` has received back the assertion bond plus the reward:
 
 ```bash
-echo "ASSERTER WALLET BALANCE DEFAULT_CURRENCY" $(cast call $DEFAULT_CURRENCY_ADDRESS "balanceOf(address)(uint256)" $ASSERTER_WALLET)
+echo "ASSERTER WALLET BALANCE DEFAULT_CURRENCY" \
+	$(cast call $DEFAULT_CURRENCY_ADDRESS "balanceOf(address)(uint256)" $ASSERTER_WALLET)
 ```
 
 Now, both the `DEPLOYER_WALLET` and `USER_WALLET` can settle their outcome tokens:
 
 ```bash
-cast send \
---private-key "$PRIVATE_KEY_ONE" \
-$PREDICTION_MARKET_ADDRESS "settleOutcomeTokens(bytes32)" $MARKET_ID
-
-cast send \
---private-key "$PRIVATE_KEY_TWO" \
-$PREDICTION_MARKET_ADDRESS "settleOutcomeTokens(bytes32)" $MARKET_ID
+cast send --mnemonic "$MNEMONIC" \
+	$PREDICTION_MARKET_ADDRESS "settleOutcomeTokens(bytes32)" $MARKET_ID
+cast send --mnemonic "$MNEMONIC" --mnemonic-index $USER_ID \
+	$PREDICTION_MARKET_ADDRESS "settleOutcomeTokens(bytes32)" $MARKET_ID
 ```
 
 Finally we can see how the `USER_WALLET` won the bet, as he got `OUTCOME_TOKEN_ONE` so he now has `5000 DEFAULT_CURRENCY` and the deployer wallet only has `5000 DEFAULT_CURRENCY` from his initial 10000:
 
 ```bash
-echo "DEPLOYER WALLET BALANCE OUTCOME TOKEN ONE" $(cast call $OUTCOME_TOKEN_ONE_ADDRESS "balanceOf(address)(uint256)" $DEPLOYER_WALLET)
-echo "DEPLOYER WALLET BALANCE OUTCOME TOKEN TWO" $(cast call $OUTCOME_TOKEN_TWO_ADDRESS "balanceOf(address)(uint256)" $DEPLOYER_WALLET)
-echo "DEPLOYER WALLET BALANCE DEFAULT_CURRENCY" $(cast call $DEFAULT_CURRENCY_ADDRESS "balanceOf(address)(uint256)" $DEPLOYER_WALLET)
-
-echo "USER WALLET BALANCE OUTCOME TOKEN ONE" $(cast call $OUTCOME_TOKEN_ONE_ADDRESS "balanceOf(address)(uint256)" $USER_WALLET)
-echo "USER WALLET BALANCE OUTCOME TOKEN TWO" $(cast call $OUTCOME_TOKEN_TWO_ADDRESS "balanceOf(address)(uint256)" $USER_WALLET)
-echo "USER WALLET BALANCE DEFAULT_CURRENCY" $(cast call $DEFAULT_CURRENCY_ADDRESS "balanceOf(address)(uint256)" $USER_WALLET)
+echo "DEPLOYER WALLET BALANCE OUTCOME TOKEN ONE" $(cast call $OUTCOME_TOKEN_ONE_ADDRESS \
+	"balanceOf(address)(uint256)" $DEPLOYER_WALLET)
+echo "DEPLOYER WALLET BALANCE OUTCOME TOKEN TWO" $(cast call $OUTCOME_TOKEN_TWO_ADDRESS \
+	"balanceOf(address)(uint256)" $DEPLOYER_WALLET)
+echo "DEPLOYER WALLET BALANCE DEFAULT_CURRENCY" $(cast call $DEFAULT_CURRENCY_ADDRESS \
+	"balanceOf(address)(uint256)" $DEPLOYER_WALLET)
+echo "USER WALLET BALANCE OUTCOME TOKEN ONE" $(cast call $OUTCOME_TOKEN_ONE_ADDRESS \
+	"balanceOf(address)(uint256)" $USER_WALLET)
+echo "USER WALLET BALANCE OUTCOME TOKEN TWO" $(cast call $OUTCOME_TOKEN_TWO_ADDRESS \
+	"balanceOf(address)(uint256)" $USER_WALLET)
+echo "USER WALLET BALANCE DEFAULT_CURRENCY" $(cast call $DEFAULT_CURRENCY_ADDRESS \
+	"balanceOf(address)(uint256)" $USER_WALLET)
 ```
-
-\
