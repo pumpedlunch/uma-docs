@@ -2,7 +2,7 @@
 description: Using the Optimistic Oracle V3 to allow for verification of insurance claims.
 ---
 
-# 👨🏫 Insurance
+# 💾 Insurance
 
 This section covers the [Insurance contract](https://github.com/UMAprotocol/dev-quickstart-oov3/blob/master/src/Insurance.sol), which is available in the Optimistic Oracle V3 [quick-start repo](https://github.com/UMAprotocol/dev-quickstart-oov3). This tutorial shows an example of how insurance claims can be resolved and settled through the [Optimistic Oracle V3 (OOV3)](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-oracle-v3/implementation/OptimisticOracleV3.sol) contract.
 
