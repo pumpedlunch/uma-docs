@@ -203,11 +203,10 @@ The following section provides instructions on how to interact with the deployed
 
 #### Initial setup
 
-Export required user address and its derivation index:
+Export derivation index for the asserting user that will be needed when signing transactions:
 
 ```bash
 export ASSERTER_ID=1
-export ASSERTER_ADDRESS=$(cast wallet address --mnemonic "$MNEMONIC" --mnemonic-index $ASSERTER_ID)
 ```
 
 Make sure the user address above have sufficient funding for the gas to execute the transactions.
