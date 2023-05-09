@@ -22,7 +22,7 @@ Once connected to your safe, take the following steps to get to the Zodiac apps 
 
 To deploy a new oSnap module, click the option with the title ‘UMA Optimistic Governor Module’:
 
-<figure><img src="../../.gitbook/assets/Screen Shot 2023-02-15 at 4.21.04 PM (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/Screen Shot 2023-02-15 at 4.21.04 PM.png" alt=""><figcaption></figcaption></figure>
 
 A modal will open with deployment parameters. The first three parameters below are associated with the oSnap module and can be updated after deployment. Refer [here](../setting-custom-bond-and-liveness-parameters.md) to better understand how to appropriately set these parameters:
 

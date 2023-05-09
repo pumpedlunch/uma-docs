@@ -8,7 +8,7 @@ If you do not have a Snapshot space created, follow [these instructions](https:/
 
 Click 'Advanced' on the sidebar. Then in the Plugins container, click 'Add plugin'. In the modal that opens, click the 'Gnosis SafeSnap' option.
 
-<figure><img src="../../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
 
 Another modal will open that is used to configure the SafeSnap plugin that matches the below:
 
@@ -67,7 +67,7 @@ After the voting period has ended, if the proposal passes and meets the criteria
 
 After transactions have been proposed, a bond is taken from the Proposer and a challenge period starts where anyone can dispute a proposal. The Snapshot proposal will alert the users when the liveness period is complete which is when the transaction can be executed and the bond will be returned to the Proposer.
 
-<figure><img src="../../.gitbook/assets/image (13).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
 
 **Executing Transaction**
 
@@ -77,5 +77,5 @@ After the challenge period has been completed, the Snapshot proposal gives the u
 
 After executing our example proposal, the below shows the 0.000005 ETH transfer being executed.
 
-<figure><img src="../../.gitbook/assets/image (15).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1).png" alt=""><figcaption></figcaption></figure>
 
