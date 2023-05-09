@@ -4,7 +4,8 @@ description: Using the Optimistic Oracle V3 to allow for verification of insuran
 
 # 👨🏫 Insurance
 
-This section covers the [Insurance contract](https://github.com/UMAprotocol/dev-quickstart-oov3/blob/master/src/Insurance.sol), which is available in the Optimistic Oracle V3 [quick-start repo](https://github.com/UMAprotocol/dev-quickstart-oov3). This tutorial shows an example of how insurance claims can be resolved and settled through the [Optimistic Oracle V3](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-oracle-v3/implementation/OptimisticOracleV3.sol) contract.
+This section covers the [Insurance contract](https://github.com/UMAprotocol/dev-quickstart-oov3/blob/master/src/Insurance.sol), which is available in the Optimistic Oracle V3 [quick-start repo](https://github.com/UMAprotocol/dev-quickstart-oov3). This tutorial shows an example of how insurance claims can be resolved and settled through the [Optimistic Oracle V3 (OOV3)](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/optimistic-oracle-v3/implementation/OptimisticOracleV3.sol) contract.
+
 
 ### Insurance Contract
 
@@ -16,20 +17,19 @@ If the claim is confirmed and settled through the Optimistic Oracle V3, this con
 
 There is no limit to the number of payout requests that can be made of the same policy, however, only the first truthfully resolved request will settle the insurance payment, whereas the Optimistic Oracle V3 will settle bonds for all requests.
 
-### Development environment and tests
-
-#### Clone repository and Install dependencies&#x20;
-
-Clone the UMA [Optimistic Oracle V3 quick-start repository](https://github.com/UMAprotocol/dev-quickstart-oov3) and install the dependencies. To install dependencies, you will need to install the long-term support version of nodejs and yarn. You can then install package dependencies by running `yarn` with no arguments:
-
-<pre class="language-bash"><code class="lang-bash"><strong>git clone https://github.com/UMAprotocol/dev-quickstart-oov3.git
-</strong>cd dev-quickstart-oov3
-yarn
-</code></pre>
+### Development environment
 
 This project uses [forge](https://github.com/foundry-rs/foundry/tree/master/forge) as the Ethereum testing framework. You will also need to install Foundry, refer to [Foundry installation documentation](https://book.getfoundry.sh/getting-started/installation) if you don’t have it already.
 
-Instructions below for interacting with the contracts also assumes `bash` shell and `jq` tool is installed in order to parse transaction outputs.
+You will also need `git` for cloning the repository, as well as `bash` shell and `jq` tool in order to parse transaction outputs when interacting with deployed contracts.
+
+Clone the UMA [Optimistic Oracle V3 quick-start repository](https://github.com/UMAprotocol/dev-quickstart-oov3) and install the dependencies:
+
+```bash
+git clone https://github.com/UMAprotocol/dev-quickstart-oov3.git
+cd dev-quickstart-oov3
+forge install
+```
 
 ### Contract implementation
 
@@ -37,16 +37,18 @@ The contract discussed in this tutorial can be found at `dev-quickstart-oov3/src
 
 #### Contract creation and initialization
 
-`_defaultCurrency` parameter in the constructor identifies the token used for settlement of insurance claims, as well as the bond currency for assertions and disputes. This token should be approved as whitelisted UMA collateral. Please check [Approved Collateral Types](../../resources/approved-collateral-types.md) for production networks or call `getWhitelist()` on the [Address Whitelist](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/common/implementation/AddressWhitelist.sol) contract for any of the test networks. Note that the deployed Optimistic Oracle V3 instance already has its `defaultCurrency` added to the whitelist, so it can also be used by the Insurance contract. Alternatively, you can approve a new token address with `addToWhitelist` method in the Address Whitelist contract if working in a sandboxed UMA environment.
+To initialize the state variables of the contract, the constructor takes two parameters:
 
-`_optimisticOracleV3` is used to locate the address of UMA Optimistic Oracle V3. Address of `OptimisticOracleV3` contact can be fetched from the relevant [networks](https://github.com/UMAprotocol/protocol/tree/master/packages/core/networks) file, if you are on a live network, or you can provide your own contract instance if deploying UMA Oracle contracts in your own sandboxed testing environment.
+1. `_defaultCurrency` identifies the token used for settlement of insurance claims, as well as the bond currency for assertions and disputes. This token should be approved as whitelisted UMA collateral. Please check [Approved Collateral Types](../../resources/approved-collateral-types.md) for production networks or call `getWhitelist()` on the [Address Whitelist](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/common/implementation/AddressWhitelist.sol) contract for any of the test networks. Note that the deployed Optimistic Oracle V3 instance already has its `defaultCurrency` added to the whitelist, so it can also be used by the Insurance contract. Alternatively, you can approve a new token address with `addToWhitelist` method in the Address Whitelist contract if working in a sandboxed UMA environment.
+2. `_optimisticOracleV3` is used to locate the address of UMA Optimistic Oracle V3. Address of `OptimisticOracleV3` contact can be fetched from the relevant [networks](https://github.com/UMAprotocol/protocol/tree/master/packages/core/networks) file, if you are on a live network, or you can provide your own contract instance if deploying UMA Oracle contracts in your own sandboxed testing environment.
 
-<pre class="language-solidity"><code class="lang-solidity"><strong>    constructor(address _defaultCurrency, address _optimisticOracleV3) {
-</strong>        defaultCurrency = IERC20(_defaultCurrency);
+```solidity
+    constructor(address _defaultCurrency, address _optimisticOracleV3) {
+        defaultCurrency = IERC20(_defaultCurrency);
         oo = OptimisticOracleV3Interface(_optimisticOracleV3);
         defaultIdentifier = oo.defaultIdentifier();
     }
-</code></pre>
+```
 
 #### Issuing insurance
 
@@ -57,7 +59,7 @@ The contract discussed in this tutorial can be found at `dev-quickstart-oov3/src
         uint256 insuranceAmount,
         address payoutAddress,
         bytes memory insuredEvent
-    ) public returns (bytes32 policyId) ...
+    ) public returns (bytes32 policyId) { ... }
 ```
 
 Internally, the issued policy is stored in the `policies` mapping using the calculated `policyId` key that is generated by hashing the insured event and beneficiary address.
@@ -69,7 +71,7 @@ After pulling `insuranceAmount` from the caller in the `issueInsurance` method, 
 Anyone can submit an insurance claim on the issued policy by calling the `requestPayout` method with the relevant `policyId` parameter. This method will make an assertion with the Optimistic Oracle V3. An assertion bond is required, hence the caller should have approved this contract to spend the required minimum amount of `defaultCurrency` tokens for the proposal bond (call `getMinimumBond` method on the Optimistic Oracle V3).
 
 ```solidity
-    function requestPayout(bytes32 policyId) public returns (bytes32 assertionId) ...
+    function requestPayout(bytes32 policyId) public returns (bytes32 assertionId) { ... }
 ```
 
 After checking that the `policyId` represents a valid insurance policy, the contract gets the current `timestamp` and composes claim that the insured event has occurred as of request time, that is passed to the Optimistic Oracle V3 when making the assertion with the `assertTruth` method:
@@ -102,7 +104,7 @@ Optimistic Oracle V3 pulls the required bond and returns `assertionId` that is u
 For the sake of simplicity this contract does not implement a dispute method, but the disputer can dispute the submitted claim directly through Optimistic Oracle V3 before the liveness passes by calling its `disputeAssertion` method:
 
 ```solidity
-    function disputeAssertion(bytes32 assertionId, address disputer) ...
+    function disputeAssertion(bytes32 assertionId, address disputer) external nonReentrant { ... }
 ```
 
 The disputer should pass the `assertionId` from the request above, as well as the address for receiving back bond and rewards if the disputer was right.
@@ -114,13 +116,13 @@ If the claim is disputed, the request is escalated to the UMA DVM and it can be 
 Similar to disputes, claim settlement should be initiated through the Optimistic Oracle V3 contract by calling its `settleAssertion` method with the same `assertionId` parameter:
 
 ```solidity
-    function settleAssertion(bytes32 assertionId) ...
+    function settleAssertion(bytes32 assertionId) public nonReentrant { ... }
 ```
 
 In case the liveness has expired or a dispute has been resolved by the UMA DVM, this call would initiate a `assertionResolvedCallback` callback in the Insurance contract:
 
 ```solidity
-    function assertionResolvedCallback(bytes32 assertionId, bool assertedTruthfully) ...
+    function assertionResolvedCallback(bytes32 assertionId, bool assertedTruthfully) public { ... }
 ```
 
 Importantly, all callbacks should be restricted to accept calls only from the Optimistic Oracle V3 to avoid someone spoofing a resolved answer:
@@ -149,10 +151,8 @@ Depending on the resolved answer received in the `assertedTruthfully` callback p
 All the unit tests covering the functionality described above are available [here](https://github.com/UMAprotocol/dev-quickstart-oov3/blob/master/test/Insurance.t.sol). To execute all of them, run:
 
 ```bash
-forge test --match-path test/Insurance.t.sol
+forge test --match-path *Insurance*
 ```
-
-
 
 #### Deployment
 
@@ -161,26 +161,36 @@ Before deploying and interacting with the contracts export the required environm
 * `ETHERSCAN_API_KEY`: your secret API key used for contract verification on Etherscan if deploying on a public network
 * `ETH_RPC_URL`: your RPC node used to interact with the selected network
 * `MNEMONIC`: your passphrase used to derive private keys of deployer (index 0) and any other addresses interacting with the contracts
-* `FINDER_ADDRESS`: address of the [Finder](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/data-verification-mechanism/implementation/Finder.sol) contract used to locate other UMA ecosystem contracts (in order to resolve disputes you would need to use the one from a sandboxed environment)
+* `FINDER_ADDRESS`: address of the [Finder](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/data-verification-mechanism/implementation/Finder.sol) contract used to locate other UMA ecosystem contracts (in order to resolve disputes you would need to use the one from a sandboxed environment). For Goerli, you can use:
+  ```bash
+  export FINDER_ADDRESS=0xE60dBa66B85E10E7Fd18a67a6859E241A243950e
+  ```
+* `DEFAULT_CURRENCY_ADDRESS`: address of the token used for insurance claim settlement. This is also used as oracle bonding currency, thus, needs to be added to whitelist either by UMA governance (production networks) or testnet administrator. On Goerli you can use [`0xe9448D94C9b033Ff50d3B14089043bD976fC1394`](https://goerli.etherscan.io/address/0xe9448d94c9b033ff50d3b14089043bd976fc1394) that is already whitelisted and can be minted by anyone using its `allocateTo` method
 
-Use `cast` command from Foundry to locate the address of Optimistic Oracle V3 and we will also use its default bonding token for settling insurance claims:
+Use `cast` command from Foundry to locate the address of Optimistic Oracle V3:
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash"><strong>export OOV3_ADDRESS=$(cast call $FINDER_ADDRESS "getImplementationAddress(bytes32)(address)" $(cast --format-bytes32-string "OptimisticOracleV3"))
-</strong><strong>export DEFAULT_CURRENCY_ADDRESS=$(cast call $OOV3_ADDRESS "defaultCurrency()(address)")
-</strong></code></pre>
-
-To deploy the Insurance contract, run `forge create` command.&#x20;
-
-{% code overflow="wrap" %}
 ```bash
-export INSURANCE_ADDRESS=$(forge create src/Insurance.sol:Insurance --mnemonic "$MNEMONIC" --json --constructor-args $DEFAULT_CURRENCY_ADDRESS $OOV3_ADDRESS | jq -r .deployedTo)
+export OOV3_ADDRESS=$(cast call $FINDER_ADDRESS "getImplementationAddress(bytes32)(address)" \
+	$(cast --format-bytes32-string "OptimisticOracleV3"))
 ```
-{% endcode %}
+
+To deploy the Insurance contract, run `forge create` command.
+
+```bash
+export INSURANCE_ADDRESS=$(forge create --json src/Insurance.sol:Insurance \
+	--mnemonic "$MNEMONIC" \
+	--constructor-args $DEFAULT_CURRENCY_ADDRESS $OOV3_ADDRESS \
+	| jq -r .deployedTo)
+```
 
 Finally, we can verify the deployed (if deployed to a public network) contract with `forge verify-contract`:
 
-```
-forge verify-contract --chain-id $(cast chain-id) --constructor-args $(cast abi-encode "constructor(address,address)" $DEFAULT_CURRENCY_ADDRESS $OOV3_ADDRESS) $INSURANCE_ADDRESS Insurance
+```bash
+forge verify-contract \
+	--chain-id $(cast chain-id) \
+	--constructor-args $(cast abi-encode "constructor(address,address)" \
+	$DEFAULT_CURRENCY_ADDRESS $OOV3_ADDRESS) \
+	$INSURANCE_ADDRESS Insurance
 ```
 
 ### Interacting with deployed contract
@@ -191,37 +201,43 @@ The following section provides instructions on how to interact with the deployed
 
 Export required user addresses and their derivation indices:
 
-{% code overflow="wrap" %}
 ```bash
 export INSURER_ID=1
 export INSURED_ID=2
 export INSURER_ADDRESS=$(cast wallet address --mnemonic "$MNEMONIC" --mnemonic-index $INSURER_ID)
 export INSURED_ADDRESS=$(cast wallet address --mnemonic "$MNEMONIC" --mnemonic-index $INSURED_ID)
 ```
-{% endcode %}
 
 Make sure the user addresses above have sufficient funding for the gas to execute the transactions.
 
 #### Issue insurance
 
-Assuming [TestnetERC20](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/common/implementation/TestnetERC20.sol) was used as `defaultCurrency` when deploying the Insurance contract, mint the required insurance amount (e.g. 10,000 TEST tokens) to the insurer and approve the Insurance contract to pull them:
+Make sure to have some amount of `DEFAULT_CURRENCY_ADDRESS` tokens to back potential insurance claim. If [`0xe9448D94C9b033Ff50d3B14089043bD976fC1394`](https://goerli.etherscan.io/address/0xe9448d94c9b033ff50d3b14089043bd976fc1394) was used on Goerli you can mint 10,000 DBT tokens to insurance issuer account:
 
-{% code overflow="wrap" %}
 ```bash
 export INSURANCE_AMOUNT=$(cast --to-wei 10000)
-cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURER_ID $DEFAULT_CURRENCY_ADDRESS "allocateTo(address,uint256)" $INSURER_ADDRESS $INSURANCE_AMOUNT
-cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURER_ID $DEFAULT_CURRENCY_ADDRESS "approve(address,uint256)" $INSURANCE_ADDRESS $INSURANCE_AMOUNT
+cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURER_ID \
+	$DEFAULT_CURRENCY_ADDRESS "allocateTo(address,uint256)" $INSURER_ADDRESS $INSURANCE_AMOUNT
 ```
-{% endcode %}
+
+Approve `DEFAULT_CURRENCY_ADDRESS` to be pulled by the Insurance contract:
+
+```bash
+cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURER_ID \
+	$DEFAULT_CURRENCY_ADDRESS "approve(address,uint256)" $INSURANCE_ADDRESS $INSURANCE_AMOUNT
+```
 
 Issue the insurance policy and grab the resulting `policyId` from the emitted `InsuranceIssued` event (it should be the last emitted event in the transaction and indexed `policyId` is at topic index `1`):
 
-{% code overflow="wrap" %}
 ```bash
-export ISSUE_TX=$(cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURER_ID --json $INSURANCE_ADDRESS "issueInsurance(uint256,address,bytes)" $INSURANCE_AMOUNT $INSURED_ADDRESS $(cast --from-utf8 "Bad things have happened") | jq -r .transactionHash)
+export ISSUE_TX=$(cast send --json \
+	--mnemonic "$MNEMONIC" --mnemonic-index $INSURER_ID \
+	$INSURANCE_ADDRESS \
+	"issueInsurance(uint256,address,bytes)" \
+	$INSURANCE_AMOUNT $INSURED_ADDRESS $(cast --from-utf8 "Bad things have happened") \
+	| jq -r .transactionHash)
 export POLICY_ID=$(cast receipt --json $ISSUE_TX | jq -r .logs[-1].topics[1])
 ```
-{% endcode %}
 
 If in doubt on the parsing of transaction receipt you can manually view full logs from tracing:
 
@@ -231,21 +247,29 @@ cast run $ISSUE_TX
 
 #### Submit insurance claim
 
-Get the expected assertion bond and provide funding/approval for the insured claimant:
+Get the expected oracle bond:
 
-<pre class="language-bash" data-overflow="wrap"><code class="lang-bash">export BOND_AMOUNT=$(cast call $OOV3_ADDRESS "getMinimumBond(address)(uint256)" $DEFAULT_CURRENCY_ADDRESS)
-cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURED_ID $DEFAULT_CURRENCY_ADDRESS "allocateTo(address,uint256)" $INSURED_ADDRESS $BOND_AMOUNT
-<strong>cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURED_ID $DEFAULT_CURRENCY_ADDRESS "approve(address,uint256)" $INSURANCE_ADDRESS $BOND_AMOUNT
-</strong></code></pre>
+```bash
+export BOND_AMOUNT=$(cast call $OOV3_ADDRESS \
+	"getMinimumBond(address)(uint256)" $DEFAULT_CURRENCY_ADDRESS)
+```
+
+This should be zero for [`0xe9448D94C9b033Ff50d3B14089043bD976fC1394`](https://goerli.etherscan.io/address/0xe9448d94c9b033ff50d3b14089043bd976fc1394) on Goerli, but in case of other currencies make sure to have this amount of `DEFAULT_CURRENCY_ADDRESS` both on the insured account (for submitting the claim) and on the insurer's account (for disputing the claim). If bond amount is non-zero, also make sure to add approval:
+
+```bash
+cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURED_ID \
+	$DEFAULT_CURRENCY_ADDRESS "approve(address,uint256)" $INSURANCE_ADDRESS $BOND_AMOUNT
+```
 
 Now initiate the insurance claim and grab the resulting `assertionId` from the emitted `InsurancePayoutRequested` event (it should be the last emitted event and indexed `assertionId`  is at topic index `2`):
 
-{% code overflow="wrap" %}
 ```bash
-export ASSERTION_TX=$(cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURED_ID --json $INSURANCE_ADDRESS "requestPayout(bytes32)" $POLICY_ID | jq -r .transactionHash)
+export ASSERTION_TX=$(cast send --json \
+	--mnemonic "$MNEMONIC" --mnemonic-index $INSURED_ID \
+	$INSURANCE_ADDRESS \
+	"requestPayout(bytes32)" $POLICY_ID | jq -r .transactionHash)
 export ASSERTION_ID=$(cast receipt --json $ASSERTION_TX | jq -r .logs[-1].topics[2])
 ```
-{% endcode %}
 
 If in doubt on the parsing of transaction receipt you can manually view full logs from tracing:
 
@@ -255,32 +279,31 @@ cast run $ASSERTION_TX
 
 #### Dispute insurance claim
 
-Before liveness passes, the insurer can dispute the claim through the Optimistic Oracle V3. First, they must fund and approve with the same bonding amount:
+Before liveness passes, anyone (e.g. insurer) can dispute the claim through the Optimistic Oracle V3. In case of non-zero bond amount, they must add approval for Optimistic Oracle V3 to pull the bond:
 
-{% code overflow="wrap" %}
 ```bash
-cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURER_ID  $DEFAULT_CURRENCY_ADDRESS "allocateTo(address,uint256)" $INSURER_ADDRESS $BOND_AMOUNT
-cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURER_ID $DEFAULT_CURRENCY_ADDRESS "approve(address,uint256)" $OOV3_ADDRESS $BOND_AMOUNT
+cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURER_ID \
+	$DEFAULT_CURRENCY_ADDRESS "approve(address,uint256)" $OOV3_ADDRESS $BOND_AMOUNT
 ```
-{% endcode %}
 
 Now initiate the dispute and export related transaction hash that we will need to collect additional request parameters for resolving the dispute:
 
-{% code overflow="wrap" %}
 ```bash
-export DISPUTE_TX=$(cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURER_ID --json $OOV3_ADDRESS "disputeAssertion(bytes32,address)" $ASSERTION_ID $INSURER_ADDRESS | jq -r .transactionHash)
+export DISPUTE_TX=$(cast send --json \
+	--mnemonic "$MNEMONIC" --mnemonic-index $INSURER_ID \
+	$OOV3_ADDRESS "disputeAssertion(bytes32,address)" $ASSERTION_ID $INSURER_ADDRESS \
+	| jq -r .transactionHash)
 ```
-{% endcode %}
 
 #### Settle insurance claim
 
 Resolving disputes in production environment involves UMA token holders to vote on the request. Thus, testing is possible only in a sandboxed UMA ecosystem environment where the [Mock Oracle](https://github.com/UMAprotocol/protocol/blob/master/packages/core/contracts/data-verification-mechanism/test/MockOracleAncillary.sol) is used to resolve requests:
 
-{% code overflow="wrap" %}
 ```bash
-export MOCK_ORACLE_ADDRESS=$(cast call $FINDER_ADDRESS "getImplementationAddress(bytes32)(address)" $(cast --format-bytes32-string "Oracle"))
+export MOCK_ORACLE_ADDRESS=$(cast call \
+	$FINDER_ADDRESS "getImplementationAddress(bytes32)(address)" \
+	$(cast --format-bytes32-string "Oracle"))
 ```
-{% endcode %}
 
 In order to resolve request Mock Oracle expects the following parameters:
 
@@ -294,10 +317,15 @@ The commands below export the required parameters and resolves the request at th
 {% code overflow="wrap" %}
 ```bash
 export IDENTIFIER=$(cast call $INSURANCE_ADDRESS "defaultIdentifier()(bytes32)")
-export ASSERTION_TIME=$(cast block $(cast tx --json $ASSERTION_TX | jq -r .blockNumber) timestamp)
+export ASSERTION_TIME=$(cast block --json \
+	$(cast tx --json $ASSERTION_TX | jq -r .blockNumber) | jq -r .timestamp)
 export ANCILLARY_DATA=$(cast --from-utf8 $(echo assertionId:$(echo $ASSERTION_ID | sed 's/0x//' | tr [:upper:] [:lower:]),ooAsserter:$(echo $INSURED_ADDRESS | sed 's/0x//' | tr [:upper:] [:lower:])))
+
 export PRICE=$(cast --to-wei 1)
-cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURED_ID $MOCK_ORACLE_ADDRESS "pushPrice(bytes32,uint256,bytes,int256)" $IDENTIFIER $ASSERTION_TIME $ANCILLARY_DATA $PRICE
+cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURED_ID \
+	$MOCK_ORACLE_ADDRESS \
+	"pushPrice(bytes32,uint256,bytes,int256)" \
+	$IDENTIFIER $ASSERTION_TIME $ANCILLARY_DATA $PRICE
 ```
 {% endcode %}
 
@@ -309,12 +337,13 @@ cast run $DISPUTE_TX
 
 Now we can settle the request through the Optimistic Oracle V3 and observe the emitted `InsurancePayoutSettled` from our Insurance contract:
 
-{% code overflow="wrap" %}
 ```bash
-export SETTLE_TX=$(cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURED_ID --json $OOV3_ADDRESS "settleAssertion(bytes32)" $ASSERTION_ID | jq -r .transactionHash)
+export SETTLE_TX=$(cast send --json \
+	--mnemonic "$MNEMONIC" --mnemonic-index $INSURED_ID \
+	$OOV3_ADDRESS "settleAssertion(bytes32)" $ASSERTION_ID \
+	| jq -r .transactionHash)
 cast run $SETTLE_TX
 ```
-{% endcode %}
 
 The above settlement transaction should also transfer `INSURANCE_AMOUNT` tokens to the insured beneficiary as well as return the assertion bond plus half of disputer's bond to the claim initiator.
 
