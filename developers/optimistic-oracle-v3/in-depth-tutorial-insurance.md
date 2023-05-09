@@ -19,17 +19,17 @@ There is no limit to the number of payout requests that can be made of the same 
 
 ### Development environment
 
-Clone the UMA [Optimistic Oracle V3 quick-start repository](https://github.com/UMAprotocol/dev-quickstart-oov3) and install the dependencies. You will need git, the long-term support version of nodejs and yarn. You can then install package dependencies by running `yarn` with no arguments:
+This project uses [forge](https://github.com/foundry-rs/foundry/tree/master/forge) as the Ethereum testing framework. You will also need to install Foundry, refer to [Foundry installation documentation](https://book.getfoundry.sh/getting-started/installation) if you don’t have it already.
+
+You will also need `git` for cloning the repository, as well as `bash` shell and `jq` tool in order to parse transaction outputs when interacting with deployed contracts.
+
+Clone the UMA [Optimistic Oracle V3 quick-start repository](https://github.com/UMAprotocol/dev-quickstart-oov3) and install the dependencies:
 
 ```bash
 git clone https://github.com/UMAprotocol/dev-quickstart-oov3.git
 cd dev-quickstart-oov3
-yarn
+forge install
 ```
-
-This project uses [forge](https://github.com/foundry-rs/foundry/tree/master/forge) as the Ethereum testing framework. You will also need to install Foundry, refer to [Foundry installation documentation](https://book.getfoundry.sh/getting-started/installation) if you don’t have it already.
-
-Instructions below for interacting with the contracts also assumes `bash` shell and `jq` tool is installed in order to parse transaction outputs.
 
 ### Contract implementation
 
