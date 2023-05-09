@@ -219,7 +219,7 @@ echo "PREDICTION MARKET DEPLOYED TO" $PREDICTION_MARKET_ADDRESS
 
 It's time to initialise a market. We can first export the market parameters to use.
 
-Here the description shows that it's a market based on the outcome of a match between two teams. The two possible outcomes are `yes` or `no.` We offer `100` units of `DEFAULT_CURRENCY` to the asserter of the claim and require a bond of `5000` units of `DEFAULT_CURRENCY` to assert or dispute the assertion.
+Here the description shows that it's a market based on the outcome of a match between two teams. The two possible outcomes are `yes` or `no.` We offer 100 units of `DEFAULT_CURRENCY` to the asserter of the claim and require a bond of 5,000 units of `DEFAULT_CURRENCY` to assert or dispute the assertion.
 
 ```bash
 export DESCRIPTION="The Glacial Storms beat the Electric Titans on March 8, 2023 at 3:00 PM UTC, \
@@ -267,7 +267,7 @@ cast send --mnemonic "$MNEMONIC" \
 	$DEFAULT_CURRENCY_ADDRESS "approve(address,uint256)" $PREDICTION_MARKET_ADDRESS $AMOUNT
 ```
 
-We can now create the outcome tokens. With an amount `10000` units of `DEFAULT_CURRENCY` we get `10000` `OUTCOME_TOKEN_ONE` and `10000` `OUTCOME_TOKEN_TWO`
+We can now create the outcome tokens. With an amount 10,000 units of `DEFAULT_CURRENCY` we get 10,000 `OUTCOME_TOKEN_ONE` and 10,000 `OUTCOME_TOKEN_TWO`
 
 ```bash
 cast send --mnemonic "$MNEMONIC" \
@@ -291,7 +291,7 @@ cast send --mnemonic "$MNEMONIC" \
 	$MARKET_ID $(cast --to-wei 5000)
 ```
 
-After redeeming 5000 tokens we can see how both balances of `OUTCOME_TOKEN_ONE` and `OUTCOME_TOKEN_TWO` have decreased by 5000 and `DEFAULT_CURRENCY` has increased that same amount.
+After redeeming 5,000 tokens we can see how both balances of `OUTCOME_TOKEN_ONE` and `OUTCOME_TOKEN_TWO` have decreased by 5,000 and `DEFAULT_CURRENCY` has increased that same amount.
 
 ```bash
 echo "BALANCE OUTCOME TOKEN ONE" $(cast call $OUTCOME_TOKEN_ONE_ADDRESS \
@@ -302,7 +302,7 @@ echo "BALANCE DEFAULT_CURRENCY" $(cast call $DEFAULT_CURRENCY_ADDRESS \
 	"balanceOf(address)(uint256)" $DEPLOYER_WALLET)
 ```
 
-Now, let's simulate how the `DEPLOYER_WALLET` would trade one position of the market by transferring the remaining 5000  `OUTCOME_TOKEN_ONE` to another user. By doing this, `DEPLOYER_WALLET` is now only exposed to the outcome two ("no") because he only holds `OUTCOME_TOKEN_TWO`. On the other side, `USER_WALLET` is exposed to the outcome one ("yes") as he has traded some other currency against `OUTCOME_TOKEN_ONE`. This trade is out of the scope of this example, thats why we simulate it by running the following transfer:
+Now, let's simulate how the `DEPLOYER_WALLET` would trade one position of the market by transferring the remaining 5,000  `OUTCOME_TOKEN_ONE` to another user. By doing this, `DEPLOYER_WALLET` is now only exposed to the outcome two ("no") because he only holds `OUTCOME_TOKEN_TWO`. On the other side, `USER_WALLET` is exposed to the outcome one ("yes") as he has traded some other currency against `OUTCOME_TOKEN_ONE`. This trade is out of the scope of this example, thats why we simulate it by running the following transfer:
 
 ```bash
 cast send --mnemonic "$MNEMONIC" \
@@ -355,7 +355,7 @@ cast send --mnemonic "$MNEMONIC" --mnemonic-index $USER_ID \
 	$PREDICTION_MARKET_ADDRESS "settleOutcomeTokens(bytes32)" $MARKET_ID
 ```
 
-Finally we can see how the `USER_WALLET` won the bet, as he got `OUTCOME_TOKEN_ONE` so he now has `5000 DEFAULT_CURRENCY` and the deployer wallet only has `5000` `DEFAULT_CURRENCY` from his initial `10000`:
+Finally we can see how the `USER_WALLET` won the bet, as he got `OUTCOME_TOKEN_ONE` so he now has 5,000 `DEFAULT_CURRENCY` and the deployer wallet only has 5,000 `DEFAULT_CURRENCY` from his initial 10,000:
 
 ```bash
 echo "DEPLOYER WALLET BALANCE OUTCOME TOKEN ONE" $(cast call $OUTCOME_TOKEN_ONE_ADDRESS \
