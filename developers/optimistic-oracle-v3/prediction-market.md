@@ -355,7 +355,7 @@ cast send --mnemonic "$MNEMONIC" --mnemonic-index $USER_ID \
 	$PREDICTION_MARKET_ADDRESS "settleOutcomeTokens(bytes32)" $MARKET_ID
 ```
 
-Finally we can see how the `USER_WALLET` won the bet, as he got `OUTCOME_TOKEN_ONE` so he now has `5000 DEFAULT_CURRENCY` and the deployer wallet only has `5000 DEFAULT_CURRENCY` from his initial 10000:
+Finally we can see how the `USER_WALLET` won the bet, as he got `OUTCOME_TOKEN_ONE` so he now has `5000 DEFAULT_CURRENCY` and the deployer wallet only has `5000` `DEFAULT_CURRENCY` from his initial `10000`:
 
 ```bash
 echo "DEPLOYER WALLET BALANCE OUTCOME TOKEN ONE" $(cast call $OUTCOME_TOKEN_ONE_ADDRESS \
