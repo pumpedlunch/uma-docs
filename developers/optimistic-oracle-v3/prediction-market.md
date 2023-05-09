@@ -283,7 +283,7 @@ echo "BALANCE DEFAULT_CURRENCY" $(cast call $DEFAULT_CURRENCY_ADDRESS \
 	"balanceOf(address)(uint256)" $DEPLOYER_WALLET)
 ```
 
-At any point before the market is settled we can redeem outcome tokens. By redeeming an amount we are burning the same amount of `OUTCOME_TOKEN_ONE` and `OUTCOME_TOKEN_TWO` to receive that amount of `DEFAULT_CURRENCY`
+At any point before the market is settled we can redeem outcome tokens. By redeeming an amount we are burning the same amount of `OUTCOME_TOKEN_ONE` and `OUTCOME_TOKEN_TWO` to receive that amount of `DEFAULT_CURRENCY`:
 
 ```bash
 cast send --mnemonic "$MNEMONIC" \
