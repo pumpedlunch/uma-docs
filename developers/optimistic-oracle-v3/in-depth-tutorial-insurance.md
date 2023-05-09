@@ -165,7 +165,7 @@ Before deploying and interacting with the contracts export the required environm
   ```bash
   export FINDER_ADDRESS=0xE60dBa66B85E10E7Fd18a67a6859E241A243950e
   ```
-* `DEFAULT_CURRENCY_ADDRESS`: address of the token used for insurance claim settlement. This is also used as oracle bonding currency, thus, needs to be added to whitelist either by UMA governance (production networks) or testnet administrator. On Goerli you can use [0xe9448D94C9b033Ff50d3B14089043bD976fC1394](https://goerli.etherscan.io/address/0xe9448d94c9b033ff50d3b14089043bd976fc1394) that is already whitelisted and can be minted by anyone using its `allocateTo` method
+* `DEFAULT_CURRENCY_ADDRESS`: address of the token used for insurance claim settlement. This is also used as oracle bonding currency, thus, needs to be added to whitelist either by UMA governance (production networks) or testnet administrator. On Goerli you can use [`0xe9448D94C9b033Ff50d3B14089043bD976fC1394`](https://goerli.etherscan.io/address/0xe9448d94c9b033ff50d3b14089043bd976fc1394) that is already whitelisted and can be minted by anyone using its `allocateTo` method
 
 Use `cast` command from Foundry to locate the address of Optimistic Oracle V3:
 
@@ -212,7 +212,7 @@ Make sure the user addresses above have sufficient funding for the gas to execut
 
 #### Issue insurance
 
-Make sure to have some amount of `DEFAULT_CURRENCY_ADDRESS` tokens to back potential insurance claim. If [0xe9448D94C9b033Ff50d3B14089043bD976fC1394](https://goerli.etherscan.io/address/0xe9448d94c9b033ff50d3b14089043bd976fc1394) was used on Goerli you can mint 10,000 DBT tokens to insurance issuer account:
+Make sure to have some amount of `DEFAULT_CURRENCY_ADDRESS` tokens to back potential insurance claim. If [`0xe9448D94C9b033Ff50d3B14089043bD976fC1394`](https://goerli.etherscan.io/address/0xe9448d94c9b033ff50d3b14089043bd976fc1394) was used on Goerli you can mint 10,000 DBT tokens to insurance issuer account:
 
 ```bash
 export INSURANCE_AMOUNT=$(cast --to-wei 10000)
@@ -254,7 +254,7 @@ export BOND_AMOUNT=$(cast call $OOV3_ADDRESS \
 	"getMinimumBond(address)(uint256)" $DEFAULT_CURRENCY_ADDRESS)
 ```
 
-This should be zero for [0xe9448D94C9b033Ff50d3B14089043bD976fC1394](https://goerli.etherscan.io/address/0xe9448d94c9b033ff50d3b14089043bd976fc1394) on Goerli, but in case of other currencies make sure to have this amount of `DEFAULT_CURRENCY_ADDRESS` both on the insured account (for submitting the claim) and on the insurer's account (for disputing the claim). If bond amount is non-zero, also make sure to add approval:
+This should be zero for [`0xe9448D94C9b033Ff50d3B14089043bD976fC1394`](https://goerli.etherscan.io/address/0xe9448d94c9b033ff50d3b14089043bd976fc1394) on Goerli, but in case of other currencies make sure to have this amount of `DEFAULT_CURRENCY_ADDRESS` both on the insured account (for submitting the claim) and on the insurer's account (for disputing the claim). If bond amount is non-zero, also make sure to add approval:
 
 ```bash
 cast send --mnemonic "$MNEMONIC" --mnemonic-index $INSURED_ID \
