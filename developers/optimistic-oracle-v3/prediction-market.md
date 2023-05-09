@@ -267,7 +267,7 @@ cast send --mnemonic "$MNEMONIC" \
 	$DEFAULT_CURRENCY_ADDRESS "approve(address,uint256)" $PREDICTION_MARKET_ADDRESS $AMOUNT
 ```
 
-We can now create the outcome tokens. With an amount `10000` units of `DEFAULT_CURRENCY` we get `10000` `OUTCOME_TOKEN_ONE` and 10000 `OUTCOME_TOKEN_TWO`
+We can now create the outcome tokens. With an amount `10000` units of `DEFAULT_CURRENCY` we get `10000` `OUTCOME_TOKEN_ONE` and `10000` `OUTCOME_TOKEN_TWO`
 
 ```bash
 cast send --mnemonic "$MNEMONIC" \
